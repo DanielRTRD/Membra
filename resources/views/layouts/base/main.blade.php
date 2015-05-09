@@ -48,9 +48,6 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					@if(Config::get('app.debug'))
-						<li><a href="/resetdb"><b class="text-danger">DEBUG MODE</b></a></li>
-					@endif
 					<li><a href="{{ url('/') }}">Home</a></li>
 				</ul>
 
@@ -68,7 +65,11 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello, {{ Auth::user()->firstname }}! <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ route('profile', Auth::user()->getKey()) }}"><i class="fa fa-user"></i> Your profile</a></li>
+								<li><a href="#"><span class="fa fa-user"></span> My Account</a></li>
+								<li class="divider"></li>
+								<li><a href="#"><span class="fa fa-pencil-square-o"></span> Change account details</a></li>
+								<li><a href="#"><span class="fa fa-asterisk"></span> Change password</a></li>
+								<li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>
 								<li class="divider"></li>
 								<li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
 							</ul>
@@ -122,6 +123,20 @@
 	@endif
 
 	@yield('content')
+
+	<footer class="foot">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 text-muted">
+					<p>&copy; {{ date("Y") }}, <a href="http://rtrdt.ch/" target="_blank">Retarded Tech</a></p>
+				</div>
+				<div class="col-lg-6">
+				    <p class="text-right"><em><a href="http://jira.rtrdt.ch/browse/RTUSTWO?selectedTab=com.atlassian.jira.jira-projects-plugin:changelog-panel" target="_blank">{{Config::get('rtech.appname') . ' ' . Config::get('rtech.appversion') . ' ' . Config::get('rtech.appversiontype') }}</a></em>@if(Config::get('app.debug')) - <b><a href="/resetdb" class="text-danger">DEBUG MODE</a></b> @endif</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
 
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

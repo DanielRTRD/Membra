@@ -8,6 +8,32 @@
 	border-bottom-right-radius: 5px;
 }
 
+.error-header {
+	font-size: 10em;
+	font-weight: bold;
+	margin-top: 100px;
+	text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+}
+
+.error-lead {
+	font-weight: lighter;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+}
+
+footer {
+	padding-top:40px;
+	padding-bottom:40px;
+	background-color: #2D3037;
+	color:#555;
+	width:100%;
+	position:absolute;
+	bottom:0;
+	left:0;
+}
+
+footer a {
+	color:#aaa;
+}
 
 /*
 
