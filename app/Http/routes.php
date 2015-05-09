@@ -16,17 +16,19 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 Route::model('user', 'App\User');
 
-Route::group([
+/*Route::group([
     'middleware' => 'auth' ,
     ], function() {
     get('/profile/{user}', [
         'as' => 'profile' ,
         'uses' => 'User\ProfileController@index'
     ]);
-});
+});*/
 
-Route::get('/register', ['as' => 'register', 'uses' => 'User\AuthController@getRegister']);
-Route::post('/register', ['as' => 'post.register', 'uses' => 'User\AuthController@postRegister']);
-Route::get('/login', ['as' => 'login', 'uses' => 'User\AuthController@getLogin']);
-Route::post('/login', ['as' => 'post.login', 'uses' => 'User\AuthController@postLogin']);
-Route::get('/logout', ['as' => 'logout', 'uses' => 'User\AuthController@getLogout']);
+Route::get('/user/{username}', ['as' => 'user-profile', 'uses' => 'Member\ProfileController@index']);
+
+Route::get('/register', ['as' => 'register', 'uses' => 'Member\AuthController@getRegister']);
+Route::post('/register', ['as' => 'post.register', 'uses' => 'Member\AuthController@postRegister']);
+Route::get('/login', ['as' => 'login', 'uses' => 'Member\AuthController@getLogin']);
+Route::post('/login', ['as' => 'post.login', 'uses' => 'Member\AuthController@postLogin']);
+Route::get('/logout', ['as' => 'logout', 'uses' => 'Member\AuthController@getLogout']);
