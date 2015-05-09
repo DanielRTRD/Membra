@@ -21,12 +21,12 @@ Route::group([
     ], function() {
     get('/profile/{user}', [
         'as' => 'profile' ,
-        'uses' => 'ProfileController@index'
+        'uses' => 'User\ProfileController@index'
     ]);
 });
 
-Route::get('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@getRegister']);
-Route::post('/register', ['as' => 'post.register', 'uses' => 'Auth\AuthController@postRegister']);
-Route::get('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
-Route::post('/login', ['as' => 'post.login', 'uses' => 'Auth\AuthController@postLogin']);
-Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
+Route::get('/register', ['as' => 'register', 'uses' => 'User\AuthController@getRegister']);
+Route::post('/register', ['as' => 'post.register', 'uses' => 'User\AuthController@postRegister']);
+Route::get('/login', ['as' => 'login', 'uses' => 'User\AuthController@getLogin']);
+Route::post('/login', ['as' => 'post.login', 'uses' => 'User\AuthController@postLogin']);
+Route::get('/logout', ['as' => 'logout', 'uses' => 'User\AuthController@getLogout']);
