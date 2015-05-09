@@ -2,6 +2,9 @@ html,body {
 	height: 100%;
 	overflow: hidden;
 }
+.form-control {
+	color:#fff !important;
+}
 .fullscreen_bg {
 	background-size: cover;
 	background-position: 50% 50%;
@@ -9,7 +12,7 @@ html,body {
 	background-repeat:repeat;
 	height: 100%;
 	width: 100%;
-	margin-top: -20px;
+	margin-top: -40px;
 }
 .form-login {
 	max-width: 300px;

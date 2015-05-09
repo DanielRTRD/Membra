@@ -8,7 +8,7 @@
 
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<h1 class="form-register-heading text-muted">Register</h1>
-			<hr>
+
 			<div class="row">
 				<div class="col-xs-6 col-sm-6 col-md-6">
 					<div class="form-group">
@@ -46,8 +46,6 @@
 			<label>
 				<input type="checkbox" name="tos" id="tos" value="1" {{ old('tos') ? 'checked' : '' }}> I have read, accepted and agreed to the <a href="#">Terms of Service and Privacy Policy</a>.
 			</label>
-			
-			<hr style="margin-top:10px">
 
 			<button type="submit" class="btn btn-lg btn-info btn-block"><i class="fa fa-pencil"></i> Register</button>
 		

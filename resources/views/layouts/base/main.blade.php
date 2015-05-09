@@ -6,19 +6,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@section('title') @show - {{ Config::get('rtech.appname') }}</title>
 
-	<!--<link href="{{ asset('/css/app.css') }}" rel="stylesheet">-->
+	<!-- CSS -->
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
+
+	<!-- Thirdparty CSS -->
 	<link href="{{ asset('/css/jasny-bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/font-awesome.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('/css/material-fullpalette.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('/css/ripples.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('/css/roboto.min.css') }}" rel="stylesheet">
 
+	<!-- Custom CSS -->
 	<link href="{{ asset('/css/custom.css') }}" rel="stylesheet">
 	@if(Request::is('login') || Request::is('register'))
 		<link href="{{ asset('/css/login.css') }}" rel="stylesheet">
 	@endif
 
 	<!-- Fonts -->
-	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-	<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<!--<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>-->
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,7 +34,7 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-material-light-blue">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -43,6 +48,9 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
+					@if(Config::get('app.debug'))
+						<li><a href="/resetdb"><b class="text-danger">DEBUG MODE</b></a></li>
+					@endif
 					<li><a href="{{ url('/') }}">Home</a></li>
 				</ul>
 
@@ -119,5 +127,16 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('/js/jasny-bootstrap.min.js') }}"></script>
+
+	<!-- material -->
+	<script src="{{ asset('/js/ripples.min.js') }}"></script>
+	<script src="{{ asset('/js/material.min.js') }}"></script>
+	<script>
+		$(document).ready(function() {
+		   $.material.init();
+		});
+	</script>
+	<!-- /material -->
+
 </body>
 </html>
