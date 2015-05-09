@@ -8,6 +8,25 @@
 	border-bottom-right-radius: 5px;
 }
 
+@media (max-width: 991px) {
+
+	.alert-fixed-top {
+		top:50px;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+	.alert-fixed-top {
+		top:50px;
+	}
+
+}
+
+
 .error-header {
 	font-size: 10em;
 	font-weight: bold;

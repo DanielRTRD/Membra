@@ -7,7 +7,7 @@
 		<form action="{{ route('post.register') }}" method="post" accept-charset="utf-8" role="form" class="form-register">
 
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<h1 class="form-login-heading text-muted"><small>{{ Config::get('rtech.appname') }}</small><br>Register</h1>
+			<h1 class="form-login-heading text-muted">Register</h1>
 
 			<div class="row">
 				<div class="col-xs-6 col-sm-6 col-md-6">
@@ -48,6 +48,8 @@
 			</label>
 
 			<button type="submit" class="btn btn-lg btn-info btn-block"><i class="fa fa-pencil"></i> Register</button>
+
+			<p class="text-center bottom-link"><small><a href="{{ route('home') }}">Home</a> &middot; <a href="{{ route('login') }}">Already got an account?</a></small></p>
 		
 		</form>
 	</div>

@@ -7,7 +7,7 @@
 
 		<form action="{{ route('post.login') }}" method="post" accept-charset="utf-8" role="form" class="form-login">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<h1 class="form-login-heading text-muted"><small>{{ Config::get('rtech.appname') }}</small><br>Login</h1>
+			<h1 class="form-login-heading text-muted">Login</h1>
 			<input type="text" class="form-control" value="{{ old('username') }}" placeholder="johndoe123" required="" autofocus="" name="username" id="username">
 			<input type="password" class="form-control" placeholder="supersecretpassword" required="" name="password" id="password">
 			<label>
@@ -15,7 +15,7 @@
 			</label>
 			<br><br>
 			<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Login</button>
-			<p class="text-center"><br><a href="#">Forgot Your Password?</a></p>
+			<p class="text-center bottom-link"><small><a href="{{ route('home') }}">Home</a> &middot; <a href="#">Forgot Your Password?</a> &middot; <a href="{{ url('register') }}">Need an account?</a></small></p>
 		</form>
 
 	</div>

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>@section('title') @show - {{ Config::get('rtech.appname') }}</title>
+	<title>@yield('title') - {{ Config::get('rtech.appname') }}</title>
 
 	<!-- CSS -->
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -65,7 +65,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello, {{ Auth::user()->firstname }}! <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="#"><span class="fa fa-user"></span> My Account</a></li>
+								<li><a href="{{ route('account') }}"><span class="fa fa-user"></span> My Account</a></li>
 								<li class="divider"></li>
 								<li><a href="#"><span class="fa fa-pencil-square-o"></span> Change account details</a></li>
 								<li><a href="#"><span class="fa fa-asterisk"></span> Change password</a></li>
