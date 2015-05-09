@@ -7,7 +7,7 @@
 		<form action="{{ route('post.register') }}" method="post" accept-charset="utf-8" role="form" class="form-register">
 
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<h1 class="form-register-heading text-muted">Register</h1>
+			<h1 class="form-login-heading text-muted"><small>{{ Config::get('rtech.appname') }}</small><br>Register</h1>
 
 			<div class="row">
 				<div class="col-xs-6 col-sm-6 col-md-6">

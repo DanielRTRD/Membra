@@ -2,6 +2,15 @@ html,body {
 	height: 100%;
 	overflow: hidden;
 }
+
+.navbar {
+	display: none;
+}
+
+footer {
+	display: none;
+}
+
 .form-control {
 	color:#fff !important;
 }
@@ -12,7 +21,6 @@ html,body {
 	background-repeat:repeat;
 	height: 100%;
 	width: 100%;
-	margin-top: -40px;
 }
 .form-login {
 	max-width: 300px;
@@ -64,8 +72,14 @@ html,body {
 	color: #fff;
 	text-align: center;
 	text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+	padding-bottom: 15px;
 }
 
+.form-login-heading small {
+	width:100%;
+	color: #bbb;
+	text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+}
 
 /* REGISTER FORM */
 
