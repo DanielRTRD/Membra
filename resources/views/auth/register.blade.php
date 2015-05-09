@@ -1,32 +1,57 @@
 @extends('layouts.base.main')
- 
-@section('body')
-<section class="col-md-9">
-    <h1>register</h1>
-    <form action="{{ route('post.register') }}" method="post" accept-charset="utf-8" role="form">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
- 
-        <!-- print errors -->
-        @foreach($errors->all() as $error)
-        <p>{{$error}}</p>
-        @endforeach
-         
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" value="{{ old('email') }}" placeholder="your@email.com">
-          
-		<label for="name">Name:</label>
-		<input type="text" name="name" id="name" value="{{ old('name') }}" placeholder="your name">
-   
-   		<label for="username">Username:</label>
-        <input type="text" name="username" id="username" value="{{ old('username') }}" placeholder="your username">
- 
-        <label for="password">Password (min 6)</label>
-        <input type="password" name="password" id="password" value="{{ old('password') }}">
- 
-        <label for="password_confirmation">Password again</label>
-        <input type="password" name="password_confirmation" id="password_confirmation" value="{{ old('password_confirmation') }}">
- 
-        <button type="submit">send</button>
-    </form>
-</section>
+@section('title') Register @stop
+
+@section('content')
+<div class="fullscreen_bg" id="fullscreen_bg">
+	<div class="container">
+		<form action="{{ route('post.register') }}" method="post" accept-charset="utf-8" role="form" class="form-register">
+
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<h1 class="form-register-heading text-muted">Register</h1>
+			<hr>
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 col-md-6">
+					<div class="form-group">
+						<input type="text" name="firstname" id="firstname" class="form-control" value="{{ old('firstname') }}" placeholder="First Name" required="">
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6">
+					<div class="form-group">
+						<input type="text" name="lastname" id="lastname" class="form-control" value="{{ old('lastname') }}" placeholder="Last Name">
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}" placeholder="Username" required="">
+			</div>
+
+			<div class="form-group">
+				<input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" placeholder="Email Address" required="">
+			</div>
+
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 col-md-6">
+					<div class="form-group">
+						<input type="password" name="password" id="password" class="form-control" value="{{ old('password') }}" placeholder="Password" required="">
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6">
+					<div class="form-group">
+						<input type="password" name="password_confirmation" id="password_confirmation" value="{{ old('password_confirmation') }}" class="form-control" placeholder="Confirm Password" required="">
+					</div>
+				</div>
+			</div>
+
+			<label>
+				<input type="checkbox" name="tos" id="tos" value="1" {{ old('tos') ? 'checked' : '' }}> I have read, accepted and agreed to the <a href="#">Terms of Service and Privacy Policy</a>.
+			</label>
+			
+			<hr style="margin-top:10px">
+
+			<button type="submit" class="btn btn-lg btn-info btn-block"><i class="fa fa-pencil"></i> Register</button>
+		
+		</form>
+	</div>
+</div>
 @stop

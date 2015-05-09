@@ -160,11 +160,19 @@
 	"buffers":
 	[
 		{
-			"file": "app/Http/Controllers/WelcomeController.php",
+			"file": "app/Http/Controllers/ProfileController.php",
 			"settings":
 			{
-				"buffer_size": 772,
+				"buffer_size": 299,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/views/layouts/base/main.blade.php",
+			"settings":
+			{
+				"buffer_size": 368,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -220,11 +228,31 @@
 	[
 		"/D/Users/RTRD/Documents/BitBucket/rtus_l5",
 		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app",
-		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Http",
-		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Providers"
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/resources",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/resources/views",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/resources/views/auth",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/resources/views/layouts",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/resources/views/layouts/base"
 	],
 	"file_history":
 	[
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Http/Controllers/ProfileController.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Http/routes.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Http/Controllers/Auth/AuthController.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Http/Requests/Auth/RegisterRequest.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Http/Requests/Auth/LoginRequest.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Http/Middleware/Authenticate.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/User.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/database/seeds/UserTableSeeder.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/database/migrations/2014_10_12_000000_create_users_table.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/resources/views/auth/register.blade.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/resources/views/auth/login.blade.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/resources/views/profile/index.blade.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/resources/views/layouts/base/main.blade.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Http/Requests/LoginRequest.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Http/Requests/RegisterRequest.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Http/Controllers/Auth/PasswordController.php",
+		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/app/Http/Controllers/WelcomeController.php",
 		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/config/auth.php",
 		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/config/app.php",
 		"/D/Users/RTRD/Documents/BitBucket/rtus_l5/.env",
@@ -335,24 +363,7 @@
 		"/D/Users/RTRD/Documents/BitBucket/pkmn.cards/app/views/admin/card-edit.blade.php",
 		"/D/Users/RTRD/Documents/BitBucket/pkmn.cards/app/database/seeds/EnergySeeder.php",
 		"/D/Users/RTRD/Documents/BitBucket/pkmn.cards/app/controllers/RandomController.php",
-		"/D/Users/RTRD/Documents/BitBucket/pkmn.cards/vendor/fbf/laravel-comments/src/config/commentables.php",
-		"/D/Users/RTRD/Documents/BitBucket/pkmn.cards/app/database/seeds/ErrorCardsSeeder.php",
-		"/D/Users/RTRD/Documents/BitBucket/pkmn.cards/app/views/admin/card.blade.php",
-		"/D/Users/RTRD/Documents/BitBucket/pkmn.cards/app/views/admin/card-submitted-view.blade.php",
-		"/D/Users/RTRD/Documents/BitBucket/pkmn.cards/public/css/AdminLTE.css",
-		"/D/Users/RTRD/Documents/BitBucket/pkmn.cards/app/views/admin/card-submitted.blade.php",
-		"/D/Users/RTRD/Documents/BitBucket/lanms/public/css/custom.css",
-		"/D/Users/RTRD/Documents/BitBucket/pkmn.cards/app/views/emails/card-submitted.blade.php",
-		"/C/Users/Daniel'RTRD'/AppData/Local/Temp/Rar$DIa0.659/HistoryGraph.class.php",
-		"/C/Users/Daniel'RTRD'/AppData/Local/Temp/Rar$DIa0.034/functions.inc.php",
-		"/C/Users/Daniel'RTRD'/AppData/Local/Temp/Rar$DIa0.233/index.php",
-		"/C/Users/Daniel'RTRD'/AppData/Local/Temp/Rar$DIa0.186/HistoryGraph.class.php",
-		"/C/Users/Daniel'RTRD'/AppData/Local/Temp/Rar$DIa0.129/Database.class.php",
-		"/C/Users/Daniel'RTRD'/AppData/Local/Temp/Rar$DIa0.109/ServerModule.class.php",
-		"/D/Users/RTRD/Documents/WEBSITES/www.pokemon3d.net/downloads/upload/index.php",
-		"/D/Users/RTRD/Documents/WEBSITES/www.pokemon3d.net/downloads/index.php",
-		"/C/Users/Daniel'RTRD'/Downloads/themeforest-8754873-branchy-opencart-responsive-theme/Opencart Files_2.0.1.1/catalog/view/theme/OPC070174/template/product/product.tpl",
-		"/C/Users/Daniel'RTRD'/Downloads/bringpaymentov2.x.xv7/bring_payment_ov2.x.x_v7/admin/view/template/shipping/bring.tpl"
+		"/D/Users/RTRD/Documents/BitBucket/pkmn.cards/vendor/fbf/laravel-comments/src/config/commentables.php"
 	],
 	"find":
 	{
@@ -600,30 +611,57 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/Http/Controllers/WelcomeController.php",
+					"file": "app/Http/Controllers/ProfileController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 772,
+						"buffer_size": 299,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16,
-								22
+								61,
+								61
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "resources/views/layouts/base/main.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 368,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								298,
+								298
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

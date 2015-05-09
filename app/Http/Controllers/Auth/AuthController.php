@@ -34,26 +34,27 @@ class AuthController extends Controller {
 		if ( $this->auth->attempt( $request->credentials() , $request->remember() ) ) {
 	 
 			$user = $this->auth->user();
-			// if you use database not eloquent driver 
-			//$user = User::where( 'id' , '=' , $this->auth->user()->id )->first();
-			 
-			//return redirect( '/' );
-			return Redirect::intended( route( 'profile' , [$user->getKey()] ) );
+
+			//return Redirect::intended( route( 'profile' , [$user->getKey()] ) );
+			return Redirect::route('home')
+						->with('messagetype', 'success')
+						->with('message', 'You have now been successfully been logged in.');
+
 		}
 	 
-		//return redirect( 'auth/login' )->withErrors( [
-		return Redirect::route( 'login' )->withErrors( [
-					'email' => 'The credentials you entered did not match our records. Try again?' ,
-				] );
+		return Redirect::route('login')
+				->withErrors([
+					'email' => 'The credentials you entered did not match our records. Try again?'
+					]);
 	}
 	 
 	public function getRegister() {
 		return view( 'auth.register' );
 	}
 
-	public function postRegister( RegisterRequest $request ) {
-		$user = User::create( $request->all() ); // new line
-		$this->auth->login( $user );
+	public function postRegister(RegisterRequest $request) {
+		$user = User::create($request->all());
+		$this->auth->login($user);
 	 
 		//return redirect( '/' );
 		return Redirect::route( 'home' );

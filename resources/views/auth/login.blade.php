@@ -1,27 +1,24 @@
 @extends('layouts.base.main')
-   
-@section('body')
-<section class="col-md-9">
-   <h1>Login</h1>
-   <form action="{{ route('post.login') }}" method="post" accept-charset="utf-8" role="form">
-      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-   
-      <!-- print errors -->
-      @foreach($errors->all() as $error)
-      <p>{{$error}}</p>
-      @endforeach
-   
-         <label for="username">username:</label>
-         <input type="text" name="username" id="username" value="{{ old('username') }}" placeholder="johndoe123">
-   
-         <label for="password">Password</label>
-         <input type="password" name="password" id="password" value="{{ old('password') }}">
-   
-         <label>
-            <input type="checkbox" name="remember" id="remember" value="1" {{ old('remember') ? 'checked' : '' }}> Remember me
-         </label>
-   
-         <button type="submit">Login</button>
-   </form>
-</section>
-@stop
+@section('title') Login @stop
+
+@section('content')
+<div class="fullscreen_bg" id="fullscreen_bg">
+	<div class="container">
+
+		<form action="{{ route('post.login') }}" method="post" accept-charset="utf-8" role="form" class="form-login">
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<h1 class="form-login-heading text-muted">Login</h1>
+			<hr>
+			<input type="text" class="form-control" value="{{ old('username') }}" placeholder="johndoe123" required="" autofocus="" name="username" id="username">
+			<input type="password" class="form-control" placeholder="supersecretpassword" required="" name="password" id="password">
+			<label>
+				<input type="checkbox" name="remember" id="remember" value="1" {{ old('remember') ? 'checked' : '' }}> Remember me
+			</label>
+			<hr style="margin-top:10px">
+			<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Login</button>
+			<p class="text-center"><br><a href="#">Forgot Your Password?</a></p>
+		</form>
+
+	</div>
+</div>
+@endsection
