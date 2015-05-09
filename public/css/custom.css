@@ -1,3 +1,94 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
 .alert-fixed-top {
 	top:52px;
+}
+
+/*
+
+PROFILE
+
+*/
+.profile {
+	margin-top: -30px;
+	width: 100%;
+}
+
+.profile .profile-image-cover {
+	z-index: 0;
+	width: 100%;
+	height:300px;
+	margin-bottom: 10px;
+	background-size: cover;
+	background-position: 50% 50%;
+	background-image: url('http://lorempixel.com/output/abstract-q-c-1296-480-9.jpg');
+	background-repeat:repeat;
+}
+
+.profile .profile-image {
+	margin: -100px 10px 0px 50px;
+	z-index: 9;
+	width: 20%; 
+}
+
+@media (max-width: 767px) {
+
+	.profile .profile-text {
+		margin-top: -20px;
+	}
+
+	.profile .profile-text > h1 {
+		font-size: 1.5em;
+	}
+
+	.profile .profile-image-cover {
+		height: 150px;
+	}
+
+	.profile .profile-image {
+		margin: -50px 10px 0px 50px;
+	}
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+	.profile .profile-text {
+		margin-top: -15px;
+	}
+
+	.profile .profile-image-cover {
+		height: 200px;
+	}
+
+	.profile .profile-text > h1 {
+		font-size: 1.75em;
+	}
+
+	.profile .profile-image {
+		margin: -75px 10px 0px 50px;
+	}
+
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+	.profile .profile-text {
+		margin-top: -10px;
+	}
+
+	.profile .profile-image-cover {
+		height: 300px;
+	}
+
+	.profile .profile-text > h1 {
+		font-size: 2em;
+	}
+
+	.profile .profile-image {
+		margin: -75px 10px 0px 50px;
+	}
+
 }

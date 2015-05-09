@@ -10,6 +10,7 @@
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/jasny-bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/font-awesome.min.css') }}" rel="stylesheet">
+
 	<link href="{{ asset('/css/custom.css') }}" rel="stylesheet">
 	@if(Request::is('login') || Request::is('register'))
 		<link href="{{ asset('/css/login.css') }}" rel="stylesheet">
@@ -17,6 +18,7 @@
 
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,15 +48,21 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
-						<li><a href="{{ route('login') }}">Login</a></li>
-						<li><a href="{{ route('register') }}">Register</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello, Guest! <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="{{ route('register') }}"><i class="fa fa-pencil"></i> Register</a></li>
+								<li class="divider"></li>
+								<li><a href="{{ route('login') }}"><i class="fa fa-sign-in"></i> Login</a></li>
+							</ul>
+						</li>
 					@else
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello, {{ Auth::user()->firstname }}! <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ route('profile', Auth::user()->getKey()) }}">Your profile</a></li>
-								<hr style="margin:5px;">
-								<li><a href="{{ route('logout') }}">Logout</a></li>
+								<li><a href="{{ route('profile', Auth::user()->getKey()) }}"><i class="fa fa-user"></i> Your profile</a></li>
+								<li class="divider"></li>
+								<li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
 							</ul>
 						</li>
 					@endif

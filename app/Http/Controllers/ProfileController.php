@@ -10,7 +10,7 @@ use App\User;
 class ProfileController extends Controller {
 
 	public function index(User $user) {
-        return view('profile.index')->with($user->toArray());
-    }
+		return view('profile.index')->with($user->toArray());
+	}
 
 }
