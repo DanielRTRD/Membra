@@ -7,8 +7,8 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Member\LoginRequest;
+use App\Http\Requests\Member\RegisterRequest;
 
 use Illuminate\Support\Facades\Redirect;
 use App\User;
@@ -29,7 +29,7 @@ class AuthController extends Controller {
 		return view('auth.login');
 	}
 
-	public function postLogin( LoginRequest $request ) {
+	public function postLogin(LoginRequest $request) {
 		if ($this->auth->attempt($request->credentials(), $request->remember())) {
 			$user = $this->auth->user();
 			//return Redirect::intended(route('profile', [$user->getKey()]));
