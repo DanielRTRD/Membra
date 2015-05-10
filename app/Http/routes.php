@@ -59,7 +59,11 @@ Route::group([
 	]);
 	get('/change/details', [
 		'as' => 'account-change-details' ,
-		'uses' => 'Member\AccountController@index'
+		'uses' => 'Member\AccountController@getChangeDetails'
+	]);
+	post('/change/details', [
+		'as' => 'account-change-details-post' ,
+		'uses' => 'Member\AccountController@postChangeDetails'
 	]);
 	get('/change/images', [
 		'as' => 'account-change-images' ,
