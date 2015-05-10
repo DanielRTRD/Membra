@@ -34,25 +34,34 @@ Route::post('/login', ['as' => 'post.login', 'uses' => 'Member\AuthController@po
 Route::get('/logout', ['as' => 'logout', 'uses' => 'Member\AuthController@getLogout']);
 
 Route::group([
-	'middleware' => 'auth' ,
+	'middleware' => 'auth',
+	'prefix' => '/account',
 	], function() {
-	get('/account', [
+	get('/', [
 		'as' => 'account' ,
 		'uses' => 'Member\AccountController@index'
 	]);
-	get('/account/settings', [
+	get('/settings', [
 		'as' => 'account-settings' ,
-		'uses' => 'Member\AccountController@index'
+		'uses' => 'Member\AccountController@getSettings'
 	]);
-	get('/account/change/password', [
+	post('/settings', [
+		'as' => 'account-settings-post' ,
+		'uses' => 'Member\AccountController@postSettings'
+	]);
+	get('/change/password', [
 		'as' => 'account-change-password' ,
-		'uses' => 'Member\AccountController@index'
+		'uses' => 'Member\AccountController@getChangePassword'
 	]);
-	get('/account/change/details', [
+	post('/change/password', [
+		'as' => 'account-change-password-post' ,
+		'uses' => 'Member\AccountController@postChangePassword'
+	]);
+	get('/change/details', [
 		'as' => 'account-change-details' ,
 		'uses' => 'Member\AccountController@index'
 	]);
-	get('/account/change/images', [
+	get('/change/images', [
 		'as' => 'account-change-images' ,
 		'uses' => 'Member\AccountController@index'
 	]);

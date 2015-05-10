@@ -67,9 +67,9 @@
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ route('account') }}"><span class="fa fa-user"></span> My Account</a></li>
 								<li class="divider"></li>
-								<li><a href="#"><span class="fa fa-pencil-square-o"></span> Change account details</a></li>
-								<li><a href="#"><span class="fa fa-asterisk"></span> Change password</a></li>
-								<li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>
+								<li><a href="{{ route('account-change-details') }}"><span class="fa fa-pencil-square-o"></span> Change account details</a></li>
+								<li><a href="{{ route('account-change-password') }}"><span class="fa fa-asterisk"></span> Change password</a></li>
+								<li><a href="{{ route('account-settings') }}"><span class="fa fa-cog"></span> Settings</a></li>
 								<li class="divider"></li>
 								<li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
 							</ul>
