@@ -11,9 +11,15 @@ footer {
 	display: none;
 }
 
+.alert-fixed-top {
+	top:10%;
+	border-radius: 5px;
+}
+
 .form-control {
 	color:#fff !important;
 }
+
 .fullscreen_bg {
 	background-size: cover;
 	background-position: 50% 50%;
