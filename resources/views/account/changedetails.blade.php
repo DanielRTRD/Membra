@@ -87,10 +87,9 @@
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
 								<input class="form-control" type="password" name="password">
-								<span class="input-group-btn">
-									<button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Save</button>
-								</span>
 							</div>
+							<br>
+							<p class="text-right"><button type="submit" class="btn btn-lg btn-labeled btn-success"><span class="btn-label"><i class="fa fa-save"></i></span>Save</button></p>
 						</div>
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					</form>
