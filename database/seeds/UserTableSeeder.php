@@ -5,14 +5,14 @@ use App\User as User;
   
 class UserTableSeeder extends Seeder {
   
-    public function run() {
-        User::truncate();
+	public function run() {
   
-        User::create( [
-            'email' => 'd@rtrdt.ch',
-            'password' => Hash::make('admin'),
-            'name' => 'Daniel',
-            'username' => 'admin',
-        ] );
-    }
+		User::create([
+			'email' 		=> 'd@rtrdt.ch',
+			'password' 		=> '12345678', // Den hash'r automatisk
+			'firstname' 	=> 'Daniel',
+			'username' 		=> 'admin',
+		]);
+
+	}
 }
