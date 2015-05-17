@@ -23,7 +23,7 @@ footer {
 .fullscreen_bg {
 	background-size: cover;
 	background-position: 50% 50%;
-	background-image: url('/img/color-splash.jpg');
+	background-image: url('../img/color-splash.jpg');
 	background-repeat:repeat;
 	height: 100%;
 	width: 100%;
