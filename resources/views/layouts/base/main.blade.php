@@ -124,18 +124,20 @@
 
 	@yield('content')
 
-	<footer class="foot">
+
+	<div class="footerwrap">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 text-muted">
 					<p>&copy; {{ date("Y") }}, <a href="http://rtrdt.ch/" target="_blank">Retarded Tech</a></p>
+					<p class="text-muted"><small>Load time: {{ round((microtime(true) - LARAVEL_START), 1) }}s</small></p>
 				</div>
 				<div class="col-lg-6">
 				    <p class="text-right"><em><a href="http://jira.rtrdt.ch/browse/RTUSTWO?selectedTab=com.atlassian.jira.jira-projects-plugin:changelog-panel" target="_blank">{{Config::get('rtech.appname') . ' ' . Config::get('rtech.appversion') . ' ' . Config::get('rtech.appversiontype') }}</a></em>@if(Config::get('app.debug')) - <b><a href="/resetdb" class="text-danger">DEBUG MODE</a></b> @endif</p>
 				</div>
 			</div>
 		</div>
-	</footer>
+	</div>
 
 
 	<!-- Scripts -->

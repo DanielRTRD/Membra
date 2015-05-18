@@ -67,6 +67,6 @@ Route::group([
 	]);
 	get('/change/images', [
 		'as' => 'account-change-images' ,
-		'uses' => 'Member\AccountController@index'
+		'uses' => 'Member\AccountController@getChangeImages'
 	]);
 });

@@ -119,4 +119,33 @@ class AccountController extends Controller {
 
 	}
 
+	public function getChangeImages(Guard $auth) {
+		$authuser = $auth->user();
+		return view('account.changeimages')->with($authuser->toArray());
+	}
+
+	public function postChangeImages(Guard $auth, SettingsRequest $request) {
+		
+		$user 					= User::find($auth->user()->username);
+
+		$user->showemail 		= $request->get('showemail');
+		$user->showname 		= $request->get('showname');
+		$user->showonline 		= $request->get('showonline');
+		$user->userdateformat 	= $request->get('userdateformat');
+		$user->usertimeformat 	= $request->get('usertimeformat');
+
+		$usersave 				= $user->save();
+
+		if($usersave) {
+			return Redirect::route('account-settings')
+					->with('messagetype', 'success')
+					->with('message', 'Your settings has been saved!');
+		} else {
+			return Redirect::route('account-settings')
+					->with('messagetype', 'danger')
+					->with('message', 'Something went wrong when saving your settings.');
+		}
+
+	}
+
 }
