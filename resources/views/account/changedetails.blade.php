@@ -82,8 +82,9 @@
 								<p class="text-danger">{{ $errors->first('occupation') }}</p>
 							@endif
 						</div>
-						<br><hr>
+						<br><br>
 						<div class="form-group">
+							<label for="password">Please confirm your password</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
 								<input class="form-control" type="password" name="password">

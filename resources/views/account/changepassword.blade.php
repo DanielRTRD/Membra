@@ -46,7 +46,7 @@
 								<p class="text-danger">{{ $errors->first('password_confirmation') }}</p>
 							@endif
 						</div>
-						<hr>
+						<br><hr>
 						<p class="text-right"><button type="submit" class="btn btn-lg btn-labeled btn-warning"><span class="btn-label"><i class="fa fa-asterisk"></i></span>Change</button></p>
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					</form>
