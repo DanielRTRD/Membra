@@ -165,3 +165,51 @@ hr {
 	border:0;
 	border-top:1px solid #ddd;
 }
+
+.nav-tabs {
+	background:#00b0ff;
+	color:inherit;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	margin-bottom: 15px;
+}
+
+.nav-tabs > li:first-child {
+	border-top-left-radius: 5px;
+}
+
+.nav-tabs > li:first-child > a:hover {
+	border-top-left-radius: 5px;
+}
+
+.nav-tabs > li > a {
+	color:#333;
+	margin:0;
+	background-color:transparent !important;
+	border:0 !important;
+	font-weight:500
+}
+
+.nav-tabs > li.active {
+	background-color:#03a9f4;
+	color: #fff;
+	margin:0;
+	
+}
+
+.nav-tabs > li > a:hover {
+	background-color:transparent;
+	border:0
+}
+
+.nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+	background-color:#32b9f6 !important;
+	border:0 !important;
+	color:#fff;
+	font-weight:500;
+	border-radius: 0;
+}
+
+.nav-tabs > li.disabled > a, .nav-tabs > li.disabled > a:hover{
+	color:rgba(255,255,255,.5)
+}
