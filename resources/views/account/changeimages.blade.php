@@ -23,7 +23,7 @@
 									<div class="form-group @if ($errors->has('profilepicture')) has-error @endif">
 										<div class="fileinput fileinput-new" data-provides="fileinput">
 											<div class="fileinput-new thumbnail" style="width: 250px; height: 250px;">
-												<img src="{{ $profileimage or 'http://placehold.it/250x250' }}" data-src="http://placehold.it/250x250" alt="...">
+												<img src="{{ $profileimage or 'http://placehold.it/250x250' }}" data-src="http://placehold.it/250x250" alt="250x250">
 											</div>
 											<div class="fileinput-preview fileinput-exists thumbnail" style="height:auto; width:auto; max-width: 250px; max-height: 250px;"></div>
 											<div>
@@ -49,7 +49,7 @@
 									<div class="form-group @if($errors->has('profilepicture')) has-error @endif">
 										<div class="fileinput fileinput-new" data-provides="fileinput">
 											<div class="fileinput-new thumbnail" style="max-width: 500px; max-height: 160px;">
-												<img src="{{ $profileimage or 'http://placehold.it/1500x480' }}" data-src="http://placehold.it/1500x480" alt="...">
+												<img src="{{ $profileimage or 'http://placehold.it/1500x480' }}" data-src="http://placehold.it/1500x480" alt="1500x480">
 											</div>
 											<div class="fileinput-preview fileinput-exists thumbnail" style="height:auto; width:auto; max-width: 250px; max-height: 250px;"></div>
 											<div>
