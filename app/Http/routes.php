@@ -69,4 +69,12 @@ Route::group([
 		'as' => 'account-change-images' ,
 		'uses' => 'Member\AccountController@getChangeImages'
 	]);
+	post('/change/images', [
+		'as' => 'account-change-image-profile-post' ,
+		'uses' => 'Member\AccountController@postChangeProfileImage'
+	]);
+	post('/change/images', [
+		'as' => 'account-change-image-cover-post' ,
+		'uses' => 'Member\AccountController@postChangeProfileCover'
+	]);
 });

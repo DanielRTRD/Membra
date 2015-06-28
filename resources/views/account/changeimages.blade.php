@@ -46,23 +46,23 @@
 							</div>
 							<div role="tabpanel" class="tab-pane" id="coverimage">
 								<form action="" method="post" enctype="multipart/form-data">
-									<div class="form-group @if($errors->has('profilepicture')) has-error @endif">
+									<div class="form-group @if($errors->has('profilecover')) has-error @endif">
 										<div class="fileinput fileinput-new" data-provides="fileinput">
 											<div class="fileinput-new thumbnail" style="max-width: 500px; max-height: 160px;">
-												<img src="{{ $profileimage or 'http://placehold.it/1500x480' }}" data-src="http://placehold.it/1500x480" alt="1500x480">
+												<img src="{{ $profilecover or 'http://placehold.it/1500x480' }}" data-src="http://placehold.it/1500x480" alt="1500x480">
 											</div>
 											<div class="fileinput-preview fileinput-exists thumbnail" style="height:auto; width:auto; max-width: 250px; max-height: 250px;"></div>
 											<div>
 												<span class="btn-file">
 													<span class="btn btn-primary btn-labeled fileinput-new"><span class="btn-label"><i class="fa fa-picture-o"></i></span>Select image</span>
 													<span class="btn btn-warning btn-labeled fileinput-exists"><span class="btn-label"><i class="fa fa-picture-o"></i></span>Change</span>
-													<input type="file" name="profileimage">
+													<input type="file" name="profilecover">
 												</span>
 												<a href="#" class="btn btn-labeled btn-danger fileinput-exists" style="margin-top:12px;" data-dismiss="fileinput"><span class="btn-label"><i class="fa fa-remove"></i></span>Remove</a>
 											</div>
 										</div>
-										@if($errors->has('profilepicture'))
-											<p class="text-danger">{{ $errors->first('profilepicture') }}</p>
+										@if($errors->has('profilecover'))
+											<p class="text-danger">{{ $errors->first('profilecover') }}</p>
 										@endif
 									</div>
 									<hr>

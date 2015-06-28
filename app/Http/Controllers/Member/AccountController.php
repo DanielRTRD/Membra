@@ -124,26 +124,68 @@ class AccountController extends Controller {
 		return view('account.changeimages')->with($authuser->toArray());
 	}
 
-	public function postChangeImages(Guard $auth, SettingsRequest $request) {
+	public function postChangeProfileImage(Guard $auth, SettingsRequest $request) {
 		
-		$user 					= User::find($auth->user()->username);
+		$user 				= User::find($auth->user()->username);
 
-		$user->showemail 		= $request->get('showemail');
-		$user->showname 		= $request->get('showname');
-		$user->showonline 		= $request->get('showonline');
-		$user->userdateformat 	= $request->get('userdateformat');
-		$user->usertimeformat 	= $request->get('usertimeformat');
+		$image 				= Input::file('profilepicture');
+		
+		$filename 			= Auth::user()->id . '.' . $image->getClientOriginalExtension();
+		$path 				= asset('/img/profilepicture/' . $filename);
+		$webpath			= '/img/profilepicture/' . $filename;
 
-		$usersave 				= $user->save();
+		$filename_small		= Auth::user()->id . '_small.' . $image->getClientOriginalExtension();
+		$path_small 		= asset('/img/profilepicture/' . $filename_small);
+		$webpath_small		= '/img/profilepicture/' . $filename_small;
 
-		if($usersave) {
-			return Redirect::route('account-settings')
-					->with('messagetype', 'success')
-					->with('message', 'Your settings has been saved!');
+		//save image
+		$imagesave 			= Image::make($image->getRealPath())->resize(250, null, function($constraint){ $constraint->aspectRatio(); })->save($path);
+		$imagesave_small 	= Image::make($image->getRealPath())->fit(90)->save($path_small);
+		// http://image.intervention.io/getting_started/installation
+
+		//add image to db
+		$user->profilepicture 		= $webpath;
+		$user->profilepicturesmall 	= $webpath_small;
+		$usersave 					= $user->save();
+
+		if($imagesave && $usersave && $imagesave_small) {
+			return Redirect::route('account-change-profilepicture')
+					->with('globaltype', 'success')
+					->with('global', 'Your profile picture has been changed!');
 		} else {
-			return Redirect::route('account-settings')
-					->with('messagetype', 'danger')
-					->with('message', 'Something went wrong when saving your settings.');
+			return Redirect::route('account-change-profilepicture')
+					->with('globaltype', 'danger')
+					->with('global', 'Your profile picture could not be uploaded.');
+		}
+
+	}
+
+	public function postChangeProfileCover(Guard $auth, SettingsRequest $request) {
+		
+		$user 				= User::find($auth->user()->username);
+
+		$image 				= Input::file('profilecover');
+		
+		$filename 			= Auth::user()->id . '.' . $image->getClientOriginalExtension();
+		$path 				= asset('/img/profilecover/' . $filename);
+		$webpath			= '/img/profilecover/' . $filename;
+
+		//save image
+		$imagesave 			= Image::make($image->getRealPath())->resize(1500, null, function($constraint){ $constraint->aspectRatio(); })->save($path);
+		// http://image.intervention.io/getting_started/installation
+
+		//add image to db
+		$user->profilecover 		= $webpath;
+		$usersave 					= $user->save();
+
+		if($imagesave && $usersave) {
+			return Redirect::route('account-change-profilepicture')
+					->with('globaltype', 'success')
+					->with('global', 'Your profile picture has been changed!');
+		} else {
+			return Redirect::route('account-change-profilepicture')
+					->with('globaltype', 'danger')
+					->with('global', 'Your profile picture could not be uploaded.');
 		}
 
 	}
