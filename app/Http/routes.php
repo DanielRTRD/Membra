@@ -37,44 +37,66 @@ Route::group([
 	'middleware' => 'auth',
 	'prefix' => '/account',
 	], function() {
-	get('/', [
-		'as' => 'account' ,
-		'uses' => 'Member\AccountController@index'
-	]);
-	get('/settings', [
-		'as' => 'account-settings' ,
-		'uses' => 'Member\AccountController@getSettings'
-	]);
-	post('/settings', [
-		'as' => 'account-settings-post' ,
-		'uses' => 'Member\AccountController@postSettings'
-	]);
-	get('/change/password', [
-		'as' => 'account-change-password' ,
-		'uses' => 'Member\AccountController@getChangePassword'
-	]);
-	post('/change/password', [
-		'as' => 'account-change-password-post' ,
-		'uses' => 'Member\AccountController@postChangePassword'
-	]);
-	get('/change/details', [
-		'as' => 'account-change-details' ,
-		'uses' => 'Member\AccountController@getChangeDetails'
-	]);
-	post('/change/details', [
-		'as' => 'account-change-details-post' ,
-		'uses' => 'Member\AccountController@postChangeDetails'
-	]);
-	get('/change/images', [
-		'as' => 'account-change-images' ,
-		'uses' => 'Member\AccountController@getChangeImages'
-	]);
-	post('/change/images', [
-		'as' => 'account-change-image-profile-post' ,
-		'uses' => 'Member\AccountController@postChangeProfileImage'
-	]);
-	post('/change/images', [
-		'as' => 'account-change-image-cover-post' ,
-		'uses' => 'Member\AccountController@postChangeProfileCover'
-	]);
+		get('/', [
+			'as' => 'account' ,
+			'uses' => 'Member\AccountController@index'
+		]);
+		get('/settings', [
+			'as' => 'account-settings' ,
+			'uses' => 'Member\AccountController@getSettings'
+		]);
+		post('/settings', [
+			'as' => 'account-settings-post' ,
+			'uses' => 'Member\AccountController@postSettings'
+		]);
+		get('/change/password', [
+			'as' => 'account-change-password' ,
+			'uses' => 'Member\AccountController@getChangePassword'
+		]);
+		post('/change/password', [
+			'as' => 'account-change-password-post' ,
+			'uses' => 'Member\AccountController@postChangePassword'
+		]);
+		get('/change/details', [
+			'as' => 'account-change-details' ,
+			'uses' => 'Member\AccountController@getChangeDetails'
+		]);
+		post('/change/details', [
+			'as' => 'account-change-details-post' ,
+			'uses' => 'Member\AccountController@postChangeDetails'
+		]);
+		get('/change/images', [
+			'as' => 'account-change-images' ,
+			'uses' => 'Member\AccountController@getChangeImages'
+		]);
+		post('/change/images', [
+			'as' => 'account-change-image-profile-post' ,
+			'uses' => 'Member\AccountController@postChangeProfileImage'
+		]);
+		post('/change/images', [
+			'as' => 'account-change-image-cover-post' ,
+			'uses' => 'Member\AccountController@postChangeProfileCover'
+		]);
+});
+
+Route::group([
+	'middleware' => 'guest',
+	'prefix' => '/account',
+	], function() {
+		get('/forgotpassword', [
+			'as' => 'account-forgotpassword' ,
+			'uses' => 'Member\PasswordController@getForgotPassword'
+		]);
+		post('/forgotpassword', [
+			'as' => 'account-forgotpassword-post' ,
+			'uses' => 'Member\PasswordController@postForgotPassword'
+		]);
+		get('/recover/{token}', [
+			'as' => 'account-recover' ,
+			'uses' => 'Member\PasswordController@getRecoverAccount'
+		]);
+		post('/recover/{token}', [
+			'as' => 'account-recover-post' ,
+			'uses' => 'Member\PasswordController@postRecoverAccount'
+		]);
 });
