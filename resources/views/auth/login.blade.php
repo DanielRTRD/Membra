@@ -15,7 +15,7 @@
 			</label>
 			<br><br>
 			<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Login</button>
-			<p class="text-center bottom-link"><small><a href="{{ route('home') }}">Home</a> &middot; <a href="#">Forgot Your Password?</a> &middot; <a href="{{ url('register') }}">Need an account?</a></small></p>
+			<p class="text-center bottom-link"><small><a href="{{ route('home') }}">Home</a> &middot; <a href="{{ route('account-forgotpassword') }}">Forgot Your Password?</a> &middot; <a href="{{ url('register') }}">Need an account?</a></small></p>
 		</form>
 
 	</div>

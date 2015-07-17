@@ -71,9 +71,20 @@ class PasswordController extends Controller {
 						$message->to($user->email, $user->username)->subject('Reset Password');
 				});
 
-				return Redirect::route('home')
-						->with('messagetype', 'success')
-						->with('message', 'We have sent you an email to reset your password.');
+				$mailfail = Mail::failures();
+
+				if($mailfail) {
+					
+					//dd($mailfail);
+
+					return Redirect::route('home')
+							->with('messagetype', 'danger')
+							->with('message', 'Something went wrong when we tried to send the email.');
+				} else {
+					return Redirect::route('home')
+							->with('messagetype', 'success')
+							->with('message', 'We have sent you an email to reset your password.');
+				}
 			}
 		}
 
@@ -84,7 +95,7 @@ class PasswordController extends Controller {
 	}
 
 	public function postRecoverAccount($passwordtoken, RecoverRequest $request) {
-		$user = User::where('passwordtoken', '=', $passwordtoken);
+		$user = User::where('passwordtoken', '=', $passwordtoken)->where('email', '=', $request->get('email'))->first();
 
 		if($user == null) {
 			return Redirect::route('home')
@@ -96,7 +107,7 @@ class PasswordController extends Controller {
 			$user->passwordtoken 	= '';
 
 			if($user->save()) {
-				return Redirect::route('home')
+				return Redirect::route('login')
 						->with('messagetype', 'success')
 						->with('message', 'Your account has been recovered and you can sign in with your new password.');
 			}
