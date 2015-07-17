@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Redirect;
 
+use Intervention\Image\Facades\Image;
+
 use App\Http\Requests\Member\SettingsRequest;
 use App\Http\Requests\Member\PasswordRequest;
+use App\Http\Requests\Member\ProfileImageRequest;
+use App\Http\Requests\Member\ProfileCoverRequest;
 
 use App\User;
 
@@ -124,18 +128,18 @@ class AccountController extends Controller {
 		return view('account.changeimages')->with($authuser->toArray());
 	}
 
-	public function postChangeProfileImage(Guard $auth, SettingsRequest $request) {
+	public function postChangeProfileImage(Guard $auth, ProfileImageRequest $request) {
 		
 		$user 				= User::find($auth->user()->username);
 
-		$image 				= Input::file('profilepicture');
+		$image 				= $request->file('profileimage');
 		
-		$filename 			= Auth::user()->id . '.' . $image->getClientOriginalExtension();
-		$path 				= asset('/img/profilepicture/' . $filename);
+		$filename 			= $auth->user()->id . '.' . $image->getClientOriginalExtension();
+		$path 				= public_path() . '/img/profilepicture/' . $filename;
 		$webpath			= '/img/profilepicture/' . $filename;
 
-		$filename_small		= Auth::user()->id . '_small.' . $image->getClientOriginalExtension();
-		$path_small 		= asset('/img/profilepicture/' . $filename_small);
+		$filename_small		= $auth->user()->id . '_small.' . $image->getClientOriginalExtension();
+		$path_small 		= public_path() . '/img/profilepicture/' . $filename_small;
 		$webpath_small		= '/img/profilepicture/' . $filename_small;
 
 		//save image
@@ -149,25 +153,25 @@ class AccountController extends Controller {
 		$usersave 					= $user->save();
 
 		if($imagesave && $usersave && $imagesave_small) {
-			return Redirect::route('account-change-profilepicture')
-					->with('globaltype', 'success')
-					->with('global', 'Your profile picture has been changed!');
+			return Redirect::route('account-change-images')
+					->with('messagetype', 'success')
+					->with('message', 'Your profile picture has been changed!');
 		} else {
-			return Redirect::route('account-change-profilepicture')
-					->with('globaltype', 'danger')
-					->with('global', 'Your profile picture could not be uploaded.');
+			return Redirect::route('account-change-images')
+					->with('messagetype', 'danger')
+					->with('message', 'Your profile picture could not be uploaded.');
 		}
 
 	}
 
-	public function postChangeProfileCover(Guard $auth, SettingsRequest $request) {
+	public function postChangeProfileCover(Guard $auth, ProfileCoverRequest $request) {
 		
 		$user 				= User::find($auth->user()->username);
 
-		$image 				= Input::file('profilecover');
+		$image 				= $request->file('profilecover');
 		
-		$filename 			= Auth::user()->id . '.' . $image->getClientOriginalExtension();
-		$path 				= asset('/img/profilecover/' . $filename);
+		$filename 			= $auth->user()->id . '.' . $image->getClientOriginalExtension();
+		$path 				= public_path() . '/img/profilecover/' . $filename;
 		$webpath			= '/img/profilecover/' . $filename;
 
 		//save image
@@ -179,13 +183,13 @@ class AccountController extends Controller {
 		$usersave 					= $user->save();
 
 		if($imagesave && $usersave) {
-			return Redirect::route('account-change-profilepicture')
-					->with('globaltype', 'success')
-					->with('global', 'Your profile picture has been changed!');
+			return Redirect::route('account-change-images')
+					->with('messagetype', 'success')
+					->with('message', 'Your profile cover has been changed!');
 		} else {
-			return Redirect::route('account-change-profilepicture')
-					->with('globaltype', 'danger')
-					->with('global', 'Your profile picture could not be uploaded.');
+			return Redirect::route('account-change-images')
+					->with('messagetype', 'danger')
+					->with('message', 'Your profile cover could not be uploaded.');
 		}
 
 	}

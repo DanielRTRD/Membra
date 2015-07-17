@@ -19,11 +19,11 @@
 						</ul>
 						<div class="tab-content">
 							<div role="tabpanel" class="tab-pane active" id="profileimage">
-								<form action="" method="post" enctype="multipart/form-data">
-									<div class="form-group @if ($errors->has('profilepicture')) has-error @endif">
+								<form action="{{ route('account-change-image-profile-post') }}" method="post" enctype="multipart/form-data">
+									<div class="form-group @if ($errors->has('profileimage')) has-error @endif">
 										<div class="fileinput fileinput-new" data-provides="fileinput">
 											<div class="fileinput-new thumbnail" style="width: 250px; height: 250px;">
-												<img src="{{ $profileimage or 'http://placehold.it/250x250' }}" data-src="http://placehold.it/250x250" alt="250x250">
+												<img src="{{ $profilepicture or 'http://placehold.it/250x250' }}" data-src="http://placehold.it/250x250" alt="250x250">
 											</div>
 											<div class="fileinput-preview fileinput-exists thumbnail" style="height:auto; width:auto; max-width: 250px; max-height: 250px;"></div>
 											<div>
@@ -35,8 +35,8 @@
 												<a href="#" class="btn btn-labeled btn-danger fileinput-exists" style="margin-top:12px;" data-dismiss="fileinput"><span class="btn-label"><i class="fa fa-remove"></i></span>Remove</a>
 											</div>
 										</div>
-										@if($errors->has('profilepicture'))
-											<p class="text-danger">{{ $errors->first('profilepicture') }}</p>
+										@if($errors->has('profileimage'))
+											<p class="text-danger">{{ $errors->first('profileimage') }}</p>
 										@endif
 									</div>
 									<hr>
@@ -45,7 +45,7 @@
 								</form>
 							</div>
 							<div role="tabpanel" class="tab-pane" id="coverimage">
-								<form action="" method="post" enctype="multipart/form-data">
+								<form action="{{ route('account-change-image-cover-post') }}" method="post" enctype="multipart/form-data">
 									<div class="form-group @if($errors->has('profilecover')) has-error @endif">
 										<div class="fileinput fileinput-new" data-provides="fileinput">
 											<div class="fileinput-new thumbnail" style="max-width: 500px; max-height: 160px;">
