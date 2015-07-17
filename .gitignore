@@ -1,3 +1,5 @@
 /node_modules
 .env
 rtusl5.sublime-workspace
+public/img/profilecover/*
+public/img/profilepicture/*

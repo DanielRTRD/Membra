@@ -12,7 +12,7 @@
 					@include('layouts.base.account-sidebar')
 				</div>
 				<div class="col-lg-9">
-					<form action="{{ URL::route('account-change-password-post') }}" method="post">
+					<form action="{{ route('account-change-password-post') }}" method="post">
 
 						<div class="form-group @if ($errors->has('current_password')) has-error @endif">
 							<label for="current_password">Current Password</label>
