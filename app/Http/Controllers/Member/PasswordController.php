@@ -91,7 +91,14 @@ class PasswordController extends Controller {
 	}
 
 	public function getRecoverAccount($passwordtoken) {
-		return view('account.recover')->with('passwordtoken', $passwordtoken);
+		$user = User::where('passwordtoken', '=', $passwordtoken)->first();
+		if($user == null) {
+			return Redirect::route('home')
+				->with('messagetype', 'warning')
+				->with('message', 'We couldn\'t find your account. Please try again.');
+		} else {
+			return view('account.recover')->with('passwordtoken', $passwordtoken);
+		}
 	}
 
 	public function postRecoverAccount($passwordtoken, RecoverRequest $request) {
