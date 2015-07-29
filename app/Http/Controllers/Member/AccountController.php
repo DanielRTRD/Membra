@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Redirect;
 
 use Intervention\Image\Facades\Image;
+use Regulus\ActivityLog\Models\Activity;
 
 use App\Http\Requests\Member\SettingsRequest;
 use App\Http\Requests\Member\PasswordRequest;
@@ -45,6 +46,13 @@ class AccountController extends Controller {
 		$usersave 				= $user->save();
 
 		if($usersave) {
+			Activity::log([
+				'contentId'   => $user->id,
+				'contentType' => 'User',
+				'action'      => 'Update',
+				'description' => 'Updated Settings',
+				'details'     => '',
+			]);
 			return Redirect::route('account-settings')
 					->with('messagetype', 'success')
 					->with('message', 'Your settings has been saved!');

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b30c2041ad3545d5a1add806dbcfa841",
+    "hash": "fe3d8392b13d35eeedffe8f182d7701c",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1158,6 +1158,44 @@
                 "shell"
             ],
             "time": "2015-03-26 18:43:54"
+        },
+        {
+            "name": "regulus/activity-log",
+            "version": "v0.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Regulus343/ActivityLog.git",
+                "reference": "f5779b99a8e24882cce287aba3b2a04d9c5ce8cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Regulus343/ActivityLog/zipball/f5779b99a8e24882cce287aba3b2a04d9c5ce8cb",
+                "reference": "f5779b99a8e24882cce287aba3b2a04d9c5ce8cb",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Regulus\\ActivityLog\\": "src/",
+                    "Regulus\\ActivityLog\\Models\\": "src/models/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cody Jassman",
+                    "email": "me@codyjassman.com"
+                }
+            ],
+            "description": "A clean and simple Laravel 5 activity logger for monitoring user activity on a website or web application.",
+            "time": "2015-06-22 17:01:18"
         },
         {
             "name": "swiftmailer/swiftmailer",

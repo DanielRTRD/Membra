@@ -149,6 +149,7 @@ return [
 		 * Third-party
 		 */
 		'Intervention\Image\ImageServiceProvider',
+		'Regulus\ActivityLog\ActivityLogServiceProvider',
 
 	],
 
@@ -201,7 +202,8 @@ return [
 		/*
 		 * Third-party
 		 */
-		'Image' => 'Intervention\Image\Facades\Image'
+		'Image' 	=> 'Intervention\Image\Facades\Image',
+		'Activity' 	=> 'Regulus\ActivityLog\Models\Activity',
 
 	],
 

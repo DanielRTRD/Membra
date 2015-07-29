@@ -28,9 +28,9 @@ class CreateUsersTable extends Migration {
 			$table->string('location');
 			$table->string('occupation');
 
-			$table->string('profilepicture');
-			$table->string('profilepicturesmall');
-			$table->string('profilecover');
+			$table->string('profilepicture')->nullable();
+			$table->string('profilepicturesmall')->nullable();
+			$table->string('profilecover')->nullable();
 			$table->string('referral');
 			$table->string('referral_code');
 
