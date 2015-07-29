@@ -99,13 +99,25 @@ PROFILE
 	width: 20%; 
 }
 
+.profile .profile-text {
+	margin-top: -15px;
+}
+
 @media (max-width: 767px) {
 
-	.profile .profile-text {
-		margin-top: -20px;
+	.profile .profile-text-xs {
+		display: inline-block;
+		margin-left: 15px;
+		margin-top: 15px;
+		color:#fff;
+		text-shadow: 2px 2px 8px #333;
 	}
 
-	.profile .profile-text > h1 {
+	.profile .profile-text-xs > h1 small {
+		color:#ddd;
+	}
+
+	.profile .profile-text-xs > h1 {
 		font-size: 1.5em;
 	}
 
@@ -113,8 +125,10 @@ PROFILE
 		height: 150px;
 	}
 
-	.profile .profile-image {
-		margin: -50px 10px 0px 50px;
+	.profile .profile-image-xs {
+		margin-top: 20px;
+		height: 110px;
+		width: 110px;
 	}
 
 }
