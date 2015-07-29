@@ -27,6 +27,7 @@ Route::model('user', 'App\User');
 });*/
 
 Route::get('/user/{username}', ['as' => 'user-profile', 'uses' => 'Member\ProfileController@index']);
+Route::get('/members', ['as' => 'members', 'uses' => 'Member\ProfileController@getMembers']);
 
 Route::get('/register', ['as' => 'register', 'uses' => 'Member\AuthController@getRegister']);
 Route::post('/register', ['as' => 'post.register', 'uses' => 'Member\AuthController@postRegister']);
