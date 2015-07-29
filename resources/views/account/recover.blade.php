@@ -14,7 +14,7 @@
 					<label for="email">Verify your email</label>
 					<div class="input-group">
 						<span class="input-group-addon"><span class="fa fa-envelope-o"></span></span>
-						<input class="form-control" type="text" name="email" id="email" placeholder="">
+						<input class="form-control" type="text" name="email" id="email" placeholder="" autocomplete="off">
 					</div>
 					@if($errors->has('email'))
 						<p class="text-danger">{{ $errors->first('email') }}</p>
@@ -25,7 +25,7 @@
 					<label for="password">New Password</label>
 					<div class="input-group">
 						<span class="input-group-addon"><span class="fa fa-asterisk"></span></span>
-						<input class="form-control" type="password" name="password" id="password" placeholder="">
+						<input class="form-control" type="password" name="password" id="password" placeholder="" autocomplete="off">
 					</div>
 					@if($errors->has('password'))
 						<p class="text-danger">{{ $errors->first('password') }}</p>
@@ -36,7 +36,7 @@
 					<label for="password_confirmation">New Password Again</label>
 					<div class="input-group">
 						<span class="input-group-addon"><span class="fa fa-asterisk"></span></span>
-						<input class="form-control" type="password" name="password_confirmation" id="password_confirmation" placeholder="">
+						<input class="form-control" type="password" name="password_confirmation" id="password_confirmation" placeholder="" autocomplete="off">
 					</div>
 					@if($errors->has('password_confirmation'))
 						<p class="text-danger">{{ $errors->first('password_confirmation') }}</p>
