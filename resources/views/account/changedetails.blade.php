@@ -62,10 +62,21 @@
 						</div>
 
 						<div class="form-group @if ($errors->has('location')) has-error @endif">
-							<label for="location">Location</label>
+							<label for="location">Location <small>Visible on profile</small></label>
 							<div class="input-group">
 								<span class="input-group-addon"><span class="fa fa-globe"></span></span>
 								<input class="form-control" type="text" name="location" value="{{ $location }}">
+							</div>
+							@if($errors->has('location'))
+								<p class="text-danger">{{ $errors->first('location') }}</p>
+							@endif
+						</div>
+
+						<div class="form-group @if ($errors->has('address')) has-error @endif">
+							<label for="addressaddress">Address <small>NOT visible on profile</small></label>
+							<div class="input-group">
+								<span class="input-group-addon"><span class="fa fa-globe"></span></span>
+								<input class="form-control" type="text" name="address" value="{{ $address }}">
 							</div>
 							@if($errors->has('location'))
 								<p class="text-danger">{{ $errors->first('location') }}</p>

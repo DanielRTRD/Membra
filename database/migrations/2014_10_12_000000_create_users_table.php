@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration {
 
 			$table->string('gender');
 			$table->string('location');
+			$table->string('address'); // Google Maps location
 			$table->string('occupation');
 
 			$table->string('profilepicture')->nullable();
