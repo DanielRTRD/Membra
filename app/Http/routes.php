@@ -15,71 +15,115 @@ if(Config::get('app.debug')) {
 
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
-Route::model('user', 'App\User');
+/*
+| IF IN DEBUG MODE THEN DO NOT USE SUBDOMAIN
+*/
+if(Config::get('app.debug')) {
+	Route::group([
+		'middleware' => 'auth',
+		'prefix' => 'user',
+		], function() {
+			get('/', [
+				'as' => 'account' ,
+				'uses' => 'Member\AccountController@index'
+			]);
+			get('/settings', [
+				'as' => 'account-settings' ,
+				'uses' => 'Member\AccountController@getSettings'
+			]);
+			post('/settings', [
+				'as' => 'account-settings-post' ,
+				'uses' => 'Member\AccountController@postSettings'
+			]);
+			get('/change/password', [
+				'as' => 'account-change-password' ,
+				'uses' => 'Member\AccountController@getChangePassword'
+			]);
+			post('/change/password', [
+				'as' => 'account-change-password-post' ,
+				'uses' => 'Member\AccountController@postChangePassword'
+			]);
+			get('/change/details', [
+				'as' => 'account-change-details' ,
+				'uses' => 'Member\AccountController@getChangeDetails'
+			]);
+			post('/change/details', [
+				'as' => 'account-change-details-post' ,
+				'uses' => 'Member\AccountController@postChangeDetails'
+			]);
+			get('/change/images', [
+				'as' => 'account-change-images' ,
+				'uses' => 'Member\AccountController@getChangeImages'
+			]);
+			post('/change/images/profile', [
+				'as' => 'account-change-image-profile-post' ,
+				'uses' => 'Member\AccountController@postChangeProfileImage'
+			]);
+			post('/change/images/cover', [
+				'as' => 'account-change-image-cover-post' ,
+				'uses' => 'Member\AccountController@postChangeProfileCover'
+			]);
+			get('/logout', [
+				'as' => 'logout',
+				'uses' => 'Member\AuthController@getLogout'
+			]);
+	});
 
-/*Route::group([
-	'middleware' => 'auth' ,
-	], function() {
-	get('/profile/{user}', [
-		'as' => 'profile' ,
-		'uses' => 'Member\ProfileController@index'
-	]);
-});*/
+/*
+| ELSE USE PREFIX INSTEAD
+*/
 
-Route::get('/user/{username}', ['as' => 'user-profile', 'uses' => 'Member\ProfileController@index']);
-Route::get('/members', ['as' => 'members', 'uses' => 'Member\ProfileController@getMembers']);
-
-Route::get('/register', ['as' => 'register', 'uses' => 'Member\AuthController@getRegister']);
-Route::post('/register', ['as' => 'post.register', 'uses' => 'Member\AuthController@postRegister']);
-Route::get('/login', ['as' => 'login', 'uses' => 'Member\AuthController@getLogin']);
-Route::post('/login', ['as' => 'post.login', 'uses' => 'Member\AuthController@postLogin']);
-Route::get('/logout', ['as' => 'logout', 'uses' => 'Member\AuthController@getLogout']);
-
-Route::group([
-	'middleware' => 'auth',
-	'prefix' => '/account',
-	], function() {
-		get('/', [
-			'as' => 'account' ,
-			'uses' => 'Member\AccountController@index'
-		]);
-		get('/settings', [
-			'as' => 'account-settings' ,
-			'uses' => 'Member\AccountController@getSettings'
-		]);
-		post('/settings', [
-			'as' => 'account-settings-post' ,
-			'uses' => 'Member\AccountController@postSettings'
-		]);
-		get('/change/password', [
-			'as' => 'account-change-password' ,
-			'uses' => 'Member\AccountController@getChangePassword'
-		]);
-		post('/change/password', [
-			'as' => 'account-change-password-post' ,
-			'uses' => 'Member\AccountController@postChangePassword'
-		]);
-		get('/change/details', [
-			'as' => 'account-change-details' ,
-			'uses' => 'Member\AccountController@getChangeDetails'
-		]);
-		post('/change/details', [
-			'as' => 'account-change-details-post' ,
-			'uses' => 'Member\AccountController@postChangeDetails'
-		]);
-		get('/change/images', [
-			'as' => 'account-change-images' ,
-			'uses' => 'Member\AccountController@getChangeImages'
-		]);
-		post('/change/images/profile', [
-			'as' => 'account-change-image-profile-post' ,
-			'uses' => 'Member\AccountController@postChangeProfileImage'
-		]);
-		post('/change/images/cover', [
-			'as' => 'account-change-image-cover-post' ,
-			'uses' => 'Member\AccountController@postChangeProfileCover'
-		]);
-});
+} else {
+	Route::group([
+		'middleware' => 'auth',
+		'domain' => 'user.'.Config::get('rtech.appdomain'),
+		], function() {
+			get('/', [
+				'as' => 'account' ,
+				'uses' => 'Member\AccountController@index'
+			]);
+			get('/settings', [
+				'as' => 'account-settings' ,
+				'uses' => 'Member\AccountController@getSettings'
+			]);
+			post('/settings', [
+				'as' => 'account-settings-post' ,
+				'uses' => 'Member\AccountController@postSettings'
+			]);
+			get('/change/password', [
+				'as' => 'account-change-password' ,
+				'uses' => 'Member\AccountController@getChangePassword'
+			]);
+			post('/change/password', [
+				'as' => 'account-change-password-post' ,
+				'uses' => 'Member\AccountController@postChangePassword'
+			]);
+			get('/change/details', [
+				'as' => 'account-change-details' ,
+				'uses' => 'Member\AccountController@getChangeDetails'
+			]);
+			post('/change/details', [
+				'as' => 'account-change-details-post' ,
+				'uses' => 'Member\AccountController@postChangeDetails'
+			]);
+			get('/change/images', [
+				'as' => 'account-change-images' ,
+				'uses' => 'Member\AccountController@getChangeImages'
+			]);
+			post('/change/images/profile', [
+				'as' => 'account-change-image-profile-post' ,
+				'uses' => 'Member\AccountController@postChangeProfileImage'
+			]);
+			post('/change/images/cover', [
+				'as' => 'account-change-image-cover-post' ,
+				'uses' => 'Member\AccountController@postChangeProfileCover'
+			]);
+			get('/logout', [
+				'as' => 'logout',
+				'uses' => 'Member\AuthController@getLogout'
+			]);
+	});
+}
 
 Route::group([
 	'middleware' => 'guest',
@@ -101,4 +145,24 @@ Route::group([
 			'as' => 'account-recover-post' ,
 			'uses' => 'Member\PasswordController@postRecoverAccount'
 		]);
+		get('/register', [
+			'as' => 'register',
+			'uses' => 'Member\AuthController@getRegister'
+		]);
+		post('/register', [
+			'as' => 'post.register',
+			'uses' => 'Member\AuthController@postRegister'
+		]);
+		get('/login', [
+			'as' => 'login',
+			'uses' => 'Member\AuthController@getLogin'
+		]);
+		post('/login', [
+			'as' => 'post.login',
+			'uses' => 'Member\AuthController@postLogin'
+		]);
 });
+
+
+Route::get('/user/{username}', ['as' => 'user-profile', 'uses' => 'Member\ProfileController@index']);
+Route::get('/members', ['as' => 'members', 'uses' => 'Member\ProfileController@getMembers']);
