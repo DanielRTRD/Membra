@@ -150,6 +150,7 @@ return [
 		 */
 		'Intervention\Image\ImageServiceProvider',
 		'Regulus\ActivityLog\ActivityLogServiceProvider',
+		'igaster\laravelTheme\themeServiceProvider',
 
 	],
 
@@ -204,6 +205,7 @@ return [
 		 */
 		'Image' 	=> 'Intervention\Image\Facades\Image',
 		'Activity' 	=> 'Regulus\ActivityLog\Models\Activity',
+		'Theme'  	=> 'igaster\laravelTheme\Facades\Theme',
 
 	],
 

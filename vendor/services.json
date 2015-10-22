@@ -28,7 +28,8 @@
         "App\\Providers\\EventServiceProvider",
         "App\\Providers\\RouteServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
-        "Regulus\\ActivityLog\\ActivityLogServiceProvider"
+        "Regulus\\ActivityLog\\ActivityLogServiceProvider",
+        "igaster\\laravelTheme\\themeServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -48,7 +49,8 @@
         "App\\Providers\\EventServiceProvider",
         "App\\Providers\\RouteServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
-        "Regulus\\ActivityLog\\ActivityLogServiceProvider"
+        "Regulus\\ActivityLog\\ActivityLogServiceProvider",
+        "igaster\\laravelTheme\\themeServiceProvider"
     ],
     "deferred": {
         "command.app.name": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
