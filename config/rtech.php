@@ -6,6 +6,7 @@ return array(
 	'appversion' 			=> '0.0.1',
 	'appversiontype' 		=> '&alpha;lpha',
 	'appdomain'				=> 'rtusl5.dev',
+	'appprotocol'			=> 'http',
 
 	'appmainemail' 			=> 'hello@rtusl5.dev',
 	'appnoreplyemail' 		=> 'noreply@rtusl5.dev',
