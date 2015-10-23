@@ -49,6 +49,10 @@ return [
 
 		'neon',
 
+		'neon-admin',
+
+		'neon-user',
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------
