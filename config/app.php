@@ -151,6 +151,7 @@ return [
 		'Intervention\Image\ImageServiceProvider',
 		'Regulus\ActivityLog\ActivityLogServiceProvider',
 		'igaster\laravelTheme\themeServiceProvider',
+		'App\Providers\ThemeSelectServiceProvider',
 
 	],
 
