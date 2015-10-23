@@ -8,7 +8,7 @@
 
 	<title>@yield('title') - {{ Config::get('rtech.appname') }}</title>
 
-	{{ Theme::css('bootstrap.css') }}
+	<!--{{ Theme::css('css/bootstrap.css') }}-->
 
 	<link href="{{ asset('/neon/css/bootstrap.css') }}" rel="stylesheet">
 

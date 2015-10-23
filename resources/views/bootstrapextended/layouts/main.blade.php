@@ -7,7 +7,8 @@
 	<title>@yield('title') - {{ Config::get('rtech.appname') }}</title>
 
 	<!-- CSS -->
-	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
+	{{ Theme::css('css/bootstrap.min.css') }}
+	<!--<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">-->
 
 	<!-- Thirdparty CSS -->
 	<link href="{{ asset('/css/jasny-bootstrap.min.css') }}" rel="stylesheet">
