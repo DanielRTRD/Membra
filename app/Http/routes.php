@@ -69,6 +69,17 @@ if(Config::get('app.debug')) {
 			]);
 	});
 
+	// ADMIN PANEL
+	Route::group([
+		'middleware' => 'auth',
+		'prefix' => 'admin',
+		], function() {
+			/*get('/', [
+				'as' => 'account' ,
+				'uses' => 'Member\AccountController@index'
+			]);*/
+	});
+
 /*
 | ELSE USE PREFIX INSTEAD
 */
@@ -122,6 +133,17 @@ if(Config::get('app.debug')) {
 				'as' => 'logout',
 				'uses' => 'Member\AuthController@getLogout'
 			]);
+	});
+
+	// ADMIN PANEL
+	Route::group([
+		'middleware' => 'auth',
+		'domain' => 'admin.'.Config::get('rtech.appdomain'),
+		], function() {
+			/*get('/', [
+				'as' => 'account' ,
+				'uses' => 'Member\AccountController@index'
+			]);*/
 	});
 }
 
