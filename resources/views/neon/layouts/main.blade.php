@@ -10,15 +10,15 @@
 
 	<!--{{ Theme::css('css/bootstrap.css') }}-->
 
-	<link href="{{ asset('/neon/css/bootstrap.css') }}" rel="stylesheet">
+	<link href="{{ Theme::url('css/bootstrap.css') }}" rel="stylesheet">
 
-	<link href="{{ asset('/neon/css/font-icons/entypo/css/entypo.css') }}" rel="stylesheet">
-	<link href="{{ asset('/neon/css/neon.css') }}" rel="stylesheet">
+	<link href="{{ Theme::url('css/font-icons/entypo/css/entypo.css') }}" rel="stylesheet">
+	<link href="{{ Theme::url('css/neon.css') }}" rel="stylesheet">
 
-	<script src="{{ asset('/neon/js/jquery-1.11.0.min.js') }}"></script>
+	<script src="{{ Theme::url('js/jquery-1.11.0.min.js') }}"></script>
 	<script>$.noConflict();</script>
 
-	<!--[if lt IE 9]><script src="{{ asset('/neon/js/ie8-responsive-file-warning.js') }}"></script><![endif]-->
+	<!--[if lt IE 9]><script src="{{ Theme::url('js/ie8-responsive-file-warning.js') }}"></script><![endif]-->
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -37,14 +37,14 @@
 		<div class="col-md-12">
 			<header class="site-header">
 				<section class="site-logo">
-					<a href="{{ url('/') }}"><img src="{{ asset('/neon/images/logo@2x.png') }}" width="120" /></a>
+					<a href="{{ url('/') }}"><img src="{{ Theme::url('images//logo@2x.png') }}" width="120" /></a>
 				</section>
 				<nav class="site-nav">
 					<ul class="main-menu hidden-xs" id="main-menu">
 						<li class="active"><a href="{{ url('/') }}"><span>Home</span></a></li>
 						<li><a href="{{ route('members') }}"><span><i class="fa fa-users"></i> Members</span></a></li>
 						@if(Auth::Guest())
-							<li><a href="{{ route('login') }}"><span>Login</span></a></li>
+							<li><a href="{{ route('account-login') }}"><span>Login</span></a></li>
 						@else
 
 						@endif
@@ -82,9 +82,9 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello, Guest! <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ route('register') }}"><i class="fa fa-pencil"></i> Register</a></li>
+								<li><a href="{{ route('account-register') }}"><i class="fa fa-pencil"></i> Register</a></li>
 								<li class="divider"></li>
-								<li><a href="{{ route('login') }}"><i class="fa fa-sign-in"></i> Login</a></li>
+								<li><a href="{{ route('account-login') }}"><i class="fa fa-sign-in"></i> Login</a></li>
 							</ul>
 						</li>
 					@else
@@ -179,15 +179,15 @@
 
 
 	<!-- Bottom scripts (common) -->
-	<script src="{{ asset('/neon/js/gsap/main-gsap.js') }}"></script>
-	<script src="{{ asset('/neon/js/bootstrap.js') }}"></script>
-	<script src="{{ asset('/neon/js/joinable.js') }}"></script>
-	<script src="{{ asset('/neon/js/resizeable.js') }}"></script>
-	<script src="{{ asset('/neon/js/neon-slider.js') }}"></script>
+	<script src="{{ Theme::url('js/gsap/main-gsap.js') }}"></script>
+	<script src="{{ Theme::url('js/bootstrap.js') }}"></script>
+	<script src="{{ Theme::url('js/joinable.js') }}"></script>
+	<script src="{{ Theme::url('js/resizeable.js') }}"></script>
+	<script src="{{ Theme::url('js/neon-slider.js') }}"></script>
 
 
 	<!-- JavaScripts initializations and stuff -->
-	<script src="{{ asset('/neon/js/neon-custom.js') }}"></script>
+	<script src="{{ Theme::url('js/neon-custom.js') }}"></script>
 
 </body>
 </html>
