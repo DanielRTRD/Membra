@@ -264,7 +264,7 @@ Route::group(['prefix' => 'ajax',], function() {
 				#$_SESSION["logged_user"] = "user_id";
 			
 			// Set the redirect url after successful login
-			$resp['redirect_url'] = '';
+			$resp['redirect_url'] = URL::route('account');
 		}
 
 		return Response::json($resp);
