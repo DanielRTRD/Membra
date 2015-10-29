@@ -18,6 +18,10 @@ class ThemeSelectServiceProvider extends ServiceProvider {
 		if (\Request::segment(1)=='user') {
 			\Theme::set('neon-user');
 		}
+
+		if (\Request::segment(2)=='register' || \Request::segment(2)=='login') {
+			\Theme::set('neon-user');
+		}
 	}
 
 	/**
