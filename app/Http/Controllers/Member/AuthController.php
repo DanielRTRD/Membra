@@ -29,7 +29,11 @@ class AuthController extends Controller {
 		return view('auth.login');
 	}
 
-	public function postLogin(LoginRequest $request) {
+	public function postLogin() {
+		$resp = array();
+		$resp['submitted_data'] = Request::all();
+		return  Response::json($resp);
+		/*
 		if ($this->auth->attempt($request->credentials(), $request->remember())) {
 			$user = $this->auth->user();
 			//return Redirect::intended(route('profile', [$user->getKey()]));
@@ -39,19 +43,24 @@ class AuthController extends Controller {
 		return Redirect::route('login')
 				->withErrors([
 					'email' => 'The credentials you entered did not match our records. Try again?'
-					]);
+					]);*/
 	}
 	 
 	public function getRegister() {
 		return view('auth.register');
 	}
 
-	public function postRegister(RegisterRequest $request) {
+	public function postRegister() {
+
+		$resp = array();
+		$resp['submitted_data'] = Request::all();
+		return  Response::json($resp);
 
 		/*$user = User::create($request->all());
 		$this->auth->login($user);
 		return Redirect::route('home');*/
 
+		/*
 		$email 			= $request->get('email');
 		$firstname 		= $request->get('firstname');
 		$lastname 		= $request->get('lastname');
@@ -85,6 +94,7 @@ class AuthController extends Controller {
 					->with('message', 'Your account has been created! We have sent you an email to acitvate your account.');
 
 		}
+		*/
 	}
 	 
 	public function getLogout() {

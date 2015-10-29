@@ -20,7 +20,11 @@ var neonRegister = neonRegister || {};
 		
 		neonRegister.$container.validate({
 			rules: {
-				name: {
+				firstname: {
+					required: true
+				},
+
+				lastname: {
 					required: true
 				},
 				
@@ -32,8 +36,16 @@ var neonRegister = neonRegister || {};
 				username: {
 					required: true	
 				},
+
+				birthdate: {
+					required: true
+				},
 				
 				password: {
+					required: true
+				},
+
+				password_confirmation: {
 					required: true
 				},
 				
@@ -66,32 +78,54 @@ var neonRegister = neonRegister || {};
 					// Lets move to 98%, meanwhile ajax data are sending and processing
 					neonRegister.setPercentage(98, function()
 					{
+						// set up jQuery with the CSRF token, or else post routes will fail
+						$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+
 						// Send data to the server
 						$.ajax({
-							url: baseurl + 'data/sample-register-form.php',
+							url: baseurl + '/ajax/account/register',
 							method: 'POST',
 							dataType: 'json',
 							data: {
-								name: 		$("input#name").val(),
-								phone: 		$("input#phone").val(),
-								birthdate: 	$("input#birthdate").val(),
-								username: 	$("input#username").val(),
-								email: 		$("input#email").val(),
-								password:	$("input#password").val()
+								firstname: 				$("input#firstname").val(),
+								lastname: 				$("input#lastname").val(),
+								birthdate: 				$("input#birthdate").val(),
+								username: 				$("input#username").val(),
+								email: 					$("input#email").val(),
+								password:				$("input#password").val(),
+								password_confirmation:	$("input#password_confirmation").val(),
+								_token: 				$("input#_token").val()
 							},
-							error: function()
-							{
-								alert("An error occoured!");
+							error: function(jqXHR, exception) {
+								if (jqXHR.status === 0) {
+									console.log('Not connect.\n Verify Network.');
+								} else if (jqXHR.status == 404) {
+									console.log('Requested page not found. [404]');
+								} else if (jqXHR.status == 500) {
+									console.log('Internal Server Error [500].');
+								} else if (exception === 'parsererror') {
+									console.log('Requested JSON parse failed.');
+								} else if (exception === 'timeout') {
+									console.log('Time out error.');
+								} else if (exception === 'abort') {
+									console.log('Ajax request aborted.');
+								} else {
+									console.log('Uncaught Error.\n' + jqXHR.responseText);
+								}
 							},
 							success: function(response)
 							{
+
+								console.log(String("success").toUpperCase())
+
 								// From response you can fetch the data object retured
-								var name = response.submitted_data.name,
-									phone = response.submitted_data.phone,
+								var firstname = response.submitted_data.firstname,
+									lastname = response.submitted_data.lastname,
 									birthdate = response.submitted_data.birthdate,
 									username = response.submitted_data.username,
 									email = response.submitted_data.email,
 									password = response.submitted_data.password;
+									password_confirmation = response.submitted_data.password_confirmation;
 								
 								
 								// Form is fully completed, we update the percentage

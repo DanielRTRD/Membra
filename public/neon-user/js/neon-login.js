@@ -58,19 +58,36 @@ var neonLogin = neonLogin || {};
 					
 					// The form data are subbmitted, we can forward the progress to 70%
 					neonLogin.setPercentage(40 + random_pct);
+
+					// set up jQuery with the CSRF token, or else post routes will fail
+					$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
 											
 					// Send data to the server
 					$.ajax({
-						url: baseurl + 'data/sample-login-form.php',
+						url: baseurl + '/ajax/account/login',
 						method: 'POST',
 						dataType: 'json',
 						data: {
 							username: $("input#username").val(),
 							password: $("input#password").val(),
+							_token: $("input#_token").val()
 						},
-						error: function()
-						{
-							alert("An error occoured!");
+						error: function(jqXHR, exception) {
+							if (jqXHR.status === 0) {
+								console.log('Not connect.\n Verify Network.');
+							} else if (jqXHR.status == 404) {
+								console.log('Requested page not found. [404]');
+							} else if (jqXHR.status == 500) {
+								console.log('Internal Server Error [500]\n' + jqXHR.responseText);
+							} else if (exception === 'parsererror') {
+								console.log('Requested JSON parse failed.');
+							} else if (exception === 'timeout') {
+								console.log('Time out error.');
+							} else if (exception === 'abort') {
+								console.log('Ajax request aborted.');
+							} else {
+								console.log('Uncaught Error.\n' + jqXHR.responseText);
+							}
 						},
 						success: function(response)
 						{
