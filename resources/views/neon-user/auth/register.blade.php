@@ -68,7 +68,7 @@
 									<i class="fa fa-at"></i>
 								</div>
 								
-								<input type="text" class="form-control" name="username" id="username" placeholder="Username" data-mask="[a-zA-Z0-1\.]+" data-is-regex="true" autocomplete="off" value="{{ old('username') }}" />
+								<input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off" value="{{ old('username') }}" />
 							</div>
 						</div>
 						
@@ -128,8 +128,8 @@
 						</div>
 
 						<div class="form-group">
-							<label>
-								<input type="checkbox" name="tos" id="tos" value="1" {{ old('tos') ? 'checked' : '' }}> I have read, accepted and agreed to the <strong>Terms of Service and Privacy Policy</strong>.
+							<label class="input-group">
+								<input type="checkbox" name="tospp" id="tospp"> I have read, accepted and agreed to the <strong>Terms of Service and Privacy Policy</strong>.
 							</label>
 						</div>
 						

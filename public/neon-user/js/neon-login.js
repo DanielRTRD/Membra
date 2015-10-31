@@ -93,9 +93,10 @@ var neonLogin = neonLogin || {};
 						{
 							// Login status [success|invalid]
 							var login_status = response.login_status;
+							var login_msg = response.login_msg;
 															
 							// Form is fully completed, we update the percentage
-							neonLogin.setPercentage(100);
+							neonLogin.setPercentage(80);
 							
 							
 							// We will give some time for the animation to finish, then execute the following procedures	
@@ -106,10 +107,11 @@ var neonLogin = neonLogin || {};
 								{
 									$(".login-page").removeClass('logging-in');
 									neonLogin.resetProgressBar(true);
+									document.getElementById("login_msg").innerHTML = response.login_msg;
 								}
-								else
-								if(login_status == 'success')
+								else if(login_status == 'success')
 								{
+									neonLogin.setPercentage(100);
 									// Redirect to login page
 									setTimeout(function()
 									{

@@ -12,6 +12,14 @@ class UserTableSeeder extends Seeder {
 			'password' 		=> '12345678', // Den hash'r automatisk
 			'firstname' 	=> 'Daniel',
 			'username' 		=> 'admin',
+			'active'		=> 1,
+		]);
+
+		User::create([
+			'email' 		=> 'test@rtrdt.ch',
+			'password' 		=> '12345678', // Den hash'r automatisk
+			'firstname' 	=> 'John',
+			'username' 		=> 'test',
 		]);
 
 	}

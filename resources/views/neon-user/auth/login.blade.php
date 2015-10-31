@@ -31,8 +31,8 @@
 	<div class="login-content">
 		
 		<div class="form-login-error">
-			<h3>Invalid login</h3>
-			<p>Enter <strong>demo</strong>/<strong>demo</strong> as login and password.</p>
+			<h3>Login Unsuccessful</h3>
+			<p id="login_msg">Oooops...</p>
 		</div>
 		
 		<form method="post" role="form" id="form_login">

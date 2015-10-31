@@ -16,36 +16,91 @@ var neonRegister = neonRegister || {};
 		neonRegister.$steps = neonRegister.$container.find(".form-steps");
 		neonRegister.$steps_list = neonRegister.$steps.find(".step");
 		neonRegister.step = 'step-1'; // current step
-		
+
+		// Block the enter key, because bug thats why
+		$('html').bind('keypress', function(e)
+		{
+			if(e.keyCode == 13)
+			{
+				return false;
+			}
+		});
+
+		jQuery.validator.addMethod("realEmail", function(value, element) {
+			return this.optional( element ) || ( /^[a-z0-9]+([-._][a-z0-9]+)*@([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,4}$/.test(value) && /^(?=.{1,64}@.{4,64}$)(?=.{6,100}$).*/.test(value));
+}, 'Please enter valid email address.');
+
+		$.validator.addMethod("age", function (value, element) {
+			if (this.optional(element)) {
+				return true;
+			}
+
+			var dateOfBirth = value;
+			var arr_dateText = dateOfBirth.split("/");
+			var day = arr_dateText[0];
+			var month = arr_dateText[1];
+			var year = arr_dateText[2];
+
+			var mydate = new Date();
+			mydate.setFullYear(year, month - 1, day);
+
+			var currdate = new Date();
+			currdate.setFullYear(currdate.getFullYear() - 12);
+
+			return currdate > mydate;
+
+		}, 'Minimum age is set to 12. If you\'re younger, contact the staff.');
+
+		$.validator.addMethod(
+				"regex",
+				function(value, element, regexp) {
+					var re = new RegExp(regexp);
+					return this.optional(element) || re.test(value);
+				},
+				"Unsupported character. Please change your input."
+		);
 		
 		neonRegister.$container.validate({
 			rules: {
 				firstname: {
-					required: true
+					required: true,
+					rangelength: [3, 25]
 				},
 
 				lastname: {
-					required: true
+					required: true,
+					rangelength: [3, 25]
 				},
 				
 				email: {
 					required: true,
-					email: true
+					email: true,
+					realEmail: true
 				},
 				
 				username: {
-					required: true	
+					required: true,
+					rangelength: [3, 30],
+					regex: "^[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*$"
 				},
 
 				birthdate: {
-					required: true
+					required: true,
+					date: true,
+					age: true
 				},
 				
 				password: {
-					required: true
+					required: true,
+					rangelength: [8, 64]
 				},
 
 				password_confirmation: {
+					required: true,
+					equalTo: "#password"
+				},
+
+				tospp: {
 					required: true
 				},
 				
@@ -54,7 +109,7 @@ var neonRegister = neonRegister || {};
 			messages: {
 				
 				email: {
-					email: 'Invalid E-mail.'
+					email: 'Please enter valid email address.'
 				}	
 			},
 			
@@ -76,7 +131,7 @@ var neonRegister = neonRegister || {};
 				neonRegister.setPercentage(30, function()
 				{
 					// Lets move to 98%, meanwhile ajax data are sending and processing
-					neonRegister.setPercentage(98, function()
+					neonRegister.setPercentage(80, function()
 					{
 						// set up jQuery with the CSRF token, or else post routes will fail
 						$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });

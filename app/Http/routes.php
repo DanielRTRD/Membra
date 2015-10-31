@@ -235,6 +235,46 @@ Route::group(['prefix' => 'ajax',], function() {
 		return Response::json($resp);
 	});
 	Route::post('/account/login', function () {
+
+		$resp = array();
+		$login_status = 'invalid';
+		$login_msg = 'Something went wrong...';
+
+		$username = Request::input('username');
+		$password = Request::input('password');
+		$remember = Request::input('remember');
+
+		$user = \App\User::where('username', '=', $username)->first();
+
+		if ($user == null) {
+
+			$login_msg = 'User not found!';
+
+		} else {
+
+			$active = $user->active;
+
+			if ($active == 0) {
+
+				$login_msg = '<strong>Your user is not active!</strong><br>Please check your inbox for the activation email.';
+
+			} elseif (Auth::attempt(['username' => $username, 'password' => $password, 'active' => 1], $remember)) {
+
+				$login_status = 'success';
+				$resp['redirect_url'] = URL::route('account');
+
+			} else {
+
+				$login_msg = 'Username or password was wrong. Please try again.';
+
+			}
+
+		}
+
+		$resp['login_status'] = $login_status;
+		$resp['login_msg'] = $login_msg;
+
+		/*
 		# Response Data Array
 		$resp = array();
 		// Fields Submitted
@@ -265,7 +305,7 @@ Route::group(['prefix' => 'ajax',], function() {
 			
 			// Set the redirect url after successful login
 			$resp['redirect_url'] = URL::route('account');
-		}
+		}*/
 
 		return Response::json($resp);
 	});
