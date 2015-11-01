@@ -54,10 +54,9 @@ var neonLogin = neonLogin || {};
 				// We will wait till the transition ends				
 				setTimeout(function()
 				{
-					var random_pct = 25 + Math.round(Math.random() * 30);
 					
 					// The form data are subbmitted, we can forward the progress to 70%
-					neonLogin.setPercentage(40 + random_pct);
+					neonLogin.setPercentage(50);
 
 					// set up jQuery with the CSRF token, or else post routes will fail
 					$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
