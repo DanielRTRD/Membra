@@ -15,7 +15,7 @@
 			<!-- progress bar indicator -->
 			<div class="login-progressbar-indicator">
 				<h3>43%</h3>
-				<span>logging in...</span>
+				<span>registrering user...</span>
 			</div>
 		</div>
 		

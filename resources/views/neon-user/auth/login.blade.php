@@ -64,8 +64,8 @@
 			</div>
 
 			<div class="form-group">
-				<label>
-					<input type="checkbox" name="remember" id="remember" value="1" {{ old('remember') ? 'checked' : '' }}> Remember me
+				<label class="input-group" style="width:100%">
+					<input type="checkbox" name="remember" id="remember"> Remember me
 				</label>
 			</div>
 			
@@ -81,11 +81,9 @@
 		
 		<div class="login-bottom-links">
 			
-			<a href="{{ route('account-forgotpassword') }}" class="link">Forgot your password?</a>
-			
-			<br />
-			
-			<a href="{{ route('account-tos-privacy') }}">Terms of Service &amp; Privacy Policy</a>
+			<p><a href="{{ route('account-forgotpassword') }}" class="link">Forgot your password?</a> &middot; <a href="{{ route('account-register') }}" class="link">Need an account?</a></p>
+
+			<p><a href="{{ route('account-tos-privacy') }}">Terms of Service &amp; Privacy Policy</a></p>
 			
 		</div>
 		
