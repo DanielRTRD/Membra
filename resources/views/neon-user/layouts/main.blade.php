@@ -158,7 +158,7 @@
 				toastr.info("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
 			@elseif(Session::get('globaltype') == 'warning')
 				toastr.warning("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
-			@elseif(Session::get('globaltype') == 'danger')
+			@elseif(Session::get('globaltype') == 'error')
 				toastr.error("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
 			@elseif(Session::get('globaltype') == 'success')
 				toastr.success("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);

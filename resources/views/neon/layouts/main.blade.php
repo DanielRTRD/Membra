@@ -8,8 +8,6 @@
 
 	<title>@yield('title') - {{ Config::get('rtech.appname') }}</title>
 
-	<!--{{ Theme::css('css/bootstrap.css') }}-->
-
 	<link href="{{ Theme::url('css/bootstrap.css') }}" rel="stylesheet">
 
 	<link href="{{ Theme::url('css/font-icons/entypo/css/entypo.css') }}" rel="stylesheet">
@@ -166,11 +164,6 @@
 						@if(Config::get('app.debug')) - <b><a href="/resetdb" class="text-danger">DEBUG MODE</a></b> @endif
 					</small>
 				</p>
-				<!--<ul class="social-networks text-right">
-					<li><a href="#"><i class="entypo-instagram"></i></a></li>
-					<li><a href="#"><i class="entypo-twitter"></i></a></li>
-					<li><a href="#"><i class="entypo-facebook"></i></a></li>
-				</ul>-->
 			</div>
 		</div>
 	</div>
@@ -184,6 +177,7 @@
 	<script src="{{ Theme::url('js/joinable.js') }}"></script>
 	<script src="{{ Theme::url('js/resizeable.js') }}"></script>
 	<script src="{{ Theme::url('js/neon-slider.js') }}"></script>
+	<script src="{{ Theme::url('js/toastr.js') }}"></script>
 
 
 	<!-- JavaScripts initializations and stuff -->
@@ -211,7 +205,7 @@
 				toastr.info("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
 			@elseif(Session::get('globaltype') == 'warning')
 				toastr.warning("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
-			@elseif(Session::get('globaltype') == 'danger')
+			@elseif(Session::get('globaltype') == 'error')
 				toastr.error("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
 			@elseif(Session::get('globaltype') == 'success')
 				toastr.success("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
