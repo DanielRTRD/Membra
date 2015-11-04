@@ -31,9 +31,15 @@ class AuthController extends Controller {
 	}
 
 	public function getActivate($activation_code) {
-		$user = User::where('activation_code', '=', $activation_code)->where('active', '=', 0)->first();
+		$user = User::where('activation_code', '=', $activation_code)->first();
 
-		if($user != null) {
+		// SOMETHING IS FUCKY HERE
+
+		if($user == null) {
+			return Redirect::route('home')
+					->with('globaltype', 'error')
+					->with('global', 'We could\'t find your user.');
+		} else {
 
 			//update user to active state
 			$user->active 			= 1;
@@ -42,14 +48,17 @@ class AuthController extends Controller {
 			if($user->save()) {
 				return Redirect::route('account-login')
 						->with('globaltype', 'success')
-						->with('global', 'Your account is now active! Please login.');
+						->with('global', 'Your account is now activated. Please log in.');
+			} else {
+				return Redirect::route('home')
+					->with('globaltype', 'error')
+					->with('global', 'Something went wrong while activating your account. Please try again later.');
 			}
-
 		}
-
+		
 		return Redirect::route('home')
-				->with('globaltype', 'danger')
-				->with('global', 'Something went wrong while trying to activate your account.');
+			->with('globaltype', 'error')
+			->with('global', 'Something went wrong while activating your account. Please try again later.');
 
 	}
 
