@@ -15,7 +15,7 @@
 			<!-- progress bar indicator -->
 			<div class="login-progressbar-indicator">
 				<h3>43%</h3>
-				<span>registrering user...</span>
+				<span>registering user, please wait...</span>
 			</div>
 		</div>
 		

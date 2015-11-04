@@ -158,6 +158,7 @@ var neonRegister = neonRegister || {};
 									console.log('Requested page not found. [404]');
 								} else if (jqXHR.status == 500) {
 									console.log('Internal Server Error [500].');
+									console.log(jqXHR.responseText)
 								} else if (exception === 'parsererror') {
 									console.log('Requested JSON parse failed.');
 								} else if (exception === 'timeout') {
@@ -173,17 +174,6 @@ var neonRegister = neonRegister || {};
 								
 								var reg_status = response.reg_status;
 								var reg_msg = response.reg_msg;
-
-								console.log(String("success").toUpperCase());
-
-								// From response you can fetch the data object retured
-								/*var firstname = response.submitted_data.firstname,
-									lastname = response.submitted_data.lastname,
-									birthdate = response.submitted_data.birthdate,
-									username = response.submitted_data.username,
-									email = response.submitted_data.email,
-									password = response.submitted_data.password,
-									password_confirmation = response.submitted_data.password_confirmation;*/
 								
 								
 								// Form is fully completed, we update the percentage
