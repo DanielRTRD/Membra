@@ -1,4 +1,4 @@
-@extends('emails.layout.main')
+@extends('layouts.emails.main')
 @section('subject') Activate Account @stop
 @section('content') 
 

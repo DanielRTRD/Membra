@@ -67,6 +67,10 @@ if(Config::get('app.debug')) {
 				'as' => 'account-login-post',
 				'uses' => 'Member\AuthController@postLogin'
 			]);
+			get('/activate/{activation_code}', [
+				'as' => 'account-activate',
+				'uses' => 'Member\AuthController@getActivate'
+			]);
 	});
 
 	Route::group([

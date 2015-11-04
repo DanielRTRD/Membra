@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration {
 			$table->string('profilecover')->nullable();
 			$table->string('referral');
 			$table->string('referral_code');
+			$table->string('activation_code');
 
 			$table->string('userdateformat')->default('d. M Y');
 			$table->string('usertimeformat')->default('H:i');
