@@ -189,5 +189,37 @@
 	<!-- JavaScripts initializations and stuff -->
 	<script src="{{ Theme::url('js/neon-custom.js') }}"></script>
 
+	<script type="text/javascript">
+
+		var opts = {
+			"closeButton": true,
+			"debug": false,
+			"positionClass": "toast-top-right",
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+
+		@if(Session::has('global') && Session::has('globaltype'))
+			@if(Session::get('globaltype') == 'info')
+				toastr.info("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
+			@elseif(Session::get('globaltype') == 'warning')
+				toastr.warning("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
+			@elseif(Session::get('globaltype') == 'danger')
+				toastr.error("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
+			@elseif(Session::get('globaltype') == 'success')
+				toastr.success("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
+			@endif
+
+		@endif
+
+	</script>
+
 </body>
 </html>
