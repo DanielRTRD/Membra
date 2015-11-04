@@ -24,82 +24,33 @@ class AuthController extends Controller {
 		$this->beforeFilter('csrf', ['on' => ['post']]);
 		$this->beforeFilter('guest', ['except' => ['getLogout']]);
 	}
-
-	public function getLogin() {
-		return view('auth.login');
-	}
-
-	public function postLogin() {
-		$resp = array();
-		$resp['submitted_data'] = Request::all();
-		return  Response::json($resp);
-		/*
-		if ($this->auth->attempt($request->credentials(), $request->remember())) {
-			$user = $this->auth->user();
-			//return Redirect::intended(route('profile', [$user->getKey()]));
-			return Redirect::route('home')->with('messagetype', 'success')->with('message', 'You have now been successfully been logged in.');
-		}
-	 
-		return Redirect::route('login')
-				->withErrors([
-					'email' => 'The credentials you entered did not match our records. Try again?'
-					]);*/
-	}
-	 
-	public function getRegister() {
-		return view('auth.register');
-	}
-
-	public function postRegister() {
-
-		$resp = array();
-		$resp['submitted_data'] = Request::all();
-		return  Response::json($resp);
-
-		/*$user = User::create($request->all());
-		$this->auth->login($user);
-		return Redirect::route('home');*/
-
-		/*
-		$email 			= $request->get('email');
-		$firstname 		= $request->get('firstname');
-		$lastname 		= $request->get('lastname');
-		$username 		= $request->get('username');
-		$password 		= $request->get('password');
-		$referral		= $request->get('referral');
-		$referral_code 	= str_random(15);
-		$code 			= str_random(60); // Activation Code
-
-		$user = User::create(array(
-			'email' 		=> $email,
-			'username'		=> $username,
-			'firstname'		=> $firstname,
-			'lastname'		=> $lastname,
-			'password'		=> $password,
-			'code'			=> $code,
-			'referral'		=> $referral,
-			'referral_code'	=> $referral_code,
-			'active'		=> 0
-		));
-
-		if($user) {
-
-			Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $code), 'firstname' => $firstname), function($message) use ($user) {
-				$message->to($user->email, $user->firstname)->subject('Activate your account');
-			});
-			Session::forget('referral'); //forget the referralRolig
-
-			return Redirect::refresh()
-					->with('messagetype', 'success')
-					->with('message', 'Your account has been created! We have sent you an email to acitvate your account.');
-
-		}
-		*/
-	}
 	 
 	public function getLogout() {
 		$this->auth->logout();
 		return Redirect::route('home')->with('messagetype', 'success')->with('message', 'You have now been successfully been logged out!');
+	}
+
+	public function getActivate($activation_code) {
+		$user = User::where('activation_code', '=', $activation_code)->where('active', '=', 0)->first();
+
+		if($user != null) {
+
+			//update user to active state
+			$user->active 			= 1;
+			$user->activation_code 	= '';
+
+			if($user->save()) {
+				return Redirect::route('account-login')
+						->with('globaltype', 'success')
+						->with('global', 'Your account is now active! Please login.');
+			}
+
+		}
+
+		return Redirect::route('home')
+				->with('globaltype', 'danger')
+				->with('global', 'Something went wrong while trying to activate your account.');
+
 	}
 
 }
