@@ -231,10 +231,59 @@ Route::get('/members', ['as' => 'members', 'uses' => 'Member\ProfileController@g
 Route::group(['prefix' => 'ajax',], function() {
 	Route::post('/account/register', function () {
 
-		// DO SOME COOL STUFF HERE
-
 		$resp = array();
-		$resp['submitted_data'] = Request::all();
+
+		$reg_status = 'invalid';
+		$reg_msg = 'Something went wrong...';
+
+		$email 				= Request::get('email');
+		$firstname	 		= Request::get('firstname');
+		$lastname 			= Request::get('lastname');
+		$username 			= Request::get('username');
+		$password 			= Request::get('password');
+		$referral			= Request::get('referral');
+		$referral_code 		= str_random(15);
+		$activation_code	= str_random(60); // Activation Code
+
+		$user = \App\User::create(array(
+			'email' 			=> $email,
+			'username'			=> $username,
+			'firstname'			=> $firstname,
+			'lastname'			=> $lastname,
+			'password'			=> $password,
+			'activation_code'	=> $activation_code,
+			'referral'			=> $referral,
+			'referral_code'		=> $referral_code,
+			'active'			=> 0
+		));
+
+		if($user) {
+
+			$reg_status = 'success';
+
+			Mail::send('emails.activate', array('link' => URL::route('account-activate', $activation_code), 'firstname' => $firstname), function($message) use ($user) {
+				$message->to($user->email, $user->firstname)->subject('Activate your account');
+			});
+
+			if(count(Mail::failures()) > 0) {
+				$reg_status = 'invalid';
+				$reg_msg = 'Something went wrong while trying to send you an email.';
+			}
+
+			Session::forget('referral'); //forget the referral
+
+			/*return Redirect::route('home')
+					->with('messagetype', 'success')
+					->with('message', 'Your account has been created! We have sent you an email to acitvate your account.');*/
+
+		} else {
+			$reg_status = 'invalid';
+			$reg_msg = 'Something went wrong while trying to register your user.';
+		}
+
+		
+		$resp['reg_status'] = $reg_status;
+		$resp['reg_msg'] = $reg_msg;
 		return Response::json($resp);
 	});
 	Route::post('/account/login', function () {

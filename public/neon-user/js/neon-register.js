@@ -170,17 +170,20 @@ var neonRegister = neonRegister || {};
 							},
 							success: function(response)
 							{
+								
+								var reg_status = response.reg_status;
+								var reg_msg = response.reg_msg;
 
-								console.log(String("success").toUpperCase())
+								console.log(String("success").toUpperCase());
 
 								// From response you can fetch the data object retured
-								var firstname = response.submitted_data.firstname,
+								/*var firstname = response.submitted_data.firstname,
 									lastname = response.submitted_data.lastname,
 									birthdate = response.submitted_data.birthdate,
 									username = response.submitted_data.username,
 									email = response.submitted_data.email,
-									password = response.submitted_data.password;
-									password_confirmation = response.submitted_data.password_confirmation;
+									password = response.submitted_data.password,
+									password_confirmation = response.submitted_data.password_confirmation;*/
 								
 								
 								// Form is fully completed, we update the percentage
@@ -190,20 +193,31 @@ var neonRegister = neonRegister || {};
 								// We will give some time for the animation to finish, then execute the following procedures	
 								setTimeout(function()
 								{
-									// Hide the description title
-									$(".login-page .login-header .description").slideUp();
-									
-									// Hide the register form (steps)
-									neonRegister.$steps.slideUp('normal', function()
+
+									// If login is invalid, we store the 
+									if(reg_status == 'invalid')
 									{
-										// Remove loging-in state
 										$(".login-page").removeClass('logging-in');
+										neonLogin.resetProgressBar(true);
+										document.getElementById("reg_msg").innerHTML = response.reg_msg;
+									}
+									else if(reg_status == 'success')
+									{
+										// Hide the description title
+										$(".login-page .login-header .description").slideUp();
 										
-										// Now we show the success message
-										$(".form-register-success").slideDown('normal');
-										
-										// You can use the data returned from response variable
-									});
+										// Hide the register form (steps)
+										neonRegister.$steps.slideUp('normal', function()
+										{
+											// Remove loging-in state
+											$(".login-page").removeClass('logging-in');
+											
+											// Now we show the success message
+											$(".form-register-success").slideDown('normal');
+											
+											// You can use the data returned from response variable
+										});
+									};
 									
 								}, 1000);
 							}
