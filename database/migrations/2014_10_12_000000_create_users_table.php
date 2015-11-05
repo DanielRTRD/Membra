@@ -46,7 +46,7 @@ class CreateUsersTable extends Migration {
 			$table->enum('active', array(0, 1))->default(0);
 			$table->integer('creator_id')->default(0); //who created it?
 			$table->integer('author_id')->default(0); //who updated it?
-			$table->timestamp('last_activity')->default(0);
+			$table->timestamp('last_activity')->default("0000-00-00 00:00:00");
 
 			$table->rememberToken();
 			$table->timestamps();
