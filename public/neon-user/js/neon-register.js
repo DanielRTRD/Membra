@@ -158,7 +158,27 @@ var neonRegister = neonRegister || {};
 									console.log('Requested page not found. [404]');
 								} else if (jqXHR.status == 500) {
 									console.log('Internal Server Error [500].');
-									console.log(jqXHR.responseText)
+									console.log(jqXHR.responseText);
+									var toptions = {
+										"closeButton": false,
+										"debug": false,
+										"positionClass": "toast-top-right",
+										"onclick": null,
+										"showDuration": "300",
+										"hideDuration": "1000",
+										"timeOut": "0",
+										"extendedTimeOut": "0",
+										"showEasing": "swing",
+										"hideEasing": "linear",
+										"showMethod": "fadeIn",
+										"hideMethod": "fadeOut",
+										"tapToDismiss": false
+									};
+									toastr.error("Something went wrong, our monkies are working on it! Please let the staff know that you saw this message.", "500 - Internal Server Error", toptions);
+									setTimeout(function()
+									{
+										//redir
+									}, 5000);
 								} else if (exception === 'parsererror') {
 									console.log('Requested JSON parse failed.');
 								} else if (exception === 'timeout') {
@@ -188,7 +208,6 @@ var neonRegister = neonRegister || {};
 									if(reg_status == 'invalid')
 									{
 										$(".login-page").removeClass('logging-in');
-										neonLogin.resetProgressBar(true);
 										document.getElementById("reg_msg").innerHTML = response.reg_msg;
 									}
 									else if(reg_status == 'success')
