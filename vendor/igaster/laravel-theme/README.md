@@ -28,15 +28,15 @@ and install with `composer update`
 
 Add the service provider in `app/config/app.php`, `Providers` array:
 
-    'igaster\laravelTheme\themeServiceProvider',
+    igaster\laravelTheme\themeServiceProvider::class,
 
 also edit the `Facades` array and add:
 
-    'Theme'  => 'igaster\laravelTheme\Facades\Theme',
+    'Theme' => igaster\laravelTheme\Facades\Theme::class,
 
-Almost Done. You only need to publish configuration file to your application with
+Almost Done. You can optionally publish a configuration file to your application with
 
-    artisan vendor:publish
+    php artisan vendor:publish --provider=igaster\laravelTheme\themeServiceProvider
 
 That's it. You are now ready to start theming your applications!
 
@@ -62,10 +62,11 @@ Simple define your themes in the `themes` array in `config/themes.php`. The form
     // It is relative to laravels public folder (/public)
     'asset-path' 	=> 'path-to-assets',   // defaults to: theme-name
 
-    // you can add your own custom keys and retrieve them with Theme::config('key')
+    // you can add your own custom keys and retrieve them with Theme::config('key'). e.g.:
+    'key'           => 'value', 
 ],
 ```
-all settings are optional and can be ommited. Check the example in the configuration file... If you are OK with the defaults then you don't even have to touch the configuration file. If a theme is not found then the default values will be used (Convention over configuration)
+all settings are optional and can be ommited. Check the example in the configuration file... If you are OK with the defaults then you don't even have to touch the configuration file. If a theme has not been registered then the default values will be used!
 
 ## Extending themes
 
@@ -78,9 +79,10 @@ All themes fall back to the default laravel folders if a resource is not found o
 The default theme can be configured in the `theme.php` configuration file. Working with themes is very straightforward. Use:
 
 ```php
-Theme::set('theme-name');    // switch to 'theme-name'
-Theme::get();                // retrieve current theme's name
-Theme::config('key');        // read current theme's configuration value for 'key'
+Theme::set('theme-name');        // switch to 'theme-name'
+Theme::get();                    // retrieve current theme's name
+Theme::config('key');            // read current theme's configuration value for 'key'
+Theme::configSet('key','value'); // assign a key-value pair to current theme's configuration
 ```
 
 For example this is a Service Provider that will select a different theme for the `/admin/xxx` urls:
@@ -117,8 +119,18 @@ Some usefull helpers you can use:
 ```php
 Theme::js('file-name')
 Theme::css('file-name')
-Theme::img('src','alt', 'class-name')
+Theme::img('src', 'alt', 'class-name')
 ```    
+
+## Paremeters in filenames
+
+You can include any configuration key of the current theme inside any path string using *{curly brackets}*. For examle:
+
+```php
+Theme::url('main-{version}.css')
+```
+
+if there is a `"version"` key defined in the theme's configuration it will be evaluated and then the filename will be looked-up in the theme hierarcy. (e.g: many comercial themes ship with multiple versions of the main.css for different color-schemes)
 
 ## Assets Managment (Optional)
 
@@ -135,10 +147,10 @@ Add the Asset facade in your `Facades` array in `app/config/app.php`
 
 Now you can leverage all the power of Orchestra\Asset package. However the syntax can become quite cumbersome when you are using Themes + Orchestra/Asset, so some Blade-specific sugar has been added to ease your work. Here how to build your views:
 
-In any blade file when you need to refer to a script or css: (dont use single/double quotes)
+In any blade file you can require a script or a css:
 
-    @css(filename)
-    @js(filename)
+    @css('filename')
+    @js('filename')
 
 Please note that you are just defining your css/js files but not actually dumping them in html. Usually you only need write your css/js decleration in one place on the Head/Footer of you page. So open your master layout and place:
 
@@ -151,17 +163,13 @@ exactly where you want write your declerations.
 
 This is an [Orchestra/Asset](http://orchestraplatform.com/docs/3.0/components/asset) feature explained well in the official documentation. Long story short:
 
-    @css (filename, alias, depends-on)
-    @js  (filename, alias, depends-on)
+    @css ('filename', 'alias', 'depends-on')
+    @js  ('filename', 'alias', 'depends-on')
 
 and your assets dependencies will be auto resolved. Your assets will be exported in the correct order. The biggest benefit of this approach is that you don't have to move all your declerations in your master layout file. Each sub-view can define it's requirements and they will auto-resolved in the correct order with no doublications. Awesome! A short example:
 
-    @js  (jquery.js,    jq)
-    @js  (bootstrap.js, bs, jq)
-
-## Important Note:
-
-Laravel is compiling your views every-time you make an edit. A compiled view will not recompile unless you make any edit to your view. Keep this in mind while you are developing themes...
+    @js  ('jquery.js',    'jquery')
+    @js  ('bootstrap.js', 'bootsrap', jquery)
 
 ## FAQ:
 

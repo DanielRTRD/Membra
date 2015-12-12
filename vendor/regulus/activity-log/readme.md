@@ -19,27 +19,27 @@ To install ActivityLog, make sure "regulus/activity-log" has been added to Larav
 		"regulus/activity-log": "0.5.*"
 	},
 
-Then run `php composer.phar update` from the command line. Composer will install the ActivityLog package. Now, all you have to do is register the service provider, set up ActivityLog's alias in `app/config/app.php`, Add this to the `providers` array:
+Then run `php composer.phar update` from the command line. Composer will install the ActivityLog package. Now, all you have to do is register the service provider and set up ActivityLog's alias. In `app/config/app.php`, add this to the `providers` array:
 
-	'Regulus\ActivityLog\ActivityLogServiceProvider',
+	Regulus\ActivityLog\ActivityLogServiceProvider::class,
 
 And add this to the `aliases` array:
 
 	'Activity' => 'Regulus\ActivityLog\Models\Activity',
 
-**Run the migrations and seed the database:**
+**Publishing migrations and configuration:**
 
-To run the database migrations (a single DB table), run the following from the command line:
-
-	php artisan migrate --path=vendor/regulus/activity-log/src/migrations
-
-**Publishing config file:**
-
-If you wish to customize the configuration of ActivityLog, you will need to publish the config file. Run this from the command line:
+To publish this package configuration and migrations, run this from the command line:
 
 	php artisan vendor:publish
 
-You will now be able to edit the config file in `config/log.php`.
+You will now be able to edit the config file in `config/log.php` if you wish to customize the configuration of ActivityLog.
+
+> **Note:** Migrations are only published; remember to run them when ready.
+
+To run migration to create ActivityLog's table, run this from the command line:
+
+	php artisan migrate
 
 <a name="basic-usage"></a>
 ## Basic Usage

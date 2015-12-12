@@ -2,12 +2,12 @@
 
 /*----------------------------------------------------------------------------------------------------------
 	Activity Log
-		A simple and clean Laravel 4 activity logger for monitoring
+		A simple and clean Laravel 5 activity logger for monitoring
 		user activity on a website or web application.
 
 		created by Cody Jassman
-		version 0.5.2
-		last updated on April 5, 2014
+		version 0.5.4
+		last updated on December 9, 2014
 ----------------------------------------------------------------------------------------------------------*/
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -55,7 +55,8 @@ class Activity extends Eloquent {
 
 		if (config('log.auto_set_user_id'))
 		{
-			$user = \Auth::user();
+			$user = call_user_func(config('log.auth_method'));
+
 			$activity->user_id = isset($user->id) ? $user->id : null;
 		}
 
