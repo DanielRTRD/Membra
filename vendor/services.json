@@ -30,7 +30,8 @@
         "Intervention\\Image\\ImageServiceProvider",
         "Regulus\\ActivityLog\\ActivityLogServiceProvider",
         "igaster\\laravelTheme\\themeServiceProvider",
-        "App\\Providers\\ThemeSelectServiceProvider"
+        "App\\Providers\\ThemeSelectServiceProvider",
+        "Zizaco\\Entrust\\EntrustServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -52,7 +53,8 @@
         "Intervention\\Image\\ImageServiceProvider",
         "Regulus\\ActivityLog\\ActivityLogServiceProvider",
         "igaster\\laravelTheme\\themeServiceProvider",
-        "App\\Providers\\ThemeSelectServiceProvider"
+        "App\\Providers\\ThemeSelectServiceProvider",
+        "Zizaco\\Entrust\\EntrustServiceProvider"
     ],
     "deferred": {
         "command.app.name": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
