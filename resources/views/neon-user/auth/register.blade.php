@@ -7,7 +7,7 @@
 		<div class="login-content">
 			
 			<a href="{{ route('home') }}" class="logo">
-				<img src="{{ Theme::url('images/rtusl5@2x.png') }}" width="120" alt="" />
+				<img src="{{ Theme::url('images/membra@2x.png') }}" width="120" alt="" />
 			</a>
 			
 			<p class="description">Create an account, it's free and takes only a few seconds!</p>
