@@ -149,7 +149,6 @@ return [
 		 * Third-party
 		 */
 		'Intervention\Image\ImageServiceProvider',
-		'Regulus\ActivityLog\ActivityLogServiceProvider',
 		'igaster\laravelTheme\themeServiceProvider',
 		'App\Providers\ThemeSelectServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
@@ -206,7 +205,6 @@ return [
 		 * Third-party
 		 */
 		'Image' 	=> 'Intervention\Image\Facades\Image',
-		'Activity' 	=> 'Regulus\ActivityLog\Models\Activity',
 		'Theme'  	=> 'igaster\laravelTheme\Facades\Theme',
 		'Entrust' 	=> 'Zizaco\Entrust\EntrustFacade'
 

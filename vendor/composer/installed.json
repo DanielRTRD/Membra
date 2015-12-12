@@ -3125,46 +3125,6 @@
         ]
     },
     {
-        "name": "regulus/activity-log",
-        "version": "v0.5.4",
-        "version_normalized": "0.5.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Regulus343/ActivityLog.git",
-            "reference": "b70ca715592d585576dbe73babff8daddf8a853e"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Regulus343/ActivityLog/zipball/b70ca715592d585576dbe73babff8daddf8a853e",
-            "reference": "b70ca715592d585576dbe73babff8daddf8a853e",
-            "shasum": ""
-        },
-        "require": {
-            "laravel/framework": "5.*",
-            "php": ">=5.4.0"
-        },
-        "time": "2015-12-09 07:36:43",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Regulus\\ActivityLog\\": "src/",
-                "Regulus\\ActivityLog\\Models\\": "src/models/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Cody Jassman",
-                "email": "me@codyjassman.com"
-            }
-        ],
-        "description": "A clean and simple Laravel 5 activity logger for monitoring user activity on a website or web application."
-    },
-    {
         "name": "igaster/laravel-theme",
         "version": "v1.0.15",
         "version_normalized": "1.0.15.0",

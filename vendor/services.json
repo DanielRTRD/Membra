@@ -28,7 +28,6 @@
         "App\\Providers\\EventServiceProvider",
         "App\\Providers\\RouteServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
-        "Regulus\\ActivityLog\\ActivityLogServiceProvider",
         "igaster\\laravelTheme\\themeServiceProvider",
         "App\\Providers\\ThemeSelectServiceProvider",
         "Zizaco\\Entrust\\EntrustServiceProvider"
@@ -51,7 +50,6 @@
         "App\\Providers\\EventServiceProvider",
         "App\\Providers\\RouteServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
-        "Regulus\\ActivityLog\\ActivityLogServiceProvider",
         "igaster\\laravelTheme\\themeServiceProvider",
         "App\\Providers\\ThemeSelectServiceProvider",
         "Zizaco\\Entrust\\EntrustServiceProvider"

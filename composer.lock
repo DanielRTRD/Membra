@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d7ab76ea19a78eef56682caf2602cd34",
-    "content-hash": "0be2eba534c5eb4052048da71cf75f50",
+    "hash": "6b4f7b84835d3a94513a22c570daf097",
+    "content-hash": "4a5870ac0ea57ac3466447adcfe66f8d",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1212,44 +1212,6 @@
                 "shell"
             ],
             "time": "2015-03-26 18:43:54"
-        },
-        {
-            "name": "regulus/activity-log",
-            "version": "v0.5.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Regulus343/ActivityLog.git",
-                "reference": "b70ca715592d585576dbe73babff8daddf8a853e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Regulus343/ActivityLog/zipball/b70ca715592d585576dbe73babff8daddf8a853e",
-                "reference": "b70ca715592d585576dbe73babff8daddf8a853e",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "5.*",
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Regulus\\ActivityLog\\": "src/",
-                    "Regulus\\ActivityLog\\Models\\": "src/models/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Cody Jassman",
-                    "email": "me@codyjassman.com"
-                }
-            ],
-            "description": "A clean and simple Laravel 5 activity logger for monitoring user activity on a website or web application.",
-            "time": "2015-12-09 07:36:43"
         },
         {
             "name": "swiftmailer/swiftmailer",
