@@ -32,12 +32,12 @@
 
 
 </head>
-<body class="page-body login-page login-form-fall" data-url="http://{{ Config::get('infihex.appdomain') }}">
+<body class="page-body login-page login-form-fall" data-url="{{ Config::get('infihex.appprotocol') }}://{{ Config::get('infihex.appdomain') }}">
 
 
 <!-- This is needed when you send requests via Ajax -->
 <script type="text/javascript">
-var baseurl = '{{ Config::get("rtech.appprotocol") }}://{{ Config::get("rtech.appdomain") }}';
+var baseurl = '{{ Config::get("infihex.appprotocol") }}://{{ Config::get("infihex.appdomain") }}';
 </script>
 	
 <div class="login-container">

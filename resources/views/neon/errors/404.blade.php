@@ -1,4 +1,4 @@
-@extends('layouts.front.main')
+@extends('layouts.main')
 @section('title') 404 @stop
    
 @section('content')
