@@ -8,7 +8,7 @@
 	<meta name="description" content="Neon Admin Panel" />
 	<meta name="author" content="" />
 
-	<title>@yield('title') - {{ Config::get('rtech.appname') }}</title>
+	<title>@yield('title') - {{ Config::get('infihex.appname') }}</title>
 
 	<link rel="stylesheet" href="{{ Theme::url('js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css') }}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -32,7 +32,7 @@
 
 
 </head>
-<body class="page-body login-page login-form-fall" data-url="http://{{ Config::get('rtech.appdomain') }}">
+<body class="page-body login-page login-form-fall" data-url="http://{{ Config::get('infihex.appdomain') }}">
 
 
 <!-- This is needed when you send requests via Ajax -->

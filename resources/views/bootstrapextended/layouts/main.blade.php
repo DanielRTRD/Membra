@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>@yield('title') - {{ Config::get('rtech.appname') }}</title>
+	<title>@yield('title') - {{ Config::get('infihex.appname') }}</title>
 
 	<!-- CSS -->
 	{{ Theme::css('css/bootstrap.min.css') }}
@@ -44,7 +44,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="{{ url('/') }}">{{ Config::get('rtech.appname') }}</a>
+				<a class="navbar-brand" href="{{ url('/') }}">{{ Config::get('infihex.appname') }}</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -135,7 +135,7 @@
 					<p class="text-muted"><small>Load time: {{ round((microtime(true) - LARAVEL_START), 3) }}s</small></p>
 				</div>
 				<div class="col-lg-6">
-				    <p class="text-right"><em><a href="http://jira.rtrdt.ch/browse/RTUSTWO?selectedTab=com.atlassian.jira.jira-projects-plugin:changelog-panel" target="_blank">{{Config::get('rtech.appname') . ' ' . Config::get('rtech.appversion') . ' ' . Config::get('rtech.appversiontype') }}</a></em>@if(Config::get('app.debug')) - <b><a href="/resetdb" class="text-danger">DEBUG MODE</a></b> @endif</p>
+				    <p class="text-right"><em><a href="http://jira.rtrdt.ch/browse/RTUSTWO?selectedTab=com.atlassian.jira.jira-projects-plugin:changelog-panel" target="_blank">{{Config::get('infihex.appname') . ' ' . Config::get('infihex.appversion') . ' ' . Config::get('infihex.appversiontype') }}</a></em>@if(Config::get('app.debug')) - <b><a href="/resetdb" class="text-danger">DEBUG MODE</a></b> @endif</p>
 				</div>
 			</div>
 		</div>

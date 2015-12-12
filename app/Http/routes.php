@@ -141,7 +141,7 @@ if(Config::get('app.debug')) {
 } else {
 	Route::group([
 		'middleware' => 'guest',
-		'doamin' => 'user.'.Config::get('rtech.appdomain'),
+		'doamin' => 'user.'.Config::get('infihex.appdomain'),
 		], function() {
 			get('/forgotpassword', [
 				'as' => 'account-forgotpassword' ,
@@ -183,7 +183,7 @@ if(Config::get('app.debug')) {
 
 	Route::group([
 		'middleware' => 'auth',
-		'domain' => 'user.'.Config::get('rtech.appdomain'),
+		'domain' => 'user.'.Config::get('infihex.appdomain'),
 		], function() {
 			get('/', [
 				'as' => 'account' ,
@@ -234,7 +234,7 @@ if(Config::get('app.debug')) {
 	// ADMIN PANEL
 	Route::group([
 		'middleware' => 'auth',
-		'domain' => 'admin.'.Config::get('rtech.appdomain'),
+		'domain' => 'admin.'.Config::get('infihex.appdomain'),
 		], function() {
 			/*get('/', [
 				'as' => 'account' ,

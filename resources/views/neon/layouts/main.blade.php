@@ -6,7 +6,7 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>@yield('title') - {{ Config::get('rtech.appname') }}</title>
+	<title>@yield('title') - {{ Config::get('infihex.appname') }}</title>
 
 	<link href="{{ Theme::url('css/bootstrap.css') }}" rel="stylesheet">
 
@@ -66,7 +66,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="{{ url('/') }}">{{ Config::get('rtech.appname') }}</a>
+				<a class="navbar-brand" href="{{ url('/') }}">{{ Config::get('infihex.appname') }}</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -154,13 +154,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6">
-				<p>&copy; {{ date("Y") }}, <a href="http://rtrdt.ch/" target="_blank">Retarded Tech</a></p>
+				<p>&copy; {{ date("Y") }}, <a href="https://infihex.com/" target="_blank">Infihex</a></p>
 				<p class="text-muted"><small>Load time: {{ round((microtime(true) - LARAVEL_START), 3) }}s</small></p>
 			</div>
 			<div class="col-sm-6">
 				<p>
 					<small>
-						<a href="http://jira.rtrdt.ch/browse/RTUSTWO?selectedTab=com.atlassian.jira.jira-projects-plugin:changelog-panel" target="_blank">{{Config::get('rtech.appname') . ' ' . Config::get('rtech.appversion') . ' ' . Config::get('rtech.appversiontype') }}</a>
+						<a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{Config::get('infihex.appname') . ' ' . Config::get('infihex.appversion') . ' ' . Config::get('infihex.appversiontype') }}</a>
 						@if(Config::get('app.debug')) - <b><a href="/resetdb" class="text-danger">DEBUG MODE</a></b> @endif
 					</small>
 				</p>
