@@ -23,7 +23,7 @@
 							<table width="100%" cellpadding="0" cellspacing="0">
 								<tr>
 									<td class="content-block">
-										<img src="{{ Config::get('infihex.appprotocol') }}://{{ Config::get('infihex.appdomain') }}/img/logo_500.png"><br>
+										<img src="{{ Config::get('infihex.appprotocol') }}://{{ Config::get('infihex.appdomain') }}/img/logo.png"><br>
 										<h2>@yield('subject')</h2>
 									</td>
 								</tr>
