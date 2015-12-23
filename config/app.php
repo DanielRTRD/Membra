@@ -151,7 +151,6 @@ return [
 		'Intervention\Image\ImageServiceProvider',
 		'igaster\laravelTheme\themeServiceProvider',
 		'App\Providers\ThemeSelectServiceProvider',
-		'Zizaco\Entrust\EntrustServiceProvider',
 
 	],
 
@@ -206,7 +205,6 @@ return [
 		 */
 		'Image' 	=> 'Intervention\Image\Facades\Image',
 		'Theme'  	=> 'igaster\laravelTheme\Facades\Theme',
-		'Entrust' 	=> 'Zizaco\Entrust\EntrustFacade'
 
 	],
 

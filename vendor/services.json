@@ -29,8 +29,7 @@
         "App\\Providers\\RouteServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
         "igaster\\laravelTheme\\themeServiceProvider",
-        "App\\Providers\\ThemeSelectServiceProvider",
-        "Zizaco\\Entrust\\EntrustServiceProvider"
+        "App\\Providers\\ThemeSelectServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -51,8 +50,7 @@
         "App\\Providers\\RouteServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
         "igaster\\laravelTheme\\themeServiceProvider",
-        "App\\Providers\\ThemeSelectServiceProvider",
-        "Zizaco\\Entrust\\EntrustServiceProvider"
+        "App\\Providers\\ThemeSelectServiceProvider"
     ],
     "deferred": {
         "command.app.name": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
