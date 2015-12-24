@@ -24,7 +24,8 @@ if(Config::get('app.debug')) {
 }
 
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
-Route::get('/tos', ['as' => 'account-tos-privacy', 'uses' => 'HomeController@index']);
+Route::get('/tos', ['as' => 'account-tos', 'uses' => 'HomeController@index']);
+Route::get('/privacy', ['as' => 'account-privacy', 'uses' => 'HomeController@index']);
 
 /*
 | IF IN DEBUG MODE THEN DO NOT USE SUBDOMAIN
@@ -148,6 +149,10 @@ Route::group(['prefix' => 'ajax',], function() {
 		$lastname 			= Request::get('lastname');
 		$username 			= Request::get('username');
 		$password 			= Request::get('password');
+
+		$originalDate 		= Request::input('birthdate');
+		$birthdate 			= date_format(date_create_from_format('d/m/Y', $originalDate), 'Y-m-d'); //strtotime fucks the date up so this is the solution
+
 		$referral			= Request::get('referral');
 		$referral_code 		= str_random(15);
 		$activation_code	= str_random(60); // Activation Code

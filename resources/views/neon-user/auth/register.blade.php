@@ -159,7 +159,7 @@
 				
 				<br />
 				
-				<a href="{{ route('account-tos-privacy') }}">Terms of Service &amp; Privacy Policy</a>
+				<p><a href="{{ route('account-tos') }}">Terms of Service</a> &middot; <a href="{{ route('account-privacy') }}">Privacy Policy</a></p>
 				
 			</div>
 

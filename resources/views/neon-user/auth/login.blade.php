@@ -81,9 +81,9 @@
 		
 		<div class="login-bottom-links">
 			
-			<p><a href="{{ route('account-forgotpassword') }}" class="link">Forgot your password?</a> &middot; <a href="{{ route('account-register') }}" class="link">Need an account?</a></p>
+			<p><a href="{{ route('account-forgot') }}" class="link">Forgot your credentials?</a> &middot; <a href="{{ route('account-register') }}" class="link">Need an account?</a></p>
 
-			<p><a href="{{ route('account-tos-privacy') }}">Terms of Service &amp; Privacy Policy</a></p>
+			<p><a href="{{ route('account-tos') }}">Terms of Service</a> &middot; <a href="{{ route('account-privacy') }}">Privacy Policy</a></p>
 			
 		</div>
 		
