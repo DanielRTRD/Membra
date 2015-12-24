@@ -332,6 +332,7 @@ Route::group(['prefix' => 'ajax',], function() {
 		$recover_msg = 'Something went wrong...';
 
 		$passwordtoken 		= Request::input('passwordtoken');
+		$password_temp 		= Request::input('password_temp');
 		$email 				= Request::input('email');
 		$originalDate 		= Request::input('birthdate');
 		$birthdate 			= date_format(date_create_from_format('d/m/Y', $originalDate), 'Y-m-d'); //strtotime fucks the date up so this is the solution
@@ -351,7 +352,7 @@ Route::group(['prefix' => 'ajax',], function() {
 
 				$recover_msg = '<strong>Your user is not active!</strong><br>Please check your inbox for the activation email.';
 
-			} elseif ($birthdate == $user->birthdate && $passwordtoken == $user->passwordtoken) {
+			} elseif ($birthdate == $user->birthdate && $passwordtoken == $user->passwordtoken && $password_temp == $user->password_temp) {
 
 				$user->passwordtoken 	= '';
 				$user->password_temp	= '';
@@ -368,7 +369,7 @@ Route::group(['prefix' => 'ajax',], function() {
 
 			} else {
 
-				$recover_msg = 'E-mail, recoverytoken or birthdate was wrong. Please try again.';
+				$recover_msg = 'E-mail, recoverytoken, temporary password or birthdate was wrong. Please try again.';
 
 			}
 
