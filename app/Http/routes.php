@@ -33,21 +33,21 @@ Route::group([
 	'middleware' => 'guest',
 	'prefix' => 'account',
 	], function() {
-		get('/forgotpassword', [
-			'as' => 'account-forgotpassword' ,
-			'uses' => 'Member\PasswordController@getForgotPassword'
+		get('/forgot', [
+			'as' => 'account-forgot' ,
+			'uses' => 'Member\RecoverController@getForgot'
 		]);
-		post('/forgotpassword', [
-			'as' => 'account-forgotpassword-post' ,
-			'uses' => 'Member\PasswordController@postForgotPassword'
+		post('/forgot', [
+			'as' => 'account-forgot-post' ,
+			'uses' => 'Member\RecoverController@postForgot'
 		]);
 		get('/recover/{token}', [
 			'as' => 'account-recover' ,
-			'uses' => 'Member\PasswordController@getRecoverAccount'
+			'uses' => 'Member\RecoverController@getRecoverAccount'
 		]);
 		post('/recover/{token}', [
 			'as' => 'account-recover-post' ,
-			'uses' => 'Member\PasswordController@postRecoverAccount'
+			'uses' => 'Member\RecoverController@postRecoverAccount'
 		]);
 		get('/register', [
 			'as' => 'account-register',
@@ -232,6 +232,48 @@ Route::group(['prefix' => 'ajax',], function() {
 
 		$resp['login_status'] = $login_status;
 		$resp['login_msg'] = $login_msg;
+
+		return Response::json($resp);
+	});
+	Route::post('/account/forgot', function () {
+
+		$resp = array();
+		$forgot_status = 'invalid';
+		$forgot_msg = 'Something went wrong...';
+
+		$email = Request::input('email');
+		$originalDate = Request::input('birthdate');
+		$birthdate = date_format(date_create_from_format('d/m/Y', $originalDate), 'Y-m-d'); //strtotime fucks the date up so this is the solution
+
+		$user = \App\User::where('email', '=', $email)->first();
+
+		if ($user == null) {
+
+			$forgot_msg = 'User not found!';
+
+		} else {
+
+			$active = $user->active;
+
+			if ($active == 0) {
+
+				$forgot_msg = '<strong>Your user is not active!</strong><br>Please check your inbox for the activation email.';
+
+			} elseif ($birthdate == $user->birthdate) {
+
+				$forgot_status = 'success';
+				$forgot_msg = 'Everything went well.';
+
+			} else {
+
+				$forgot_msg = 'E-mail or birthdate was wrong. Please try again.';
+
+			}
+
+		}
+
+		$resp['forgot_status'] 	= $forgot_status;
+		$resp['forgot_msg'] 	= $forgot_msg;
 
 		return Response::json($resp);
 	});

@@ -13,7 +13,7 @@ use App\Http\Requests\Member\RecoverRequest;
 
 use App\User;
 
-class PasswordController extends Controller {
+class RecoverController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -44,11 +44,11 @@ class PasswordController extends Controller {
 		$this->middleware('guest');
 	}
 
-	public function getForgotPassword() {
-		return view('account.forgotpassword');
+	public function getForgot() {
+		return view('auth.forgot');
 	}
 
-	public function postForgotPassword(ForgotPasswordRequest $request) {
+	public function postForgot(ForgotRequest $request) {
 
 		$user = User::where('email', '=', $request->get('email'))->first();
 

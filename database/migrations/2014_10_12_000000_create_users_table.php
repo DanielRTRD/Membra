@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration {
 			$table->string('location');
 			$table->string('address'); // Google Maps location
 			$table->string('occupation');
+			$table->date('birthdate')->default('1970-01-01'); //YYYY-MM-DD
 
 			$table->string('profilepicture')->nullable();
 			$table->string('profilepicturesmall')->nullable();
