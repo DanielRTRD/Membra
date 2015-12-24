@@ -177,7 +177,7 @@ Route::group(['prefix' => 'ajax',], function() {
 
 			$reg_status = 'success';
 
-			Mail::send('emails.activate', array('link' => URL::route('account-activate', $activation_code), 'firstname' => $firstname), function($message) use ($user) {
+			Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $activation_code), 'firstname' => $firstname), function($message) use ($user) {
 				$message->to($user->email, $user->firstname)->subject('Activate your account');
 			});
 

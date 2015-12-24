@@ -34,7 +34,7 @@
 								</tr>
 								<tr>
 									<td class="content-block">
-										&mdash; {{ Config::get('infihex.appname') }} Crew
+										&mdash; {{ Config::get('infihex.appname') }} Staff
 									</td>
 								</tr>
 							</table>

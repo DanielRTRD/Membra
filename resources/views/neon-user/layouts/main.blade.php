@@ -100,7 +100,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<footer class="main">
-						&copy; {{ date('Y') }}, <strong>RTUSL5</strong> by <a href="http://rtrdt.ch/" target="_blank">Retarded Tech</a>
+						&copy; {{ date('Y') }}, <a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{Config::get('infihex.appname') . ' ' . Config::get('infihex.appversion') . ' ' . Config::get('infihex.appversiontype') }}</a>
+						@if(Config::get('app.debug')) <b>(<a href="/resetdb" class="text-danger">DEBUG MODE</a>)</b> @endif by <a href="https://infihex.com/" target="_blank">Infihex</a>
 					</footer>
 				</div>
 			</div>
