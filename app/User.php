@@ -44,6 +44,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		$this->attributes['password'] = bcrypt($password);
 	}
 
+	public function isSuperAdmin() {
+		return ($this->issuperadmin == 1);
+	}
+
+	public function isAdmin() {
+		return ($this->isadmin == 1);
+	}
+
+	public function isMod() {
+		return ($this->ismod == 1);
+	}
+
 	public function scopeGetLastActivity($query, $id, $short = false) {
 
 		$user 		= $query->where('id', '=', $id)->first();
