@@ -1,10 +1,6 @@
-/**
- *	Neon Register Script
- *
- *	Developed by Arlind Nushi - www.laborator.co
- */
 
-var neonForgotPassword = neonForgotPassword || {};
+
+var neonRecoverAccount = neonRecoverAccount || {};
 
 ;(function($, window, undefined)
 {
@@ -12,10 +8,19 @@ var neonForgotPassword = neonForgotPassword || {};
 	
 	$(document).ready(function()
 	{
-		neonForgotPassword.$container = $("#form_forgot_password");
-		neonForgotPassword.$steps = neonForgotPassword.$container.find(".form-steps");
-		neonForgotPassword.$steps_list = neonForgotPassword.$steps.find(".step");
-		neonForgotPassword.step = 'step-1'; // current step
+		neonRecoverAccount.$container = $("#form_recover_account");
+		neonRecoverAccount.$steps = neonRecoverAccount.$container.find(".form-steps");
+		neonRecoverAccount.$steps_list = neonRecoverAccount.$steps.find(".step");
+		neonRecoverAccount.step = 'step-1'; // current step
+
+		// Block the enter key, because bug thats why
+		$('html').bind('keypress', function(e)
+		{
+			if(e.keyCode == 13)
+			{
+				return false;
+			}
+		});
 		
 		jQuery.validator.addMethod("realEmail", function(value, element) {
 			return this.optional( element ) || ( /^[a-z0-9]+([-._][a-z0-9]+)*@([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,4}$/.test(value) && /^(?=.{1,64}@.{4,64}$)(?=.{6,100}$).*/.test(value));
@@ -42,7 +47,7 @@ var neonForgotPassword = neonForgotPassword || {};
 
 		}, 'Minimum age is set to 12. If you\'re younger, contact the staff.');
 				
-		neonForgotPassword.$container.validate({
+		neonRecoverAccount.$container.validate({
 			rules: {
 				
 				email: {
@@ -55,7 +60,21 @@ var neonForgotPassword = neonForgotPassword || {};
 					required: true,
 					date: true,
 					age: true
-				}
+				},
+
+				password_temp: {
+					required: true,
+				},
+
+				password: {
+					required: true,
+					rangelength: [8, 64]
+				},
+
+				password_confirmation: {
+					required: true,
+					equalTo: "#password"
+				},
 
 			},
 			
@@ -84,31 +103,28 @@ var neonForgotPassword = neonForgotPassword || {};
 				$(".login-page").addClass('logging-in');
 				
 				// We consider its 30% completed form inputs are filled
-				neonForgotPassword.setPercentage(30, function()
+				neonRecoverAccount.setPercentage(30, function()
 				{
 					// Lets move to 80%, meanwhile ajax data are sending and processing
-					neonForgotPassword.setPercentage(80, function()
+					neonRecoverAccount.setPercentage(80, function()
 					{
 						// Send data to the server
 						$.ajax({
-							url: baseurl + '/ajax/account/forgot',
+							url: baseurl + '/ajax/account/recover',
 							method: 'POST',
 							dataType: 'json',
 							data: {
-								email: 			$("input#email").val(),
-								birthdate: 		$("input#birthdate").val(),
-								_token: 		$("input#_token").val()
+								passwordtoken:			$("input#passwordtoken").val(),
+								email: 					$("input#email").val(),
+								birthdate: 				$("input#birthdate").val(),
+								password_temp:			$("input#password_temp").val(),
+								password:				$("input#password").val(),
+								password_confirmation:	$("input#password_confirmation").val(),
+								_token: 				$("input#_token").val()
 							},
 							error: function(jqXHR, exception)
 							{
-								if (jqXHR.status === 0) {
-									console.log('Not connect.\n Verify Network.');
-								} else if (jqXHR.status == 404) {
-									console.log('Requested page not found. [404]');
-								} else if (jqXHR.status == 500) {
-									console.log('Internal Server Error [500].');
-									console.log(jqXHR.responseText);
-									var toptions = {
+								var toptions = {
 										"closeButton": false,
 										"debug": false,
 										"positionClass": "toast-top-right",
@@ -123,33 +139,43 @@ var neonForgotPassword = neonForgotPassword || {};
 										"hideMethod": "fadeOut",
 										"tapToDismiss": false
 									};
-									toastr.error("Something went wrong, our monkies are working on it! Please let the staff know that you saw this message.", "500 - Internal Server Error", toptions);
-									setTimeout(function()
-									{
-										//redir
-									}, 5000);
+								var toastrmsg = "Something went wrong, our monkies are working on it! Please let the staff know that you saw this message.";
+								if (jqXHR.status === 0) {
+									console.log('Not connect.\n Verify Network.');
+									toastr.error(toastrmsg, "0 - Could not connect", toptions);
+								} else if (jqXHR.status == 404) {
+									console.log('Requested page not found. [404]');
+									toastr.error(toastrmsg, "404 - Page not found", toptions);
+								} else if (jqXHR.status == 500) {
+									console.log('Internal Server Error [500].');
+									console.log(jqXHR.responseText);
+									toastr.error(toastrmsg, "500 - Internal Server Error", toptions);
 								} else if (exception === 'parsererror') {
 									console.log('Requested JSON parse failed.');
+									toastr.error(toastrmsg, "0 - Requested JSON parse failed.", toptions);
 								} else if (exception === 'timeout') {
 									console.log('Time out error.');
+									toastr.error(toastrmsg, "0 - Timed Out", toptions);
 								} else if (exception === 'abort') {
 									console.log('Ajax request aborted.');
+									toastr.error(toastrmsg, "0 - Ajax Request Aborted", toptions);
 								} else {
 									console.log('Uncaught Error.\n' + jqXHR.responseText);
+									toastr.error(toastrmsg, "999 - Uncaught Error", toptions);
 								}
 							},
 							success: function(response)
 							{
 								// From response you can fetch the data object retured
-								var forgot_status = response.forgot_status;
-								var forgot_msg = response.forgot_msg;
+								var recover_status = response.recover_status;
+								var recover_msg = response.recover_msg;
 
-								console.log(forgot_status);
-								console.log(forgot_msg);
+								console.log(recover_status);
+								console.log(recover_msg);
 								
 								
 								// Form is fully completed, we update the percentage
-								neonForgotPassword.setPercentage(100);
+								neonRecoverAccount.setPercentage(100);
 								
 								
 								// We will give some time for the animation to finish, then execute the following procedures	
@@ -157,19 +183,22 @@ var neonForgotPassword = neonForgotPassword || {};
 								{
 
 									// If login is invalid
-									if(forgot_status == 'invalid')
+									if(recover_status == 'invalid')
 									{
 										$(".login-page").removeClass('logging-in');
-										neonForgotPassword.resetProgressBar(true);
-										document.getElementById("forgot_msg").innerHTML = forgot_msg;
+										document.getElementById("step-1").className = 'step current';
+										document.getElementById("step-2").className = 'step';
+										neonRecoverAccount.resetProgressBar(true);
+										document.getElementById("recover_msg").innerHTML = recover_msg;
+										neonRecoverAccount.step = 'step-1';
 									}
-									else if(forgot_status == 'success')
+									else if(recover_status == 'success')
 									{
 										// Hide the description title
 										$(".login-page .login-header .description").slideUp();
 										
 										// Hide the register form (steps)
-										neonForgotPassword.$steps.slideUp('normal', function()
+										neonRecoverAccount.$steps.slideUp('normal', function()
 										{
 											// Remove loging-in state
 											$(".login-page").removeClass('logging-in');
@@ -190,16 +219,16 @@ var neonForgotPassword = neonForgotPassword || {};
 		});
 	
 		// Steps Handler
-		neonForgotPassword.$steps.find('[data-step]').on('click', function(ev)
+		neonRecoverAccount.$steps.find('[data-step]').on('click', function(ev)
 		{
 			ev.preventDefault();
 			
-			var $current_step = neonForgotPassword.$steps_list.filter('.current'),
+			var $current_step = neonRecoverAccount.$steps_list.filter('.current'),
 				next_step = $(this).data('step'),
-				validator = neonForgotPassword.$container.data('validator'),
+				validator = neonRecoverAccount.$container.data('validator'),
 				errors = 0;
 			
-			neonForgotPassword.$container.valid();
+			neonRecoverAccount.$container.valid();
 			errors = validator.numberOfInvalids();
 			
 			if(errors)
@@ -208,14 +237,14 @@ var neonForgotPassword = neonForgotPassword || {};
 			}
 			else
 			{
-				var $next_step = neonForgotPassword.$steps_list.filter('#' + next_step),
-					$other_steps = neonForgotPassword.$steps_list.not( $next_step ),
+				var $next_step = neonRecoverAccount.$steps_list.filter('#' + next_step),
+					$other_steps = neonRecoverAccount.$steps_list.not( $next_step ),
 					
 					current_step_height = $current_step.data('height'),
 					next_step_height = $next_step.data('height');
 				
-				TweenMax.set(neonForgotPassword.$steps, {css: {height: current_step_height}});
-				TweenMax.to(neonForgotPassword.$steps, 0.6, {css: {height: next_step_height}});
+				TweenMax.set(neonRecoverAccount.$steps, {css: {height: current_step_height}});
+				TweenMax.to(neonRecoverAccount.$steps, 0.6, {css: {height: next_step_height}});
 				
 				TweenMax.to($current_step, .3, {css: {autoAlpha: 0}, onComplete: function()
 				{
@@ -243,7 +272,7 @@ var neonForgotPassword = neonForgotPassword || {};
 			}
 		});
 		
-		neonForgotPassword.$steps_list.each(function(i, el)
+		neonRecoverAccount.$steps_list.each(function(i, el)
 		{
 			var $this = $(el),
 				is_current = $this.hasClass('current'),
@@ -261,24 +290,24 @@ var neonForgotPassword = neonForgotPassword || {};
 		
 		
 		// Login Form Setup
-		neonForgotPassword.$body = $(".login-page");
-		neonForgotPassword.$login_progressbar_indicator = $(".login-progressbar-indicator h3");
-		neonForgotPassword.$login_progressbar = neonForgotPassword.$body.find(".login-progressbar div");
+		neonRecoverAccount.$body = $(".login-page");
+		neonRecoverAccount.$login_progressbar_indicator = $(".login-progressbar-indicator h3");
+		neonRecoverAccount.$login_progressbar = neonRecoverAccount.$body.find(".login-progressbar div");
 		
-		neonForgotPassword.$login_progressbar_indicator.html('0%');
+		neonRecoverAccount.$login_progressbar_indicator.html('0%');
 		
-		if(neonForgotPassword.$body.hasClass('login-form-fall'))
+		if(neonRecoverAccount.$body.hasClass('login-form-fall'))
 		{
 			var focus_set = false;
 			
 			setTimeout(function(){ 
-				neonForgotPassword.$body.addClass('login-form-fall-init')
+				neonRecoverAccount.$body.addClass('login-form-fall-init')
 				
 				setTimeout(function()
 				{
 					if( !focus_set)
 					{
-						neonForgotPassword.$container.find('input:first').focus();
+						neonRecoverAccount.$container.find('input:first').focus();
 						focus_set = true;
 					}
 					
@@ -288,12 +317,12 @@ var neonForgotPassword = neonForgotPassword || {};
 		}
 		else
 		{
-			neonForgotPassword.$container.find('input:first').focus();
+			neonRecoverAccount.$container.find('input:first').focus();
 		}
 		
 		
 		// Functions
-		$.extend(neonForgotPassword, {
+		$.extend(neonRecoverAccount, {
 			setPercentage: function(pct, callback)
 			{
 
@@ -303,11 +332,11 @@ var neonForgotPassword = neonForgotPassword || {};
 				pct = parseInt(pct / 100 * 100, 10) + '%';
 				
 				// Normal Login
-				neonForgotPassword.$login_progressbar_indicator.html(pct);
-				neonForgotPassword.$login_progressbar.width(pct);
+				neonRecoverAccount.$login_progressbar_indicator.html(pct);
+				neonRecoverAccount.$login_progressbar.width(pct);
 				
 				var o = {
-					pct: parseInt(neonForgotPassword.$login_progressbar.width() / neonForgotPassword.$login_progressbar.parent().width() * 100, 10)
+					pct: parseInt(neonRecoverAccount.$login_progressbar.width() / neonRecoverAccount.$login_progressbar.parent().width() * 100, 10)
 				};
 				
 				TweenMax.to(o, .7, {
@@ -316,24 +345,24 @@ var neonForgotPassword = neonForgotPassword || {};
 					ease: Sine.easeOut,
 					onUpdate: function()
 					{
-						neonForgotPassword.$login_progressbar_indicator.html(o.pct + '%');
+						neonRecoverAccount.$login_progressbar_indicator.html(o.pct + '%');
 					},
 					onComplete: callback
 				});
 			},
 			resetProgressBar: function(display_errors)
 			{
-				TweenMax.set(neonForgotPassword.$container, {css: {opacity: 0}});
+				TweenMax.set(neonRecoverAccount.$container, {css: {opacity: 0}});
 				
 				setTimeout(function()
 				{
-					TweenMax.to(neonForgotPassword.$container, .6, {css: {opacity: 1}, onComplete: function()
+					TweenMax.to(neonRecoverAccount.$container, .6, {css: {opacity: 1}, onComplete: function()
 					{
-						neonForgotPassword.$container.attr('style', '');
+						neonRecoverAccount.$container.attr('style', '');
 					}});
 					
-					neonForgotPassword.$login_progressbar_indicator.html('0%');
-					neonForgotPassword.$login_progressbar.width(0);
+					neonRecoverAccount.$login_progressbar_indicator.html('0%');
+					neonRecoverAccount.$login_progressbar.width(0);
 					
 					if(display_errors)
 					{
@@ -352,7 +381,7 @@ var neonForgotPassword = neonForgotPassword || {};
 						}});
 						
 						// Reset password fields
-						//neonForgotPassword.$container.find('input[type="password"]').val('');
+						//neonRecoverAccount.$container.find('input[type="password"]').val('');
 					}
 					
 				}, 800);

@@ -6,3 +6,14 @@
 .login-page .login-form .form-group .input-group.validate-has-error .input-group-addon {
 	color:rgba(236, 89, 86, 0.5);
 }
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+	color:rgb(148, 148, 148) !important;
+}
+
+.login-page .btn-warning {
+	color:#666666 !important;
+}
+.login-page .btn-warning:hover {
+	color:rgb(148, 148, 148) !important;
+}

@@ -48,48 +48,6 @@ class RecoverController extends Controller {
 		return view('auth.forgot');
 	}
 
-	public function postForgot(ForgotRequest $request) {
-
-		$user = User::where('email', '=', $request->get('email'))->first();
-
-		if($user == null) {
-			return Redirect::route('home')
-						->with('messagetype', 'warning')
-						->with('message', 'We couldn\'t find your account. Please try again.');
-		} else {
-
-			/*$user 					= User::find($user->username);*/
-			$token					= str_random(60);
-			$user->passwordtoken 	= $token;
-
-			if($user->save()) {
-
-				Mail::send('emails.password', 
-					array(
-						'token' => $token,
-					), function($message) use ($user) {
-						$message->to($user->email, $user->username)->subject('Reset Password');
-				});
-
-				$mailfail = Mail::failures();
-
-				if($mailfail) {
-					
-					//dd($mailfail);
-
-					return Redirect::route('home')
-							->with('messagetype', 'danger')
-							->with('message', 'Something went wrong when we tried to send the email.');
-				} else {
-					return Redirect::route('home')
-							->with('messagetype', 'success')
-							->with('message', 'We have sent you an email to reset your password.');
-				}
-			}
-		}
-
-	}
-
 	public function getRecoverAccount($passwordtoken) {
 		$user = User::where('passwordtoken', '=', $passwordtoken)->first();
 		if($user == null) {
@@ -97,7 +55,7 @@ class RecoverController extends Controller {
 				->with('messagetype', 'warning')
 				->with('message', 'We couldn\'t find your account. Please try again.');
 		} else {
-			return view('account.recover')->with('passwordtoken', $passwordtoken);
+			return view('auth.recover')->with('passwordtoken', $passwordtoken);
 		}
 	}
 

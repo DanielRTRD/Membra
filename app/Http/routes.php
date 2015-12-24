@@ -266,8 +266,34 @@ Route::group(['prefix' => 'ajax',], function() {
 
 			} elseif ($birthdate == $user->birthdate) {
 
-				$forgot_status = 'success';
-				$forgot_msg = 'Everything went well.';
+				$passwordtoken 			= str_random(60);
+				$password_temp 			= str_random(16);
+
+				$user->passwordtoken 	= $passwordtoken;
+				$user->password_temp	= $password_temp;
+
+				if($user->save()) {
+
+					Mail::send('emails.auth.forgot', 
+						array(
+							'link' => URL::route('account-recover', $passwordtoken),
+							'firstname' => $user->firstname,
+							'username' => $user->username,
+							'password_temp' => $password_temp
+						), function($message) use ($user) {
+							$message->to($user->email, $user->firstname)->subject('Account Recovery');
+					});
+					
+					if(count(Mail::failures()) > 0) {
+						$forgot_msg = 'Mail Failure.';
+					} else {
+						$forgot_status = 'success';
+						$forgot_msg = 'Everything went well.';
+					}
+
+				} else {
+					$forgot_msg = 'Could not save the user changes. Please contact the staff.';
+				}
 
 			} else {
 
@@ -279,6 +305,64 @@ Route::group(['prefix' => 'ajax',], function() {
 
 		$resp['forgot_status'] 	= $forgot_status;
 		$resp['forgot_msg'] 	= $forgot_msg;
+
+		return Response::json($resp);
+	});
+	Route::post('/account/recover', function () {
+
+		if(!Request::ajax()) {
+			abort(403);
+		}
+
+		$resp = array();
+		$recover_status = 'invalid';
+		$recover_msg = 'Something went wrong...';
+
+		$passwordtoken 		= Request::input('passwordtoken');
+		$email 				= Request::input('email');
+		$originalDate 		= Request::input('birthdate');
+		$birthdate 			= date_format(date_create_from_format('d/m/Y', $originalDate), 'Y-m-d'); //strtotime fucks the date up so this is the solution
+		$password 			= Request::input('password');
+
+		$user = \App\User::where('email', '=', $email)->first();
+
+		if ($user == null) {
+
+			$recover_msg = 'User not found!';
+
+		} else {
+
+			$active = $user->active;
+
+			if ($active == 0) {
+
+				$recover_msg = '<strong>Your user is not active!</strong><br>Please check your inbox for the activation email.';
+
+			} elseif ($birthdate == $user->birthdate && $passwordtoken == $user->passwordtoken) {
+
+				$user->passwordtoken 	= '';
+				$user->password_temp	= '';
+				$user->password			= $password;
+
+				if($user->save()) {
+
+					$recover_status = 'success';
+					$recover_msg = 'Everything went well.';
+
+				} else {
+					$recover_msg = 'Could not save the user changes. Please contact the staff.';
+				}
+
+			} else {
+
+				$recover_msg = 'E-mail, recoverytoken or birthdate was wrong. Please try again.';
+
+			}
+
+		}
+
+		$resp['recover_status'] 	= $recover_status;
+		$resp['recover_msg'] 		= $recover_msg;
 
 		return Response::json($resp);
 	});

@@ -45,37 +45,36 @@
 			<input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
 			
 			<div class="form-steps">
-					<div class="step current" id="step-1">
-			
-						<div class="form-group">
-							
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="fa fa-envelope"></i>
-								</div>
-								
-								<input type="text" class="form-control" name="email" id="email" placeholder="E-mail" autocomplete="off" />
-							</div>
+				<div class="step current" id="step-1">
+		
+					<div class="form-group">
 						
-						</div>
-
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="fa fa-calendar"></i>
-								</div>
-								
-								<input type="text" class="form-control" name="birthdate" id="birthdate" placeholder="Date of Birth (DD/MM/YYYY)" data-mask="date" autocomplete="off" />
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-envelope"></i>
 							</div>
+							
+							<input type="text" class="form-control" name="email" id="email" placeholder="E-mail" autocomplete="off" />
 						</div>
+					
+					</div>
 
-						<div class="form-group">
-							<button type="submit" class="btn btn-primary btn-block btn-login">
-								<i class="fa fa-retweet"></i>
-								Recover Account
-							</button>
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							
+							<input type="text" class="form-control" name="birthdate" id="birthdate" placeholder="Date of Birth (DD/MM/YYYY)" data-mask="date" autocomplete="off" />
 						</div>
+					</div>
 
+					<div class="form-group">
+						<button type="submit" class="btn btn-success btn-block btn-login">
+							<i class="fa fa-angle-right"></i>
+							Continue
+						</button>
+					</div>
 				</div>
 			</div>
 			
