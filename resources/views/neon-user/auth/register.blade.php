@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title') Register @stop
+@section('title', 'Registration')
 
 @section('content')
 	<div class="login-header login-caret">
@@ -10,7 +10,7 @@
 				<img src="{{ Theme::url('images/membra@2x.png') }}" width="120" alt="" />
 			</a>
 			
-			<p class="description">Create an account, it's free and takes only a few seconds!</p>
+			<p class="description">So you want to join us? Cool!</p>
 			
 			<!-- progress bar indicator -->
 			<div class="login-progressbar-indicator">
@@ -32,7 +32,7 @@
 			<form method="post" accept-charset="utf-8" role="form" id="form_register">
 
 				<div class="form-register-success">
-					<i class="fa fa--check"></i>
+					<i class="fa fa-check"></i>
 					<h3>You have been successfully registered.</h3>
 					<p>We have emailed you the confirmation link for your account.</p>
 				</div>

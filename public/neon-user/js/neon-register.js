@@ -204,7 +204,7 @@ var neonRegister = neonRegister || {};
 								setTimeout(function()
 								{
 
-									// If login is invalid, we store the 
+									// If login is invalid
 									if(reg_status == 'invalid')
 									{
 										$(".login-page").removeClass('logging-in');

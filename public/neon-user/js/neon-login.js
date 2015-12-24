@@ -106,7 +106,7 @@ var neonLogin = neonLogin || {};
 								{
 									$(".login-page").removeClass('logging-in');
 									neonLogin.resetProgressBar(true);
-									document.getElementById("login_msg").innerHTML = response.login_msg;
+									document.getElementById("login_msg").innerHTML = login_msg;
 								}
 								else if(login_status == 'success')
 								{
