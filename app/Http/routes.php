@@ -166,6 +166,7 @@ Route::group(['prefix' => 'ajax',], function() {
 			'username'			=> $username,
 			'firstname'			=> $firstname,
 			'lastname'			=> $lastname,
+			'birthdate'			=> $birthdate,
 			'password'			=> $password,
 			'activation_code'	=> $activation_code,
 			'referral'			=> $referral,
