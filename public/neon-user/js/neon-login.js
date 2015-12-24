@@ -72,21 +72,45 @@ var neonLogin = neonLogin || {};
 							_token: $("input#_token").val()
 						},
 						error: function(jqXHR, exception) {
-							if (jqXHR.status === 0) {
-								console.log('Not connect.\n Verify Network.');
-							} else if (jqXHR.status == 404) {
-								console.log('Requested page not found. [404]');
-							} else if (jqXHR.status == 500) {
-								console.log('Internal Server Error [500]\n' + jqXHR.responseText);
-							} else if (exception === 'parsererror') {
-								console.log('Requested JSON parse failed.');
-							} else if (exception === 'timeout') {
-								console.log('Time out error.');
-							} else if (exception === 'abort') {
-								console.log('Ajax request aborted.');
-							} else {
-								console.log('Uncaught Error.\n' + jqXHR.responseText);
-							}
+							var toptions = {
+										"closeButton": false,
+										"debug": false,
+										"positionClass": "toast-top-right",
+										"onclick": null,
+										"showDuration": "300",
+										"hideDuration": "1000",
+										"timeOut": "0",
+										"extendedTimeOut": "0",
+										"showEasing": "swing",
+										"hideEasing": "linear",
+										"showMethod": "fadeIn",
+										"hideMethod": "fadeOut",
+										"tapToDismiss": false
+									};
+								var toastrmsg = "Something went wrong, our monkies are working on it! Please let the staff know that you saw this message.";
+								if (jqXHR.status === 0) {
+									console.log('Not connect.\n Verify Network.');
+									toastr.error(toastrmsg, "0 - Could not connect", toptions);
+								} else if (jqXHR.status == 404) {
+									console.log('Requested page not found. [404]');
+									toastr.error(toastrmsg, "404 - Page not found", toptions);
+								} else if (jqXHR.status == 500) {
+									console.log('Internal Server Error [500].');
+									console.log(jqXHR.responseText);
+									toastr.error(toastrmsg, "500 - Internal Server Error", toptions);
+								} else if (exception === 'parsererror') {
+									console.log('Requested JSON parse failed.');
+									toastr.error(toastrmsg, "0 - Requested JSON parse failed.", toptions);
+								} else if (exception === 'timeout') {
+									console.log('Time out error.');
+									toastr.error(toastrmsg, "0 - Timed Out", toptions);
+								} else if (exception === 'abort') {
+									console.log('Ajax request aborted.');
+									toastr.error(toastrmsg, "0 - Ajax Request Aborted", toptions);
+								} else {
+									console.log('Uncaught Error.\n' + jqXHR.responseText);
+									toastr.error(toastrmsg, "999 - Uncaught Error", toptions);
+								}
 						},
 						success: function(response)
 						{
