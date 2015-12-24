@@ -139,6 +139,10 @@ Route::get('/members', ['as' => 'members', 'uses' => 'Member\ProfileController@g
 Route::group(['prefix' => 'ajax',], function() {
 	Route::post('/account/register', function () {
 
+		if(!Request::ajax()) {
+			abort(403);
+		}
+
 		$resp = array();
 
 		$reg_status = 'invalid';
@@ -200,6 +204,10 @@ Route::group(['prefix' => 'ajax',], function() {
 	});
 	Route::post('/account/login', function () {
 
+		if(!Request::ajax()) {
+			abort(403);
+		}
+
 		$resp = array();
 		$login_status = 'invalid';
 		$login_msg = 'Something went wrong...';
@@ -241,6 +249,10 @@ Route::group(['prefix' => 'ajax',], function() {
 		return Response::json($resp);
 	});
 	Route::post('/account/forgot', function () {
+
+		if(!Request::ajax()) {
+			abort(403);
+		}
 
 		$resp = array();
 		$forgot_status = 'invalid';
