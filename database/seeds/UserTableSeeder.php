@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User as User;
+use Membra\User as User;
   
 class UserTableSeeder extends Seeder {
   
@@ -13,6 +13,7 @@ class UserTableSeeder extends Seeder {
 			'firstname' 	=> 'Daniel',
 			'username' 		=> 'admin',
 			'active'		=> 1,
+			'issuperadmin'	=> 1,
 		]);
 
 		User::create([
