@@ -94,7 +94,6 @@
 									<div class="input-group">
 										<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 										<select class="form-control" name="userdateformat">
-											<option value="">-- Please select --</option>
 											<option value="d. M Y" {{ ($userdateformat == 'd. M Y') ? 'selected' : '' }}>{{ date('d. M Y', time()) }} (d. M Y)</option>
 											<option value="d.m.y" {{ ($userdateformat == 'd.m.y') ? 'selected' : '' }}>{{ date('d.m.y', time()) }} (d.m.y)</option>
 											<option value="F j, Y" {{ ($userdateformat == 'F j, Y') ? 'selected' : '' }}>{{ date('F j, Y', time()) }} (F j, Y)</option>
@@ -118,7 +117,6 @@
 									<div class="input-group">
 										<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 										<select class="form-control" name="usertimeformat">
-											<option value="">-- Please select --</option>
 											<option value="H:i" {{ ($usertimeformat == 'H:i') ? 'selected' : '' }}>{{ date('H:i', time()) }} (H:i)</option>
 											<option value="g:i a" {{ ($usertimeformat == 'g:i a') ? 'selected' : '' }}>{{ date('g:i a', time()) }} (g:i a)</option>
 										</select>
