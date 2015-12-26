@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration {
 			$table->string('profilepicture')->nullable();
 			$table->string('profilepicturesmall')->nullable();
 			$table->string('profilecover')->nullable();
-			$table->string('referral');
+			$table->string('referral')->nullable();
 			$table->string('referral_code');
 			$table->string('activation_code');
 

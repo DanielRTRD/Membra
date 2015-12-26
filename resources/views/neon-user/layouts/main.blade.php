@@ -11,7 +11,7 @@
 	<title>@yield('title') - {{ Config::get('infihex.appname') }}</title>
 
 	<link rel="stylesheet" href="{{ Theme::url('js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css') }}">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
 	<link rel="stylesheet" href="{{ Theme::url('css/bootstrap.css') }}">
 	<link rel="stylesheet" href="{{ Theme::url('css/neon-core.css') }}">
@@ -43,18 +43,16 @@
 		
 			<!-- logo -->
 			<div class="navbar-brand">
-				<a href="#">
-					<img src="{{ Theme::url('images/rtusl5@2x.png') }}" width="70" alt="" />
-				</a>
+				<img src="{{ Theme::url('images/membra@2x.png') }}" width="70" alt="" />
 			</div>
 			
 			
 			<!-- main menu -->
 						
 			<ul class="navbar-nav">
-				<li>
+				<!--<li>
 					<a href="#">
-						<i class="entypo-gauge"></i>
+						<i class="fa fa-gauge"></i>
 						<span class="title">Dashboard</span>
 					</a>
 					<ul>
@@ -62,7 +60,12 @@
 						<li><a href="#"><span class="title">Dashboard 2</span></a></li>
 						<li><a href="#"><span class="title">Dashboard 3</span></a></li>
 					</ul>
-				</li>
+				</li>-->
+				<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+				<li><a href="#"><i class="fa fa-newspaper-o"></i> News</a></li>
+				<li><a href="#"><i class="fa fa-shopping-basket"></i> Webshop</a></li>
+				<li><a href="#"><i class="fa fa-street-view"></i> Seating</a></li>
+				<li><a href="#"><i class="fa fa-sitemap"></i> Compo</a></li>
 			</ul>
 						
 			
@@ -70,9 +73,9 @@
 			<ul class="nav navbar-right pull-right">
 				
 				<!-- raw links -->
-				<li><li><a href="{{ URL::Route('home') }}"><i class="entypo-home"></i>To frontpage</a></li></li>
+				<li><li><a href="{{ URL::Route('home') }}"><i class="fa fa-home"></i>To frontpage</a></li></li>
 				<li class="sep"></li>
-				<li><a href="{{ URL::Route('logout') }}">Log Out <i class="entypo-logout right"></i></a></li>
+				<li><a href="{{ URL::Route('logout') }}">Log Out <i class="fa fa-sign-out right"></i></a></li>
 				
 				
 				<!-- mobile only -->
@@ -100,8 +103,16 @@
 			<div class="row">
 				<div class="col-md-12">
 					<footer class="main">
-						&copy; {{ date('Y') }}, <a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{Config::get('infihex.appname') . ' ' . Config::get('infihex.appversion') . ' ' . Config::get('infihex.appversiontype') }}</a>
-						@if(Config::get('app.debug')) <b>(<a href="/resetdb" class="text-danger">DEBUG MODE</a>)</b> @endif by <a href="https://infihex.com/" target="_blank">Infihex</a>
+						<div class="row">
+							<div class="col-md-6">
+								<p>&copy; {{ date('Y') }}, Infihex</p>
+							</div>
+							<div class="col-md-6 text-right">
+								<p>
+									<a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{Config::get('infihex.appname') . ' ' . Config::get('infihex.appversion') . ' ' . Config::get('infihex.appversiontype') }}</a>
+									@if(Config::get('app.debug')) <b>(<a href="/resetdb" class="text-danger">DEBUG MODE</a>)</b> @endif by <a href="https://infihex.com/" target="_blank">Infihex</a>
+								</p>
+							</div>
 					</footer>
 				</div>
 			</div>
@@ -142,7 +153,7 @@
 		var opts = {
 			"closeButton": true,
 			"debug": false,
-			"positionClass": "toast-top-right",
+			"positionClass": "toast-bottom-right",
 			"onclick": null,
 			"showDuration": "300",
 			"hideDuration": "1000",
@@ -154,15 +165,15 @@
 			"hideMethod": "fadeOut"
 		};
 
-		@if(Session::has('global') && Session::has('globaltype'))
-			@if(Session::get('globaltype') == 'info')
-				toastr.info("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
-			@elseif(Session::get('globaltype') == 'warning')
-				toastr.warning("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
-			@elseif(Session::get('globaltype') == 'error')
-				toastr.error("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
-			@elseif(Session::get('globaltype') == 'success')
-				toastr.success("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
+		@if(Session::has('message') && Session::has('messagetype'))
+			@if(Session::get('messagetype') == 'info')
+				toastr.info("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
+			@elseif(Session::get('messagetype') == 'warning')
+				toastr.warning("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
+			@elseif(Session::get('messagetype') == 'error')
+				toastr.error("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
+			@elseif(Session::get('messagetype') == 'success')
+				toastr.success("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
 			@endif
 
 		@endif

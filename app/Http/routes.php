@@ -120,6 +120,14 @@ Route::group([
 			'as' => 'logout',
 			'uses' => 'Member\AuthController@getLogout'
 		]);
+		get('/profile/{username}', [
+			'as' => 'user-profile',
+			'uses' => 'Member\ProfileController@index'
+		]);
+		get('/members', [
+			'as' => 'members',
+			'uses' => 'Member\ProfileController@getMembers'
+		]);
 });
 
 // ADMIN PANEL
@@ -132,9 +140,6 @@ Route::group([
 			'uses' => 'Member\AccountController@index'
 		]);*/
 });
-
-Route::get('/user/{username}', ['as' => 'user-profile', 'uses' => 'Member\ProfileController@index']);
-Route::get('/members', ['as' => 'members', 'uses' => 'Member\ProfileController@getMembers']);
 
 Route::group(['prefix' => 'ajax',], function() {
 	Route::post('/account/register', function () {
