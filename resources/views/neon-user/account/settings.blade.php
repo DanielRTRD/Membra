@@ -28,7 +28,7 @@
 					<div class="panel-body">
 						
 						<div class="row">
-							<label for="field-3" class="col-sm-5 control-label">Show Fullname</label>
+							<label class="col-sm-5 control-label">Show Fullname</label>
 							<div class="col-sm-5 form-group @if ($errors->has('showname')) has-error @endif">
 								<select class="form-control" name="showname">
 									<option value="1" {{ ($showname == '1') ? 'selected' : '' }}>Yes</option>
@@ -41,7 +41,7 @@
 						</div>
 
 						<div class="row">
-							<label for="field-3" class="col-sm-5 control-label">Show Email</label>
+							<label class="col-sm-5 control-label">Show Email</label>
 							<div class="col-sm-5 form-group @if ($errors->has('showemail')) has-error @endif">
 								<select class="form-control" name="showemail">
 									<option value="1" {{ ($showemail == '1') ? 'selected' : '' }}>Yes</option>
@@ -54,7 +54,7 @@
 						</div>
 
 						<div class="row">
-							<label for="field-3" class="col-sm-5 control-label">Show Online Status</label>
+							<label class="col-sm-5 control-label">Show Online Status</label>
 							<div class="col-sm-5 form-group @if ($errors->has('showonline')) has-error @endif">
 								<select class="form-control" name="showonline">
 									<option value="1" {{ ($showonline == '1') ? 'selected' : '' }}>Yes</option>
@@ -86,7 +86,7 @@
 					<div class="panel-body">
 		
 						<div class="row">
-							<label for="field-3" class="col-sm-5 control-label">Date format</label>
+							<label class="col-sm-5 control-label">Date format</label>
 							
 							<div class="col-sm-5">
 							
@@ -111,7 +111,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<label for="field-3" class="col-sm-5 control-label">Time format</label>
+							<label class="col-sm-5 control-label">Time format</label>
 							
 							<div class="col-sm-5">
 								<div class="form-group @if ($errors->has('usertimeformat')) has-error @endif">

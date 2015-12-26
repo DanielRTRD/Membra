@@ -119,7 +119,7 @@ class AccountController extends Controller {
 		} else {
 			return Redirect::route('account-change-details')
 					->with('messagetype', 'warning')
-					->with('message', 'Your current password does not seem to match.');
+					->with('message', 'Wrong password. Please try again.');
 		}
 
 	}
