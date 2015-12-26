@@ -22,14 +22,14 @@
         "Illuminate\\Translation\\TranslationServiceProvider",
         "Illuminate\\Validation\\ValidationServiceProvider",
         "Illuminate\\View\\ViewServiceProvider",
-        "App\\Providers\\AppServiceProvider",
-        "App\\Providers\\BusServiceProvider",
-        "App\\Providers\\ConfigServiceProvider",
-        "App\\Providers\\EventServiceProvider",
-        "App\\Providers\\RouteServiceProvider",
+        "Membra\\Providers\\AppServiceProvider",
+        "Membra\\Providers\\BusServiceProvider",
+        "Membra\\Providers\\ConfigServiceProvider",
+        "Membra\\Providers\\EventServiceProvider",
+        "Membra\\Providers\\RouteServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
         "igaster\\laravelTheme\\themeServiceProvider",
-        "App\\Providers\\ThemeSelectServiceProvider"
+        "Membra\\Providers\\ThemeSelectServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -43,14 +43,14 @@
         "Illuminate\\Session\\SessionServiceProvider",
         "Illuminate\\Validation\\ValidationServiceProvider",
         "Illuminate\\View\\ViewServiceProvider",
-        "App\\Providers\\AppServiceProvider",
-        "App\\Providers\\BusServiceProvider",
-        "App\\Providers\\ConfigServiceProvider",
-        "App\\Providers\\EventServiceProvider",
-        "App\\Providers\\RouteServiceProvider",
+        "Membra\\Providers\\AppServiceProvider",
+        "Membra\\Providers\\BusServiceProvider",
+        "Membra\\Providers\\ConfigServiceProvider",
+        "Membra\\Providers\\EventServiceProvider",
+        "Membra\\Providers\\RouteServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
         "igaster\\laravelTheme\\themeServiceProvider",
-        "App\\Providers\\ThemeSelectServiceProvider"
+        "Membra\\Providers\\ThemeSelectServiceProvider"
     ],
     "deferred": {
         "command.app.name": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",

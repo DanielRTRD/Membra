@@ -139,18 +139,18 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
-		'App\Providers\AppServiceProvider',
-		'App\Providers\BusServiceProvider',
-		'App\Providers\ConfigServiceProvider',
-		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
+		'Membra\Providers\AppServiceProvider',
+		'Membra\Providers\BusServiceProvider',
+		'Membra\Providers\ConfigServiceProvider',
+		'Membra\Providers\EventServiceProvider',
+		'Membra\Providers\RouteServiceProvider',
 
 		/*
 		 * Third-party
 		 */
 		'Intervention\Image\ImageServiceProvider',
 		'igaster\laravelTheme\themeServiceProvider',
-		'App\Providers\ThemeSelectServiceProvider',
+		'Membra\Providers\ThemeSelectServiceProvider',
 
 	],
 

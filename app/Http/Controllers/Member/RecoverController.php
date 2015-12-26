@@ -1,6 +1,6 @@
-<?php namespace App\Http\Controllers\Member;
+<?php namespace Membra\Http\Controllers\Member;
 
-use App\Http\Controllers\Controller;
+use Membra\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -8,10 +8,10 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
 
-use App\Http\Requests\Member\ForgotPasswordRequest;
-use App\Http\Requests\Member\RecoverRequest;
+use Membra\Http\Requests\Member\ForgotPasswordRequest;
+use Membra\Http\Requests\Member\RecoverRequest;
 
-use App\User;
+use Membra\User;
 
 class RecoverController extends Controller {
 

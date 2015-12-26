@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Member;
+namespace Membra\Http\Controllers\Member;
 
-use App\Http\Controllers\Controller;
+use Membra\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-use App\Http\Requests\Member\LoginRequest;
-use App\Http\Requests\Member\RegisterRequest;
+use Membra\Http\Requests\Member\LoginRequest;
+use Membra\Http\Requests\Member\RegisterRequest;
 
 use Illuminate\Support\Facades\Redirect;
-use App\User;
+use Membra\User;
 
 class AuthController extends Controller {
 

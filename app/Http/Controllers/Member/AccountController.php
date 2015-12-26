@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Member;
+namespace Membra\Http\Controllers\Member;
 
-use App\Http\Controllers\Controller;
+use Membra\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Redirect;
 
 use Intervention\Image\Facades\Image;
 use Regulus\ActivityLog\Models\Activity;
 
-use App\Http\Requests\Member\SettingsRequest;
-use App\Http\Requests\Member\PasswordRequest;
-use App\Http\Requests\Member\ProfileImageRequest;
-use App\Http\Requests\Member\ProfileCoverRequest;
+use Membra\Http\Requests\Member\SettingsRequest;
+use Membra\Http\Requests\Member\PasswordRequest;
+use Membra\Http\Requests\Member\ProfileImageRequest;
+use Membra\Http\Requests\Member\ProfileCoverRequest;
 
-use App\User;
+use Membra\User;
 
 class AccountController extends Controller {
 

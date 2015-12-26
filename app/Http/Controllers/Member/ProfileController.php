@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Member;
+namespace Membra\Http\Controllers\Member;
 
-use App\Http\Controllers\Controller;
-use App\User;
+use Membra\Http\Controllers\Controller;
+use Membra\User;
 
 class ProfileController extends Controller {
 

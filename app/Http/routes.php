@@ -161,7 +161,7 @@ Route::group(['prefix' => 'ajax',], function() {
 		$referral_code 		= str_random(15);
 		$activation_code	= str_random(60); // Activation Code
 
-		$user = \App\User::create(array(
+		$user = \Membra\User::create(array(
 			'email' 			=> $email,
 			'username'			=> $username,
 			'firstname'			=> $firstname,
@@ -217,7 +217,7 @@ Route::group(['prefix' => 'ajax',], function() {
 		$password = Request::input('password');
 		$remember = Request::input('remember');
 
-		$user = \App\User::where('username', '=', $username)->first();
+		$user = \Membra\User::where('username', '=', $username)->first();
 
 		if ($user == null) {
 
@@ -263,7 +263,7 @@ Route::group(['prefix' => 'ajax',], function() {
 		$originalDate = Request::input('birthdate');
 		$birthdate = date_format(date_create_from_format('d/m/Y', $originalDate), 'Y-m-d'); //strtotime fucks the date up so this is the solution
 
-		$user = \App\User::where('email', '=', $email)->first();
+		$user = \Membra\User::where('email', '=', $email)->first();
 
 		if ($user == null) {
 
@@ -338,7 +338,7 @@ Route::group(['prefix' => 'ajax',], function() {
 		$birthdate 			= date_format(date_create_from_format('d/m/Y', $originalDate), 'Y-m-d'); //strtotime fucks the date up so this is the solution
 		$password 			= Request::input('password');
 
-		$user = \App\User::where('email', '=', $email)->first();
+		$user = \Membra\User::where('email', '=', $email)->first();
 
 		if ($user == null) {
 
