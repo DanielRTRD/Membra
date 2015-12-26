@@ -32,8 +32,8 @@
 }
 
 .profile-env section.profile-info-tabs .user-details li a {
-	color:#111 !important;
-	text-shadow:#fff 0 0 10px;
+	color:#fff !important;
+	text-shadow:#000 0 0 10px;
 	font-weight: bold;
 }
 
@@ -41,16 +41,12 @@
 	content:"";
 	position: absolute;
     width : 100%;
-    height: calc(100% - 10px);
+    height: 100%;
     background: inherit;
-    z-index: -99;
+    z-index: -1;
+	background-image:url('/images/profilecover/0.jpg');
 	background-size: cover;
 	background-position: center center !important;
-	-webkit-filter: blur(5px);
-	-moz-filter: blur(5px);
-	-o-filter: blur(5px);
-	-ms-filter: blur(5px);
-	filter: blur(5px);
 	margin-top: -20px;
 	margin-left: -20px;
 	padding-bottom: 10px;
