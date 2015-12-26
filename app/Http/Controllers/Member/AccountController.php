@@ -136,17 +136,16 @@ class AccountController extends Controller {
 		$image 				= $request->file('profileimage');
 		
 		$filename 			= $auth->user()->id . '.' . $image->getClientOriginalExtension();
-		$path 				= public_path() . '/img/profilepicture/' . $filename;
-		$webpath			= '/img/profilepicture/' . $filename;
+		$path 				= public_path() . '/images/profilepicture/' . $filename;
+		$webpath			= '/images/profilepicture/' . $filename;
 
 		$filename_small		= $auth->user()->id . '_small.' . $image->getClientOriginalExtension();
-		$path_small 		= public_path() . '/img/profilepicture/' . $filename_small;
-		$webpath_small		= '/img/profilepicture/' . $filename_small;
+		$path_small 		= public_path() . '/images/profilepicture/' . $filename_small;
+		$webpath_small		= '/images/profilepicture/' . $filename_small;
 
 		//save image
-		$imagesave 			= Image::make($image->getRealPath())->resize(250, null, function($constraint){ $constraint->aspectRatio(); })->save($path);
-		$imagesave_small 	= Image::make($image->getRealPath())->fit(90)->save($path_small);
-		// http://image.intervention.io/getting_started/installation
+		$imagesave 			= Image::make($image->getRealPath())->resize(115, null, function($constraint){ $constraint->aspectRatio(); })->save($path);
+		$imagesave_small 	= Image::make($image->getRealPath())->fit(75)->save($path_small);
 
 		//add image to db
 		$user->profilepicture 		= $webpath;
@@ -172,12 +171,11 @@ class AccountController extends Controller {
 		$image 				= $request->file('profilecover');
 		
 		$filename 			= $auth->user()->id . '.' . $image->getClientOriginalExtension();
-		$path 				= public_path() . '/img/profilecover/' . $filename;
-		$webpath			= '/img/profilecover/' . $filename;
+		$path 				= public_path() . '/images/profilecover/' . $filename;
+		$webpath			= '/images/profilecover/' . $filename;
 
 		//save image
 		$imagesave 			= Image::make($image->getRealPath())->resize(1500, null, function($constraint){ $constraint->aspectRatio(); })->save($path);
-		// http://image.intervention.io/getting_started/installation
 
 		//add image to db
 		$user->profilecover 		= $webpath;

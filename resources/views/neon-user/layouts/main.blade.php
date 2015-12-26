@@ -30,6 +30,7 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
+	@yield('css')
 
 </head>
 <body class="page-body" data-url="http://{{ Config::get('infihex.appname') }}">

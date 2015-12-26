@@ -17,3 +17,41 @@
 .login-page .btn-warning:hover {
 	color:rgb(148, 148, 148) !important;
 }
+
+.btn-file > input {
+	transform:none;
+	width: 114px;
+	height: 32px;
+	margin-top:-8px;
+}
+
+.profile-picture img {
+	width: 115px;
+	height: 115px;
+	background-color: #fff;
+}
+
+.profile-env section.profile-info-tabs .user-details li a {
+	color:#111 !important;
+	text-shadow:#fff 0 0 10px;
+	font-weight: bold;
+}
+
+.blur-image:before {
+	content:"";
+	position: absolute;
+    width : 100%;
+    height: calc(100% - 10px);
+    background: inherit;
+    z-index: -99;
+	background-size: cover;
+	background-position: center center !important;
+	-webkit-filter: blur(5px);
+	-moz-filter: blur(5px);
+	-o-filter: blur(5px);
+	-ms-filter: blur(5px);
+	filter: blur(5px);
+	margin-top: -20px;
+	margin-left: -20px;
+	padding-bottom: 10px;
+}

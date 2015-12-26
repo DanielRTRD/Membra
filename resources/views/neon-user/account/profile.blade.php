@@ -1,5 +1,14 @@
 @extends('layouts.main')
-@section('title') {{ $username }}'s Profile @stop
+@section('title', $username . '\'s Profile')
+@section('css')
+
+<style type="text/css">
+	.blur-image:before {
+		background-image:url("{{ $profilecover or '/images/profilecover/0.png' }}");
+	}	
+</style>
+
+@endsection
    
 @section('content')
 
@@ -8,11 +17,7 @@
 	<header class="row">
 		
 		<div class="col-sm-2">
-			
-			<a class="profile-picture" href="{{ route('account-change-images') }}">
-				<img src="{{ $profilepicture or '/images/profilepicture/0.png' }}" class="img-responsive img-circle" />
-			</a>
-			
+			<a class="profile-picture" @if(\Auth::user()->id == $id) href="{{ route('account-change-images') }}" @endif><img src="{{ $profilepicture or '/images/profilepicture/0.png' }}" class="img-responsive img-circle" /></a>
 		</div>
 		
 		<div class="col-sm-7">
@@ -23,7 +28,8 @@
 						<strong>
 							{{ $firstname }}@if($showname) {{ $lastname }}@endif
 							<a href="#" class="user-status is-offline tooltip-primary" data-toggle="tooltip" data-placement="top" data-original-title="Offline"></a>
-							<!-- User statuses available classes "is-online", "is-offline", "is-idle", "is-busy" -->						</strong>
+							<!-- User statuses available classes "is-online", "is-offline", "is-idle", "is-busy" -->
+						</strong>
 						<span>
 							@if($ismod)
 								Moderator
@@ -69,7 +75,7 @@
 		
 	</header>
 	
-	<section class="profile-info-tabs">
+	<section class="profile-info-tabs blur-image">
 		
 		<div class="row">
 			
@@ -80,7 +86,7 @@
 					@if($location)
 						<li>
 							<a href="#">
-								<i class="fa fa-location"></i>
+								<i class="fa fa-map-marker"></i>
 								{{ $location }}
 							</a>
 						</li>
@@ -115,8 +121,8 @@
 					
 					<li>
 						<a href="#">
-							<i class="fa fa-calendar"></i>
-							{{ $birthdate }}
+							<i class="fa fa-birthday-cake"></i>
+							{{ date_diff(date_create($birthdate), date_create('today'))->y }}
 						</a>
 					</li>
 				</ul>
@@ -140,6 +146,12 @@
 
 </div>
 
-Moar to come.<br><br><br><br>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-12">
+			<p>Moar to come.</p>
+		</div>
+	</div>
+</div>
 
 @stop
