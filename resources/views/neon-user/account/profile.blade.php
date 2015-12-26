@@ -1,13 +1,13 @@
 @extends('layouts.main')
 @section('title', $username . '\'s Profile')
 @section('css')
-
-<style type="text/css">
-	.blur-image:before {
-		background-image:url("{{ $profilecover or '/images/profilecover/0.png' }}");
-	}	
-</style>
-
+	@if($profilecover)
+		<style type="text/css">
+			.blur-image:before {
+				background-image:url("{{ $profilecover }}");
+			}	
+		</style>
+	@endif
 @endsection
    
 @section('content')
