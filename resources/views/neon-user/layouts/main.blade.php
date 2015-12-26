@@ -99,22 +99,20 @@
 
 		@yield('content')
 
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<footer class="main">
-						<div class="row">
-							<div class="col-md-6">
-								<p>&copy; {{ date('Y') }}, Infihex</p>
-							</div>
-							<div class="col-md-6 text-right">
-								<p>
-									<a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{Config::get('infihex.appname') . ' ' . Config::get('infihex.appversion') . ' ' . Config::get('infihex.appversiontype') }}</a>
-									@if(Config::get('app.debug')) <b>(<a href="/resetdb" class="text-danger">DEBUG MODE</a>)</b> @endif by <a href="https://infihex.com/" target="_blank">Infihex</a>
-								</p>
-							</div>
-					</footer>
-				</div>
+		<div class="row">
+			<div class="col-md-12">
+				<footer class="main">
+					<div class="row">
+						<div class="col-md-6">
+							<p>&copy; {{ date('Y') }}, Infihex</p>
+						</div>
+						<div class="col-md-6 text-right">
+							<p>
+								<a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{Config::get('infihex.appname') . ' ' . Config::get('infihex.appversion') . ' ' . Config::get('infihex.appversiontype') }}</a>
+								@if(Config::get('app.debug')) <b>(<a href="/resetdb" class="text-danger">DEBUG MODE</a>)</b> @endif by <a href="https://infihex.com/" target="_blank">Infihex</a>
+							</p>
+						</div>
+				</footer>
 			</div>
 		</div>
 
