@@ -8,7 +8,7 @@ use Membra\User;
 class ProfileController extends Controller {
 
 	public function index($username) {
-		$theuser = User::where('username', '=', $username)->first();
+		$theuser = User::where('username', '=', $username)->where('active', '=', 1)->first();
 		if($theuser == null) {
 			return abort(404); //if username does not exist
 		}

@@ -1,81 +1,71 @@
 @extends('layouts.main')
-@section('title') Members @stop
-
+@section('title', 'Members')
 @section('content')
-	<div class="container">
-	<div class="row">
-		<div class="col-lg-8">
-			<h3>Members</h3>
-			<hr>
-			<div class="list-group">
-				@foreach($members as $member)
-					<div class="list-group-item">
-						<div class="row-picture">
-							<img class="circle" alt="{{ e($member->username) }}" src="@if($member->profilepicturesmall){{$member->profilepicturesmall}}@else{{{'/img/profilepicture/0_small.png'}}}@endif">
-						</div>
-						<div class="row-content">
-							<h4 class="list-group-item-heading"><a href="{{ URL::route('user-profile', $member->username) }}">{{ e($member->username) }}</a></h4>
-							<p class="list-group-item-text">
-								@if($member->showname)<small>Name: {{ $member->firstname .' '. $member->lastname }}</small> |@endif @if($member->last_activity)<small>Last online: {{ e(App\User::getLastActivity($member->id)) }}</small>@endif
-							</p>
-						</div>
-					</div>
-					<div class="list-group-separator"></div>
-				@endforeach
-			</div>
 
-			<div class="pull-right">
-				{{ $members->render() }}
+<div class="container">
+	<div class="row">
+		<div class="col-md-9 col-sm-7">
+			<h2>Members</h2>
+		</div>
+		
+		<div class="col-md-3 col-sm-5">
+		<!--	
+			<form method="get" role="form" class="search-form-full">
+			
+				<div class="form-group">
+					<input type="text" class="form-control" name="s" id="search-input" placeholder="Search..." />
+					<i class="fa fa-search"></i>
+				</div>
+				
+			</form>
+		-->	
+		</div>
+
+	</div>
+<hr>
+	@foreach($members as $member)
+		<div class="member-entry">
+			<a href="{{ route('user-profile', $member->username) }}" class="member-img">
+				<img src="{{ $member->profilepicture or '/images/profilepicture/0.png' }}" class="img-rounded" />
+				<i class="fa fa-share" style="text-shadow:#000 0 0 10px"></i>
+			</a>
+			<div class="member-details">
+				<h4>
+					<a href="{{ route('user-profile', $member->username) }}">{{ $member->firstname }}@if($member->showname) {{ $member->lastname }}@endif</a>
+				</h4>
+				<div class="row info-list">
+					<div class="col-sm-4">
+						<i class="fa fa-briefcase"></i> {{ $member->occupation }}
+					</div>
+					<div class="col-sm-4">
+						<i class="fa fa-twitter"></i>
+					</div>
+					<div class="col-sm-4">
+						<i class="fa fa-facebook"></i>
+					</div>
+					
+					<div class="clear"></div>
+
+					<div class="col-sm-4">
+						<i class="fa fa-map-marker"></i> {{ $member->location or '<em>Unkown</em>' }}
+					</div>
+					<div class="col-sm-4">
+						<i class="fa fa-genderless"></i> {{ $member->gender }}
+					</div>
+					<div class="col-sm-4">
+						<i class="fa fa-birthday-cake"></i> {{ date_diff(date_create($member->birthdate), date_create('today'))->y }}
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="col-lg-4">
-			<h3>Newest members</h3>
-			<hr>
-			@if($newestmembers == null)
-				<p class="text-muted"><em>No users to find...</em></p>
-			@else
-				<div class="list-group">
-					@foreach($newestmembers as $member)
-						<div class="list-group-item">
-							<div class="row-picture">
-								<img class="circle" alt="{{ e($member->username) }}" src="@if($member->profilepicturesmall){{$member->profilepicturesmall}}@else{{{'/img/profilepicture/0_small.png'}}}@endif">
-							</div>
-							<div class="row-content">
-								<h4 class="list-group-item-heading"><a href="{{ URL::route('user-profile', $member->username) }}">{{ e($member->username) }}</a></h4>
-								<p class="list-group-item-text">
-									@if($member->showname)<small>Name: {{ $member->firstname .' '. $member->lastname }}</small>@endif
-									<br><small>Registered on: {{ date(App\User::getUserDateFormat(), strtotime($member->created_at)) }} at {{ date(App\User::getUserTimeFormat(), strtotime($member->created_at)) }}</small>
-								</p>
-							</div>
-						</div>
-						<div class="list-group-separator"></div>
-					@endforeach
-				</div>
-			@endif
+	@endforeach
 
-			<h3>Last online members</h3>
-			<hr>
-			@if($onlinemembers == null)
-				<p class="text-muted"><em>No users to find...</em></p>
-			@else
-				<div class="list-group">
-					@foreach($onlinemembers as $member)
-						<div class="list-group-item">
-							<div class="row-picture">
-								<img class="circle" alt="{{ e($member->username) }}" src="@if($member->profilepicturesmall){{$member->profilepicturesmall}}@else{{{'/img/profilepicture/0_small.png'}}}@endif">
-							</div>
-							<div class="row-content">
-								<h4 class="list-group-item-heading"><a href="{{ URL::route('user-profile', $member->username) }}">{{ e($member->username) }}</a></h4>
-								<p class="list-group-item-text">
-									@if($member->last_activity)<small>Last online: {{ e(App\User::getLastActivity($member->id)) }}</small>@endif
-								</p>
-							</div>
-						</div>
-						<div class="list-group-separator"></div>
-					@endforeach
-				</div>
-			@endif
+	<div class="row">
+		<div class="col-md-12">
+			{{ $members->render() }}
 		</div>
 	</div>
+
 </div>
+
 @stop
