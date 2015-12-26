@@ -11,7 +11,7 @@ if(Config::get('app.debug')) {
 		Artisan::call('db:seed');
 		return Redirect::to('/')->with('messagetype', 'success')->with('message', 'The database has been reset!');
 	});
-	Route::get('/mailtest', function() {
+	/*Route::get('/mailtest', function() {
 		Mail::send('emails.activate', ['link'=>'derp','firstname'=>'Daniel'], function($message) {
 			$message->to("daniel@retardedtech.com", "Daniel")->subject('Test Email');
 		});
@@ -20,7 +20,7 @@ if(Config::get('app.debug')) {
 		} else {
 			dd('Success.');
 		}
-	});
+	});*/
 }
 
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
