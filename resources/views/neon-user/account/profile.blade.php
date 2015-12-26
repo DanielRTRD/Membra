@@ -107,7 +107,7 @@
 					@if($showemail)
 						<li>
 							<a href="#">
-								<i class="fa fa-mail"></i>
+								<i class="fa fa-envelope-o"></i>
 								{{ $email }}
 							</a>
 						</li>

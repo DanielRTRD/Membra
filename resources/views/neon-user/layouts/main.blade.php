@@ -61,7 +61,7 @@
 						<li><a href="#"><span class="title">Dashboard 3</span></a></li>
 					</ul>
 				</li>-->
-				<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+				<li><a href="{{ route('account') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 				<li><a href="#"><i class="fa fa-newspaper-o"></i> News</a></li>
 				<li><a href="#"><i class="fa fa-shopping-basket"></i> Webshop</a></li>
 				<li><a href="#"><i class="fa fa-street-view"></i> Seating</a></li>

@@ -8,7 +8,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-lg-3">
-					@include('layouts.account-sidebar')
+					
 				</div>
 				<div class="col-lg-9">
 
