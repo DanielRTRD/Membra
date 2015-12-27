@@ -10,7 +10,7 @@
 				<li class="active"><strong>Dashboard</strong></li>
 			</ol>
 
-			<h1>Welcome back, {{ $firstname }}@if($showname) {{ $lastname }}@endif!</h1>
+			<h1>Welcome back, {{ $firstname }}@if($showname && $lastname) {{ $lastname }}@endif!</h1>
 			<hr>
 			<div class="row">
 				<div class="col-lg-8">
