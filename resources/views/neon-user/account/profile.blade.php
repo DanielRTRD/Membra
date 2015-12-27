@@ -28,7 +28,7 @@
 						<strong>
 							{{ $firstname }}@if($showname) {{ $lastname }}@endif
 							@if($showonline)
-								<a href="#" class="user-status is-offline tooltip-primary" data-toggle="tooltip" data-placement="top" data-original-title="Offline"></a>
+								<a href="#" class="user-status is-{{ $onlinestatus }} tooltip-primary" data-toggle="tooltip" data-placement="top" data-original-title="{{ ucfirst($onlinestatus) }}"></a>
 								<!-- User statuses available classes "is-online", "is-offline", "is-idle", "is-busy" -->
 							@endif
 						</strong>

@@ -5,6 +5,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
+			<ol class="breadcrumb 2" >
+				<li><a href="{{ route('home') }}"><i class="fa fa-home"></i>Home</a></li>
+				<li class="active"><strong>Dashboard</strong></li>
+			</ol>
+
 			<h1>Welcome back, {{ $firstname }}@if($showname) {{ $lastname }}@endif!</h1>
 			<hr>
 			<div class="row">
@@ -14,13 +19,13 @@
 				<div class="col-lg-4">
 					<div class="row">
 						<div class="col-lg-3">
-							<img src="{{ $profilepicturesmall }}" class="img-thumbnail">
+							<img src="{{ $profilepicturesmall or '/images/profilepicture/0_small.png' }}" class="img-thumbnail">
 						</div>
 						<div class="col-lg-9">
 							<h3>
 								<a href="{{ route('user-profile', $username) }}">{{ $firstname }} {{ $lastname }}</a>
 								@if($showonline)
-									<a href="#" class="user-status is-offline tooltip-primary" data-toggle="tooltip" data-placement="top" data-original-title="Offline"></a>
+									<a href="#" class="user-status is-{{ $onlinestatus }} tooltip-primary" data-toggle="tooltip" data-placement="top" data-original-title="{{ ucfirst($onlinestatus) }}"></a>
 									<!-- User statuses available classes "is-online", "is-offline", "is-idle", "is-busy" -->
 								@endif
 							</h3>

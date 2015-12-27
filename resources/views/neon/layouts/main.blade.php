@@ -44,7 +44,7 @@
 						@if(Auth::Guest())
 							<li><a href="{{ route('account-login') }}"><span>Login</span></a></li>
 						@else
-
+							<li><a href="{{ route('account') }}"><span>Go to Dashboard</span></a></li>
 						@endif
 					</ul>
 					<div class="visible-xs">

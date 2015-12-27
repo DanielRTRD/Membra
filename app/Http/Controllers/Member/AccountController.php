@@ -25,7 +25,10 @@ class AccountController extends Controller {
 
 	public function index(Guard $auth) {
 		$authuser = $auth->user();
-		return view('account.index')->with($authuser->toArray());
+		$onlinestatus = User::getOnlineStatus($authuser->id);
+		$userarray = $authuser->toArray();
+		$userarray['onlinestatus'] = $onlinestatus;
+		return view('account.index')->with($userarray);
 	}
 
 	public function getSettings(Guard $auth) {

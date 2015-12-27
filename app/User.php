@@ -154,7 +154,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	}
 
-	public function scopeGetStatus($query, $id) {
+	public function scopeGetOnlineStatus($query, $id) {
 
 		$user 		= $query->where('id', '=', $id)->first();
 		$time 		= $user->last_activity;
@@ -170,7 +170,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		if ($before < 5 * $MINUTE) {
 		    return "online";
 		} elseif ($before < 10 * $MINUTE) {
-		    return "away";
+		    return "idle";
 		} else {
 			return "offline";
 		}

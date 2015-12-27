@@ -12,7 +12,10 @@ class ProfileController extends Controller {
 		if($theuser == null) {
 			return abort(404); //if username does not exist
 		}
-		return view('account.profile')->with($theuser->toArray());
+		$onlinestatus = User::getOnlineStatus($theuser->id);
+		$userarray = $theuser->toArray();
+		$userarray['onlinestatus'] = $onlinestatus;
+		return view('account.profile')->with($userarray);
 	}
 
 	public function getMembers() {
