@@ -135,10 +135,10 @@ Route::group([
 	'middleware' => 'auth',
 	'prefix' => 'admin',
 	], function() {
-		/*get('/', [
-			'as' => 'account' ,
-			'uses' => 'Member\AccountController@index'
-		]);*/
+		get('/', [
+			'as' => 'admin' ,
+			'uses' => 'HomeController@index'
+		]);
 });
 
 Route::group(['prefix' => 'ajax',], function() {

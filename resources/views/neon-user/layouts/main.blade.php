@@ -33,23 +33,18 @@
 	@yield('css')
 
 </head>
-<body class="page-body" data-url="http://{{ Config::get('infihex.appname') }}">
+<body class="page-body" data-url="{{ Config::get('infihex.appprotocol') }}://{{ Config::get('infihex.appname') }}">
 
 <div class="page-container horizontal-menu">
 
-	
-	<header class="navbar navbar-fixed-top"><!-- set fixed position by adding class "navbar-fixed-top" -->
+	<header class="navbar navbar-fixed-top">
 		
 		<div class="navbar-inner">
 		
-			<!-- logo -->
 			<div class="navbar-brand">
-				<img src="{{ Theme::url('images/membra@2x.png') }}" width="70" alt="" />
+				<a href="{{ route('home') }}"><img src="{{ Theme::url('images/membra@2x.png') }}" width="70" alt="" /></a>
 			</div>
-			
-			
-			<!-- main menu -->
-						
+
 			<ul class="navbar-nav">
 				<!--<li>
 					<a href="#">
@@ -62,34 +57,28 @@
 						<li><a href="#"><span class="title">Dashboard 3</span></a></li>
 					</ul>
 				</li>-->
-				<li><a href="{{ route('account') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-				<li><a href="{{ route('members') }}"><i class="fa fa-users"></i> Members</a></li>
+				<li class="@if(Request::is('user')){{'active'}} @endif"><a href="{{ route('account') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+				<li class="@if(Request::is('user/members')){{'active'}} @endif"><a href="{{ route('members') }}"><i class="fa fa-users"></i> Members</a></li>
 				<li><a href="#"><i class="fa fa-newspaper-o"></i> News</a></li>
 				<li><a href="#"><i class="fa fa-shopping-basket"></i> Webshop</a></li>
 				<li><a href="#"><i class="fa fa-street-view"></i> Seating</a></li>
 				<li><a href="#"><i class="fa fa-sitemap"></i> Compo</a></li>
 			</ul>
-						
 			
-			<!-- notifications and other links -->
 			<ul class="nav navbar-right pull-right">
 				
-				<!-- raw links -->
-				<li><li><a href="{{ URL::Route('home') }}"><i class="fa fa-home"></i>To frontpage</a></li></li>
-				<li class="sep"></li>
+				@if(\Auth::user()->ismod || \Auth::user()->isadmin || \Auth::user()->issuperadmin)
+					<li><a href="{{ URL::Route('admin') }}"><i class="fa fa-user-secret"></i> Admin Panel</a></li>
+					<li class="sep"></li>
+				@endif
 				<li><a href="{{ URL::Route('logout') }}">Log Out <i class="fa fa-sign-out right"></i></a></li>
-				
-				
-				<!-- mobile only -->
+			
 				<li class="visible-xs">	
-				
-					<!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
 					<div class="horizontal-mobile-menu visible-xs">
-						<a href="#" class="with-animation"><!-- add class "with-animation" to support animation -->
-							<i class="entypo-menu"></i>
+						<a href="#" class="with-animation">
+							<i class="fa fa-bars"></i>
 						</a>
 					</div>
-					
 				</li>
 				
 			</ul>

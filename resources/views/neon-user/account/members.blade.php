@@ -4,21 +4,13 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-9 col-sm-7">
+		<div class="col-md-12">
 			<h1>Members</h1>
-		</div>
-		
-		<div class="col-md-3 col-sm-5">
-		<!--	
-			<form method="get" role="form" class="search-form-full">
-			
-				<div class="form-group">
-					<input type="text" class="form-control" name="s" id="search-input" placeholder="Search..." />
-					<i class="fa fa-search"></i>
-				</div>
-				
-			</form>
-		-->	
+			<ol class="breadcrumb 2" >
+				<li><a href="{{ route('home') }}"><i class="fa fa-home"></i>Home</a></li>
+				<li><a href="{{ route('account') }}">Dashboard</a></li>
+				<li class="active"><strong>Members</strong></li>
+			</ol>
 		</div>
 
 	</div>

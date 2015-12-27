@@ -7,7 +7,7 @@
 	
 	<ol class="breadcrumb 2" >
 		<li><a href="{{ route('home') }}"><i class="fa fa-home"></i>Home</a></li>
-		<li><a href="{{ route('account') }}">User</a></li>
+		<li><a href="{{ route('account') }}">Dashboard</a></li>
 		<li class="active"><strong>Change Images</strong></li>
 	</ol>
 

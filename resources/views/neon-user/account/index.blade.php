@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'My Account')
+@section('title', 'Dashboard')
 @section('content')
 
 <div class="container">
@@ -28,7 +28,16 @@
 						</div>
 					</div>
 					<hr>
-					<p>Today is {{ date($userdateformat, time()) }}, and the time is {{ date($usertimeformat, time()) }}.</p>
+					<p class="text-center">Today is {{ date($userdateformat, time()) }}, and the time is {{ date($usertimeformat, time()) }}.</p>
+					<hr>
+					<p><em>Want to do some changes to your profile?</em></p>
+					<div class="list-group">
+						<a href="{{ route('account-change-details') }}" class="list-group-item"><i class="fa fa-edit"></i> Edit Profile Details</a>
+						<a href="{{ route('account-change-password') }}" class="list-group-item"><i class="fa fa-asterisk"></i> Change Password</a>
+						<a href="{{ route('account-change-images') }}" class="list-group-item"><i class="fa fa-picture-o"></i> Change Profile Images</a>
+						<a href="{{ route('account-settings') }}" class="list-group-item"><i class="fa fa-cog"></i> Edit Profile Settings</a>
+					</div>
+					<hr>
 					<p>
 						<strong>Your referral link:</strong><br>
 						<input class="form-control" type="text" name="referrallink" id="referrallink" value="{{ Config::get('infihex.appprotocol') }}://{{ Config::get('infihex.appdomain') }}/r/{{ $referral_code }}">
