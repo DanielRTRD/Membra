@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ccdfc7abc18e3dad3a653f67e764fa18",
-    "content-hash": "b670cb0d1829ad7d748baeb4bf5d88a5",
+    "hash": "b40bda4d6d7150dcf67cb7fdae2b5e13",
+    "content-hash": "2ad36993fa5ed4bb525b4fdccf46a68f",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -280,52 +280,6 @@
                 "uri"
             ],
             "time": "2015-11-03 01:34:55"
-        },
-        {
-            "name": "happydemon/usrlastly",
-            "version": "0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/happyDemon/UsrLastly.git",
-                "reference": "8c9dbd27e540f2511e6b236ed00118fe7daa2330"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/happyDemon/UsrLastly/zipball/8c9dbd27e540f2511e6b236ed00118fe7daa2330",
-                "reference": "8c9dbd27e540f2511e6b236ed00118fe7daa2330",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "5.*",
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "HappyDemon\\UsrLastly\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Maxim Kerstens",
-                    "email": "maxim.kerstens@gmail.com"
-                }
-            ],
-            "description": "Keep track of your users' last visit",
-            "homepage": "http://github.com/happydemon/usrlastly",
-            "keywords": [
-                "Usr",
-                "laravel",
-                "last",
-                "lastly",
-                "seen",
-                "user"
-            ],
-            "time": "2015-04-03 06:51:51"
         },
         {
             "name": "igaster/laravel-theme",

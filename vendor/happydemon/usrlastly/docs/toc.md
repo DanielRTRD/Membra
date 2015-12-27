@@ -1,3 +1,0 @@
-- [Intro](introduction.md)
-- [Storages](storages.md)
-- [User providers](user_providers.md)
