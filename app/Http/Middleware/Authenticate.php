@@ -44,6 +44,12 @@ class Authenticate {
 				//return redirect()->guest('auth/login');
 				return redirect()->route('account-login');
 			}
+		} else {
+			/* Activity Logging */
+			$now = date_create('now');
+			$user = \Auth::user();
+			$user->last_activity = $now;
+			$user->save();
 		}
 
 		return $next($request);
