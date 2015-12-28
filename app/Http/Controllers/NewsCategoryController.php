@@ -5,7 +5,7 @@ use Membra\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class NewsController extends Controller {
+class NewsCategoryController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -14,17 +14,7 @@ class NewsController extends Controller {
 	 */
 	public function index()
 	{
-		echo 'Welcome';
-	}
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function admin()
-	{
-		echo 'WOOOP';
+		//
 	}
 
 	/**

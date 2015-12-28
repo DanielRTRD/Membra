@@ -6,13 +6,15 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CreateRemsTable' => $baseDir . '/database/migrations/2015_12_28_173439_create_rems_table.php',
+    'CreateNewsCategoriesTable' => $baseDir . '/database/migrations/2015_12_28_213631_create_news_categories_table.php',
+    'CreateNewsTable' => $baseDir . '/database/migrations/2015_12_28_212731_create_news_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
     'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
     'MigrationCartalystSentinel' => $baseDir . '/database/migrations/2014_07_02_230147_migration_cartalyst_sentinel.php',
+    'NewsSeeder' => $baseDir . '/database/seeds/NewsTableSeeder.php',
     'PHPUnit_Exception' => $vendorDir . '/phpunit/phpunit/src/Exception.php',
     'PHPUnit_Extensions_GroupTestSuite' => $vendorDir . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
     'PHPUnit_Extensions_PhptTestCase' => $vendorDir . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',

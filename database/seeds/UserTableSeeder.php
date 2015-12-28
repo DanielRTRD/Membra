@@ -59,18 +59,21 @@ class UserTableSeeder extends Seeder {
 
 		//Add permissions to roles
 		$role = Sentinel::findRoleByName('Super Administrators');
+		$role->addPermission('admin');//admin panel access
 		$role->addPermission('news.create');
 		$role->addPermission('news.update');
 		$role->addPermission('news.destroy');
 		$role->save();
 
 		$role = Sentinel::findRoleByName('Administrators');
+		$role->addPermission('admin');//admin panel access
 		$role->addPermission('news.create');
 		$role->addPermission('news.update');
 		$role->addPermission('news.destroy', false);
 		$role->save();
 
 		$role = Sentinel::findRoleByName('Moderators');
+		$role->addPermission('admin');//admin panel access
 		$role->addPermission('news.create', false);
 		$role->addPermission('news.update');
 		$role->addPermission('news.destroy', false);

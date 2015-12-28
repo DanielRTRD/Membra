@@ -22,44 +22,31 @@ if(Config::get('app.debug')) {
 		}
 	});*/
 	Route::get('/test', function() {
-		/*Sentinel::register([
-			'email' 		=> 'd@rtrdt.ch',
-			'password' 		=> '12345678', // Den hash'r automatisk
-			'firstname' 	=> 'Daniel',
-			'lastname'	 	=> 'Billing',
-			'username' 		=> 'admin',
-		]);*/
-
-		/*$user = Sentinel::findById(1);
-		$activation = Activation::create($user);
-		dd($activation->code);*/
-		
-		/*$user = Sentinel::findById(2);
-		Sentinel::loginAndRemember($user);*/
-
-		//Sentinel::logout();
-
-		//dd(Sentinel::getUser()->id);
-		/*$credentials 	= ['login' => 'daniel'];
-		$user = Sentinel::findByCredentials($credentials);
-
-		dd(Reminder::create($user));*/
-
-		/*$actex = Activation::exists($user);
-		$actco = Activation::completed($user);
-
-		if($actex) {
-			dd(false);
-		} elseif($actco) {
-			dd(true);
-		}*/
-
+		echo 'Hello.';
 	});
 }
 
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('/tos', ['as' => 'account-tos', 'uses' => 'HomeController@index']);
 Route::get('/privacy', ['as' => 'account-privacy', 'uses' => 'HomeController@index']);
+
+Route::group([
+	'prefix' => 'news'
+	], function() {
+		get('/', [
+			'as' => 'news',
+			'uses' => 'NewsController@index'
+		]);
+		get('/{slug}', [
+			'as' => 'news-show',
+			'uses' => 'NewsController@show'
+		]);
+		get('/category/{slug}', [
+			'as' => 'news-category-show',
+			'uses' => 'NewsCategoryController@show'
+		]);
+});
+
 
 Route::group([
 	'middleware' => 'sentinel.guest',
@@ -147,13 +134,41 @@ Route::group([
 
 // ADMIN PANEL
 Route::group([
-	'middleware' => 'sentinel.auth',
+	'middleware' => ['sentinel.auth','sentinel.admin'],
 	'prefix' => 'admin',
 	], function() {
 		get('/', [
 			'as' => 'admin' ,
 			'uses' => 'HomeController@index'
 		]);
+		Route::group([
+			'prefix' => 'news'
+			], function() {
+				get('/', [
+					'as' => 'admin-news',
+					'uses' => 'NewsController@admin'
+				]);
+				get('/create', [
+					'as' => 'admin-news-create',
+					'uses' => 'NewsController@create'
+				]);
+				post('/store', [
+					'as' => 'admin-news-store',
+					'uses' => 'NewsController@store'
+				]);
+				get('/{id}/edit', [
+					'as' => 'admin-news-edit',
+					'uses' => 'NewsController@edit'
+				]);
+				post('/{id}/update', [
+					'as' => 'admin-news-update',
+					'uses' => 'NewsController@update'
+				]);
+				get('/{id}/destroy', [
+					'as' => 'admin-news-destroy',
+					'uses' => 'NewsCategoryController@destroy'
+				]);
+		});
 });
 
 Route::group(['prefix' => 'ajax',], function() {
