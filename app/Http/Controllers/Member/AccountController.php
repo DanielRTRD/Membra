@@ -32,23 +32,25 @@ class AccountController extends Controller {
 	}
 
 	public function getSettings(Sentinel $auth) {
-		$authuser = $auth->getUser();
+		$authuser = Sentinel::getUser();
 		return view('account.settings')->with($authuser->toArray());
 	}
 
-	public function postSettings(Sentinel $auth, SettingsRequest $request) {
+	public function postSettings(SettingsRequest $request) {
 		
-		$user 					= User::find($auth->getUser()->username);
+		$finduser = Sentinel::findById(Sentinel::getUser()->id);
 
-		$user->showemail 		= $request->get('showemail');
-		$user->showname 		= $request->get('showname');
-		$user->showonline 		= $request->get('showonline');
-		$user->userdateformat 	= $request->get('userdateformat');
-		$user->usertimeformat 	= $request->get('usertimeformat');
+		$info = [
+			'showemail' 		=> $request->get('showemail'),
+			'showname' 			=> $request->get('showname'),
+			'showonline' 		=> $request->get('showonline'),
+			'userdateformat' 	=> $request->get('userdateformat'),
+			'usertimeformat' 	=> $request->get('usertimeformat'),
+		];
 
-		$usersave 				= $user->save();
+		$updateuser = Sentinel::update($finduser, $info);
 
-		if($usersave) {
+		if($updateuser) {
 			return Redirect::route('account-settings')
 					->with('messagetype', 'success')
 					->with('message', 'Your settings has been saved!');
@@ -64,17 +66,25 @@ class AccountController extends Controller {
 		return view('account.changepassword');
 	}
 
-	public function postChangePassword(Sentinel $auth, PasswordRequest $request) {
-		
-		$user 				= User::find($auth->getUser()->username);
-		$current_password 	= $request->get('current_password');
-		$password 			= $request->get('password');
-		$password_again 	= $request->get('password_again');
+	public function postChangePassword(PasswordRequest $request) {
 
-		if (\Hash::check($current_password, $user->getAuthPassword())) {
-			$user->password = $password;
-			if($user->save()) {
-				\Auth::logout();
+		$finduser = Sentinel::findById(Sentinel::getUser()->id);
+
+		$credentials = [
+			'username' 		=> Sentinel::getUser()->username,
+			'password' 		=> $request->get('current_password'),
+		];
+
+		if (Sentinel::authenticate($credentials)) {
+
+			$info = [
+				'password' 		=> $request->get('password')
+			];
+
+			$updateuser = Sentinel::update($finduser, $info);
+
+			if($updateuser) {
+				Sentinel::logout();
 				return Redirect::route('home')
 						->with('messagetype', 'success')
 						->with('message', 'Your password has been changed! Please login again to confirm the password change.');
@@ -92,24 +102,34 @@ class AccountController extends Controller {
 
 	}
 
-	public function getChangeDetails(Sentinel $auth) {
-		$authuser = $auth->getUser();
+	public function getChangeDetails() {
+		$authuser = Sentinel::getUser();
 		return view('account.changedetails')->with($authuser->toArray());
 	}
 
-	public function postChangeDetails(Sentinel $auth, SettingsRequest $request) {
-		
-		$user 					= User::find($auth->getUser()->username);
+	public function postChangeDetails(SettingsRequest $request) {
 
-		$user->email 			= $request->get('email');
-		$user->firstname 		= $request->get('firstname');
-		$user->lastname 		= $request->get('lastname');
-		$user->gender 			= $request->get('gender');
-		$user->location 		= $request->get('location');
-		$user->occupation 		= $request->get('occupation');
+		$finduser = Sentinel::findById(Sentinel::getUser()->id);
 
-		if (\Hash::check($request->get('password'), $user->getAuthPassword())) {
-			if($user->save()) {
+		$credentials = [
+			'email' 		=> $request->get('email'),
+			'password' 		=> $request->get('password'),
+		];
+
+		if (Sentinel::authenticate($credentials)) {
+
+			$info = [
+				'email' 		=> $request->get('email'),
+				'firstname' 	=> $request->get('firstname'),
+				'lastname' 		=> $request->get('lastname'),
+				'gender' 		=> $request->get('gender'),
+				'location' 		=> $request->get('location'),
+				'occupation' 	=> $request->get('occupation'),
+			];
+
+			$updateuser = Sentinel::update($finduser, $info);
+
+			if($updateuser) {
 				return Redirect::route('account-change-details')
 						->with('messagetype', 'success')
 						->with('message', 'Your details has been changed!');
@@ -128,34 +148,40 @@ class AccountController extends Controller {
 	}
 
 	public function getChangeImages(Sentinel $auth) {
-		$authuser = $auth->getUser();
+		$authuser = Sentinel::getUser();
 		return view('account.changeimages')->with($authuser->toArray());
 	}
 
-	public function postChangeProfileImage(Sentinel $auth, ProfileImageRequest $request) {
+	public function postChangeProfileImage(ProfileImageRequest $request) {
 		
-		$user 				= User::find($auth->getUser()->username);
+		$finduser 			= Sentinel::findById(Sentinel::getUser()->id);
 
 		$image 				= $request->file('profileimage');
+
+		if($image == null) {
+			return Redirect::route('account-change-images')
+					->with('messagetype', 'warning')
+					->with('message', 'Please select an image.');
+		}
 		
-		$filename 			= $auth->getUser()->id . '.' . $image->getClientOriginalExtension();
+		$filename 			= Sentinel::getUser()->id . '.' . $image->getClientOriginalExtension();
 		$path 				= public_path() . '/images/profilepicture/' . $filename;
 		$webpath			= '/images/profilepicture/' . $filename;
 
-		$filename_small		= $auth->getUser()->id . '_small.' . $image->getClientOriginalExtension();
+		$filename_small		= Sentinel::getUser()->id . '_small.' . $image->getClientOriginalExtension();
 		$path_small 		= public_path() . '/images/profilepicture/' . $filename_small;
 		$webpath_small		= '/images/profilepicture/' . $filename_small;
 
-		//save image
 		$imagesave 			= Image::make($image->getRealPath())->resize(115, null, function($constraint){ $constraint->aspectRatio(); })->save($path);
 		$imagesave_small 	= Image::make($image->getRealPath())->fit(75)->save($path_small);
 
-		//add image to db
-		$user->profilepicture 		= $webpath;
-		$user->profilepicturesmall 	= $webpath_small;
-		$usersave 					= $user->save();
+		$info = [
+			'profilepicture' 		=> $webpath,
+			'profilepicturesmall' 	=> $webpath_small,
+		];
+		$updateuser = Sentinel::update($finduser, $info);
 
-		if($imagesave && $usersave && $imagesave_small) {
+		if($imagesave && $updateuser && $imagesave_small) {
 			return Redirect::route('account-change-images')
 					->with('messagetype', 'success')
 					->with('message', 'Your profile picture has been changed!');
@@ -167,24 +193,30 @@ class AccountController extends Controller {
 
 	}
 
-	public function postChangeProfileCover(Sentinel $auth, ProfileCoverRequest $request) {
+	public function postChangeProfileCover(ProfileCoverRequest $request) {
 		
-		$user 				= User::find($auth->getUser()->username);
+		$finduser 			= Sentinel::findById(Sentinel::getUser()->id);
 
 		$image 				= $request->file('profilecover');
+
+		if($image == null) {
+			return Redirect::route('account-change-images')
+					->with('messagetype', 'warning')
+					->with('message', 'Please select an image.');
+		}
 		
-		$filename 			= $auth->getUser()->id . '.' . $image->getClientOriginalExtension();
+		$filename 			= Sentinel::getUser()->id . '.' . $image->getClientOriginalExtension();
 		$path 				= public_path() . '/images/profilecover/' . $filename;
 		$webpath			= '/images/profilecover/' . $filename;
 
-		//save image
-		$imagesave 			= Image::make($image->getRealPath())->resize(1500, null, function($constraint){ $constraint->aspectRatio(); })->save($path);
+		$imagesave 			= Image::make($image->getRealPath())->resize(1920, null, function($constraint){ $constraint->aspectRatio(); })->save($path);
 
-		//add image to db
-		$user->profilecover 		= $webpath;
-		$usersave 					= $user->save();
+		$info = [
+			'profilecover' 		=> $webpath,
+		];
+		$updateuser = Sentinel::update($finduser, $info);
 
-		if($imagesave && $usersave) {
+		if($imagesave && $updateuser) {
 			return Redirect::route('account-change-images')
 					->with('messagetype', 'success')
 					->with('message', 'Your profile cover has been changed!');

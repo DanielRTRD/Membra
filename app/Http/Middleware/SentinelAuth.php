@@ -16,13 +16,12 @@ class SentinelAuth {
 	{
 		if (Sentinel::guest())
 		{
-			if ($request->ajax())
-			{
+			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
-			}
-			else
-			{
-				return redirect()->route('account-login');
+			} else {
+				return redirect()->route('account-login')
+										->with('messagetype', 'info')
+										->with('message', 'You need to login to access this page!');
 			}
 		} else {
 			$now = date_create('now');

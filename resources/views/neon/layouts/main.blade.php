@@ -10,7 +10,7 @@
 
 	<link href="{{ Theme::url('css/bootstrap.css') }}" rel="stylesheet">
 
-	<link href="{{ Theme::url('css/font-icons/entypo/css/entypo.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link href="{{ Theme::url('css/neon.css') }}" rel="stylesheet">
 
 	<script src="{{ Theme::url('js/jquery-1.11.0.min.js') }}"></script>
@@ -40,7 +40,7 @@
 				<nav class="site-nav">
 					<ul class="main-menu hidden-xs" id="main-menu">
 						<li class="active"><a href="{{ url('/') }}"><span>Home</span></a></li>
-						@if(Auth::Guest())
+						@if(Sentinel::Guest())
 							<li><a href="{{ route('account-login') }}"><span>Login</span></a></li>
 						@else
 							<li><a href="{{ route('account') }}"><span>Go to Dashboard</span></a></li>

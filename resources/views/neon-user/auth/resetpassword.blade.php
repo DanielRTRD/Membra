@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', 'Recover My Account')
+@section('title', 'Reset Password')
 @section('content')
 
 <div class="login-header login-caret">
@@ -10,12 +10,12 @@
 			<img src="{{ Theme::url('images/membra@2x.png') }}" width="120" alt="" />
 		</a>
 		
-		<p class="description">Continue to recover your account</p>
+		<p class="description">You can now reset your password</p>
 		
 		<!-- progress bar indicator -->
 		<div class="login-progressbar-indicator">
 			<h3>43%</h3>
-			<span>recovering account...</span>
+			<span>reseting password...</span>
 		</div>
 	</div>
 	
@@ -30,15 +30,15 @@
 	<div class="login-content">
 		
 		<div class="form-login-error">
-			<h3>Recover Unsuccessful</h3>
+			<h3>Reset Unsuccessful</h3>
 			<p id="recover_msg">Oooops...</p>
 		</div>
 		
-		<form method="post" role="form" id="form_recover_account">
+		<form method="post" role="form" id="form_reset_password">
 
 			<div class="form-register-success">
 				<i class="fa fa-check"></i>
-				<h3>Your account has been recovered!</h3><br>
+				<h3>Your password has been reset!</h3><br>
 				<p>You can now login to your account.</p>
 			</div>
 
@@ -54,7 +54,7 @@
 								<i class="fa fa-code"></i>
 							</div>
 							
-							<input type="text" class="form-control" name="passwordtoken" id="passwordtoken" readonly="readonly" value="{{ $passwordtoken }}" autocomplete="off" disabled="disabled" />
+							<input type="text" class="form-control" name="resetpassword_code" id="resetpassword_code" readonly="readonly" value="{{ $resetpassword_code }}" autocomplete="off" disabled="disabled" />
 						</div>
 					
 					</div>
@@ -63,22 +63,12 @@
 						
 						<div class="input-group">
 							<div class="input-group-addon">
-								<i class="fa fa-envelope"></i>
+								<i class="fa fa-at"></i>
 							</div>
 							
-							<input type="text" class="form-control" name="email" id="email" placeholder="E-mail" autocomplete="off" />
+							<input type="text" class="form-control" name="username" id="username" placeholder="Username/E-mail" autocomplete="off" />
 						</div>
 					
-					</div>
-
-					<div class="form-group">
-						<div class="input-group">
-							<div class="input-group-addon">
-								<i class="fa fa-calendar"></i>
-							</div>
-							
-							<input type="text" class="form-control" name="birthdate" id="birthdate" placeholder="Date of Birth (DD/MM/YYYY)" data-mask="date" autocomplete="off" />
-						</div>
 					</div>
 
 					<div class="form-group">
@@ -95,16 +85,6 @@
 				</div>
 
 				<div class="step" id="step-2">
-
-					<div class="form-group">
-						<div class="input-group">
-							<div class="input-group-addon">
-								<i class="fa fa-key"></i>
-							</div>
-							
-							<input type="password" class="form-control" name="password_temp" id="password_temp" placeholder="Confirm Temporary Password" autocomplete="off" />
-						</div>
-					</div>
 				
 					<div class="form-group">
 						<div class="input-group">
@@ -127,9 +107,9 @@
 					</div>
 					
 					<div class="form-group">
-						<button type="submit" class="btn btn-warning btn-block btn-login">
-							<i class="fa fa-retweet"></i>
-							Complete Recovery
+						<button type="submit" class="btn btn-success btn-block btn-login">
+							<i class="fa fa-check"></i>
+							Complete Password Reset
 						</button>
 					</div>
 					
@@ -162,6 +142,6 @@
 @stop
 
 @section('javascript')
-	<script src="{{ Theme::url('js/neon-recoveraccount.js') }}"></script>
+	<script src="{{ Theme::url('js/neon-resetpassword.js') }}"></script>
 	<script src="{{ Theme::url('js/jquery.inputmask.bundle.min.js') }}"></script>
 @stop

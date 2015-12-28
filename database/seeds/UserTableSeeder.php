@@ -6,15 +6,16 @@ use Membra\User as User;
 class UserTableSeeder extends Seeder {
   
 	public function run() {
-  
-		User::create([
+
+		Sentinel::registerAndActivate([
 			'email' 		=> 'd@rtrdt.ch',
 			'password' 		=> '12345678', // Den hash'r automatisk
 			'firstname' 	=> 'Daniel',
+			'lastname'	 	=> 'Billing',
 			'username' 		=> 'admin',
 		]);
 
-		User::create([
+		Sentinel::registerAndActivate([
 			'email' 		=> 'test@rtrdt.ch',
 			'password' 		=> '12345678', // Den hash'r automatisk
 			'firstname' 	=> 'John',

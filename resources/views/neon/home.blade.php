@@ -9,7 +9,7 @@
 			<div class="col-sm-12">
 				<h1>Home</h1>
 				<ol class="breadcrumb bc-3">
-					<li class="active"><a href="#"><i class="fa-home"></i>Home</a></li>
+					<li class="active"><a href="#"><i class="fa fa-home"></i> Home</a></li>
 				</ol>
 			</div>
 		</div>
@@ -24,20 +24,12 @@
 					<div class="panel-heading">Home</div>
 
 					<div class="panel-body">
-						<p>NEW:
-							@if(Sentinel::guest())
+						<p>@if(Sentinel::guest())
 								NOT LOGGED IN
 							@else
 								LOGGED IN
 							@endif
 						</p>
-
-						<p>OLD:
-						@if(Auth::guest())
-							You are not logged in.
-						@else
-							You are logged in!
-						@endif</p>
 					</div>
 				</div>
 			</div>

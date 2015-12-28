@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', 'Forgot')
+@section('title', 'Activate Account')
 @section('content')
 
 <div class="login-header login-caret">
@@ -10,12 +10,12 @@
 			<img src="{{ Theme::url('images/membra@2x.png') }}" width="120" alt="" />
 		</a>
 		
-		<p class="description">Oh, so you forgot your password or username?</p>
+		<p class="description">Activate your account</p>
 		
 		<!-- progress bar indicator -->
 		<div class="login-progressbar-indicator">
 			<h3>43%</h3>
-			<span>recovering account...</span>
+			<span id="act_msg">activating account...</span>
 		</div>
 	</div>
 	
@@ -30,17 +30,11 @@
 	<div class="login-content">
 		
 		<div class="form-login-error">
-			<h3>Recover Unsuccessful</h3>
-			<p id="forgot_msg">Oooops...</p>
+			<h3>Activation Unsuccessful</h3>
+			<p id="activation_msg">Oooops...</p>
 		</div>
 		
-		<form method="post" role="form" id="form_forgot_password">
-
-			<div class="form-register-success">
-				<i class="fa fa-check"></i>
-				<h3>Your account has been semi-recovered</h3><br>
-				<p><em>Your password has been changed!</em> Please check your inbox for the temporary password and reactivation of your account.</p>
-			</div>
+		<form method="post" role="form" id="form_activate_account">
 
 			<input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
 			
@@ -51,31 +45,35 @@
 						
 						<div class="input-group">
 							<div class="input-group-addon">
-								<i class="fa fa-envelope"></i>
+								<i class="fa fa-code"></i>
 							</div>
 							
-							<input type="text" class="form-control" name="email" id="email" placeholder="E-mail" autocomplete="off" />
+							<input type="text" class="form-control" name="activation_code" id="activation_code" readonly="readonly" value="{{ $activation_code }}"  disabled="disabled" />
 						</div>
 					
 					</div>
 
 					<div class="form-group">
+						
 						<div class="input-group">
 							<div class="input-group-addon">
-								<i class="fa fa-calendar"></i>
+								<i class="fa fa-at"></i>
 							</div>
 							
-							<input type="text" class="form-control" name="birthdate" id="birthdate" placeholder="Date of Birth (DD/MM/YYYY)" data-mask="date" autocomplete="off" />
+							<input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off" />
 						</div>
+					
 					</div>
-
+					
 					<div class="form-group">
 						<button type="submit" class="btn btn-success btn-block btn-login">
-							<i class="fa fa-angle-right"></i>
-							Continue
+							<i class="fa fa-check"></i>
+							Complete Activation
 						</button>
 					</div>
+					
 				</div>
+
 			</div>
 			
 		</form>
@@ -99,6 +97,6 @@
 @stop
 
 @section('javascript')
-	<script src="{{ Theme::url('js/neon-forgotpassword.js') }}"></script>
+	<script src="{{ Theme::url('js/neon-activateaccount.js') }}"></script>
 	<script src="{{ Theme::url('js/jquery.inputmask.bundle.min.js') }}"></script>
 @stop

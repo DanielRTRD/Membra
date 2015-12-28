@@ -19,7 +19,7 @@ class ThemeSelectServiceProvider extends ServiceProvider {
 			\Theme::set('neon-user');
 		}
 
-		if (\Request::segment(1)=='account' && \Request::segment(2)=='register' || \Request::segment(2)=='login' || \Request::segment(2)=='forgot' || \Request::segment(2)=='recover') {
+		if (\Request::segment(1)=='account' && \Request::segment(2)=='register' || \Request::segment(2)=='login' || \Request::segment(2)=='forgot' || \Request::segment(2)=='recover' || \Request::segment(2)=='activate' || \Request::segment(2)=='resetpassword') {
 			\Theme::set('neon-user');
 		}
 	}

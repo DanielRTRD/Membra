@@ -3,6 +3,7 @@
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Illuminate\Support\Facades\Redirect;
 
 class SentinelGuest {
 
@@ -18,7 +19,9 @@ class SentinelGuest {
 
 		if (Sentinel::check())
 		{
-			return new RedirectResponse(url('/'));
+			return Redirect::route('home')
+						->with('messagetype', 'info')
+						->with('message', 'You do not have access to this page while your are logged in!');
 		}
 
 		return $next($request);
