@@ -67,10 +67,7 @@
 			
 			<ul class="nav navbar-right pull-right">
 				
-				@if(\Auth::user()->ismod || \Auth::user()->isadmin || \Auth::user()->issuperadmin)
-					<li><a href="{{ URL::Route('admin') }}"><i class="fa fa-user-secret"></i> Admin Panel</a></li>
-					<li class="sep"></li>
-				@endif
+				
 				<li><a href="{{ URL::Route('logout') }}">Log Out <i class="fa fa-sign-out right"></i></a></li>
 			
 				<li class="visible-xs">	

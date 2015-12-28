@@ -79,15 +79,15 @@ var baseurl = '{{ Config::get("infihex.appprotocol") }}://{{ Config::get("infihe
 			"hideMethod": "fadeOut"
 		};
 
-		@if(Session::has('global') && Session::has('globaltype'))
-			@if(Session::get('globaltype') == 'info')
-				toastr.info("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
-			@elseif(Session::get('globaltype') == 'warning')
-				toastr.warning("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
-			@elseif(Session::get('globaltype') == 'danger')
-				toastr.error("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
-			@elseif(Session::get('globaltype') == 'success')
-				toastr.success("{{ Session::get('global') }}", String("{{ Session::get('globaltype') }}").toUpperCase(), opts);
+		@if(Session::has('message') && Session::has('messagetype'))
+			@if(Session::get('messagetype') == 'info')
+				toastr.info("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
+			@elseif(Session::get('messagetype') == 'warning')
+				toastr.warning("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
+			@elseif(Session::get('messagetype') == 'danger')
+				toastr.error("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
+			@elseif(Session::get('messagetype') == 'success')
+				toastr.success("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
 			@endif
 
 		@endif

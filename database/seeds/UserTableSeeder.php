@@ -6,22 +6,75 @@ use Membra\User as User;
 class UserTableSeeder extends Seeder {
   
 	public function run() {
-  
-		User::create([
+
+		// Create Users
+		Sentinel::registerAndActivate([
 			'email' 		=> 'd@rtrdt.ch',
 			'password' 		=> '12345678', // Den hash'r automatisk
 			'firstname' 	=> 'Daniel',
-			'username' 		=> 'admin',
-			'active'		=> 1,
-			'issuperadmin'	=> 1,
+			'lastname'	 	=> 'SADMIN',
+			'username' 		=> 'sadmin',
 		]);
-
-		User::create([
+		Sentinel::registerAndActivate([
 			'email' 		=> 'test@rtrdt.ch',
 			'password' 		=> '12345678', // Den hash'r automatisk
 			'firstname' 	=> 'John',
-			'username' 		=> 'test',
+			'lastname'	 	=> 'ADMIN',
+			'username' 		=> 'admin',
 		]);
+		Sentinel::registerAndActivate([
+			'email' 		=> 'test2@rtrdt.ch',
+			'password' 		=> '12345678', // Den hash'r automatisk
+			'firstname' 	=> 'John',
+			'lastname'	 	=> 'MOD',
+			'username' 		=> 'mod',
+		]);
+
+		//Create Roles
+		$role = Sentinel::getRoleRepository()->createModel()->create([
+		    'name' => 'Moderators',
+		    'slug' => 'mod',
+		]);
+		$role = Sentinel::getRoleRepository()->createModel()->create([
+		    'name' => 'Administrators',
+		    'slug' => 'admin',
+		]);
+		$role = Sentinel::getRoleRepository()->createModel()->create([
+		    'name' => 'Super Administrators',
+		    'slug' => 'superadmin',
+		]);
+
+		// Add users to groups
+		$user = Sentinel::findById(1);
+		$role = Sentinel::findRoleByName('Super Administrators');
+		$role->users()->attach($user);
+
+		$user = Sentinel::findById(2);
+		$role = Sentinel::findRoleByName('Administrators');
+		$role->users()->attach($user);
+
+		$user = Sentinel::findById(3);
+		$role = Sentinel::findRoleByName('Moderators');
+		$role->users()->attach($user);
+
+		//Add permissions to roles
+		$role = Sentinel::findRoleByName('Super Administrators');
+		$role->addPermission('news.create');
+		$role->addPermission('news.update');
+		$role->addPermission('news.destroy');
+		$role->save();
+
+		$role = Sentinel::findRoleByName('Administrators');
+		$role->addPermission('news.create');
+		$role->addPermission('news.update');
+		$role->addPermission('news.destroy', false);
+		$role->save();
+
+		$role = Sentinel::findRoleByName('Moderators');
+		$role->addPermission('news.create', false);
+		$role->addPermission('news.update');
+		$role->addPermission('news.destroy', false);
+		$role->save();
 
 	}
 }

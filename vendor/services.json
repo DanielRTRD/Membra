@@ -29,7 +29,8 @@
         "Membra\\Providers\\RouteServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
         "igaster\\laravelTheme\\themeServiceProvider",
-        "Membra\\Providers\\ThemeSelectServiceProvider"
+        "Membra\\Providers\\ThemeSelectServiceProvider",
+        "Cartalyst\\Sentinel\\Laravel\\SentinelServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -50,7 +51,8 @@
         "Membra\\Providers\\RouteServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
         "igaster\\laravelTheme\\themeServiceProvider",
-        "Membra\\Providers\\ThemeSelectServiceProvider"
+        "Membra\\Providers\\ThemeSelectServiceProvider",
+        "Cartalyst\\Sentinel\\Laravel\\SentinelServiceProvider"
     ],
     "deferred": {
         "command.app.name": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",

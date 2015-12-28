@@ -3,8 +3,8 @@
 return array(
 
 	'appname' 				=> 'Membra',
-	'appversion' 			=> '0.0.1',
-	'appversiontype' 		=> '&alpha;lpha',
+	'appversion' 			=> '0.1.0',
+	'appversiontype' 		=> '&beta;eta',
 	'appdomain'				=> 'membra.dev',
 	'appprotocol'			=> 'http',
 

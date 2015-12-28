@@ -2,58 +2,449 @@
 
 namespace Membra;
 
-use Illuminate\Auth\Authenticatable;
+use Cartalyst\Sentinel\Permissions\PermissibleInterface;
+use Cartalyst\Sentinel\Permissions\PermissibleTrait;
+use Cartalyst\Sentinel\Persistences\PersistableInterface;
+use Cartalyst\Sentinel\Roles\RoleableInterface;
+use Cartalyst\Sentinel\Roles\RoleInterface;
+use Cartalyst\Sentinel\Users\UserInterface;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Illuminate\Support\Facades\Auth;
-
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
-
-	use Authenticatable, CanResetPassword, SoftDeletes;
+class User extends Model implements RoleableInterface, PermissibleInterface, PersistableInterface, UserInterface
+{
+	use PermissibleTrait;
 
 	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $table = 'users';
 
 	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
+	 * {@inheritDoc}
 	 */
-	protected $fillable = ['firstname', 'lastname', 'username', 'email', 'password', 'activation_code', 'referral', 'referral_code'];
+	protected $fillable = [
+		'email',
+		'username',
+		'password',
+		'lastname',
+		'firstname',
+		'permissions',
+		'referral',
+		'referral_code',
+		'last_activity',
+		'birthday',
+		'gender',
+		'occupation',
+		'location',
+		'profilepicture',
+		'profilepicture_small',
+		'profilecover',
+		'showemail',
+		'showname',
+		'showonline',
+		'userdateformat',
+		'usertimeformat',
+	];
 
 	/**
-	 * The attributes excluded from the model's JSON form.
+	 * {@inheritDoc}
+	 */
+	protected $persistableKey = 'user_id';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $persistableRelationship = 'persistences';
+
+	/**
+	 * Array of login column names.
 	 *
 	 * @var array
 	 */
-	protected $hidden = ['password', 'remember_token'];
+	protected $loginNames = ['email', 'username'];
 
+	/**
+	 * The Eloquent roles model name.
+	 *
+	 * @var string
+	 */
+	protected static $rolesModel = 'Cartalyst\Sentinel\Roles\EloquentRole';
 
-	protected $primaryKey = 'username';
-	protected $dates = ['deleted_at'];
+	/**
+	 * The Eloquent persistences model name.
+	 *
+	 * @var string
+	 */
+	protected static $persistencesModel = 'Cartalyst\Sentinel\Persistences\EloquentPersistence';
 
-	public function setPasswordAttribute($password) {
-		$this->attributes['password'] = bcrypt($password);
+	/**
+	 * The Eloquent activations model name.
+	 *
+	 * @var string
+	 */
+	protected static $activationsModel = 'Cartalyst\Sentinel\Activations\EloquentActivation';
+
+	/**
+	 * The Eloquent reminders model name.
+	 *
+	 * @var string
+	 */
+	protected static $remindersModel = 'Cartalyst\Sentinel\Reminders\EloquentReminder';
+
+	/**
+	 * The Eloquent throttling model name.
+	 *
+	 * @var string
+	 */
+	protected static $throttlingModel = 'Cartalyst\Sentinel\Throttling\EloquentThrottle';
+
+	/**
+	 * Returns an array of login column names.
+	 *
+	 * @return array
+	 */
+	public function getLoginNames()
+	{
+		return $this->loginNames;
 	}
 
-	public function isSuperAdmin() {
-		return ($this->issuperadmin == 1);
+	/**
+	 * Returns the roles relationship.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function roles()
+	{
+		return $this->belongsToMany(static::$rolesModel, 'role_users', 'user_id', 'role_id')->withTimestamps();
 	}
 
-	public function isAdmin() {
-		return ($this->isadmin == 1);
+	/**
+	 * Returns the persistences relationship.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function persistences()
+	{
+		return $this->hasMany(static::$persistencesModel, 'user_id');
 	}
 
-	public function isMod() {
-		return ($this->ismod == 1);
+	/**
+	 * Returns the activations relationship.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function activations()
+	{
+		return $this->hasMany(static::$activationsModel, 'user_id');
+	}
+
+	/**
+	 * Returns the reminders relationship.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function reminders()
+	{
+		return $this->hasMany(static::$remindersModel, 'user_id');
+	}
+
+	/**
+	 * Returns the throttle relationship.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function throttle()
+	{
+		return $this->hasMany(static::$throttlingModel, 'user_id');
+	}
+
+	/**
+	 * Get mutator for the "permissions" attribute.
+	 *
+	 * @param  mixed  $permissions
+	 * @return array
+	 */
+	public function getPermissionsAttribute($permissions)
+	{
+		return $permissions ? json_decode($permissions, true) : [];
+	}
+
+	/**
+	 * Set mutator for the "permissions" attribute.
+	 *
+	 * @param  mixed  $permissions
+	 * @return void
+	 */
+	public function setPermissionsAttribute(array $permissions)
+	{
+		$this->attributes['permissions'] = $permissions ? json_encode($permissions) : '';
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getRoles()
+	{
+		return $this->roles;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function inRole($role)
+	{
+		$role = array_first($this->roles, function ($index, $instance) use ($role) {
+			if ($role instanceof RoleInterface) {
+				return ($instance->getRoleId() === $role->getRoleId());
+			}
+
+			if ($instance->getRoleId() == $role || $instance->getRoleSlug() == $role) {
+				return true;
+			}
+
+			return false;
+		});
+
+		return $role !== null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function generatePersistenceCode()
+	{
+		return str_random(32);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getUserId()
+	{
+		return $this->getKey();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getPersistableId()
+	{
+		return $this->getKey();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getPersistableKey()
+	{
+		return $this->persistableKey;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setPersistableKey($key)
+	{
+		$this->persistableKey = $key;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setPersistableRelationship($persistableRelationship)
+	{
+		$this->persistableRelationship = $persistableRelationship;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getPersistableRelationship()
+	{
+		return $this->persistableRelationship;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getUserLogin()
+	{
+		return $this->getAttribute($this->getUserLoginName());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getUserLoginName()
+	{
+		return reset($this->loginNames);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getUserPassword()
+	{
+		return $this->password;
+	}
+
+	/**
+	 * Returns the roles model.
+	 *
+	 * @return string
+	 */
+	public static function getRolesModel()
+	{
+		return static::$rolesModel;
+	}
+
+	/**
+	 * Sets the roles model.
+	 *
+	 * @param  string  $rolesModel
+	 * @return void
+	 */
+	public static function setRolesModel($rolesModel)
+	{
+		static::$rolesModel = $rolesModel;
+	}
+
+	/**
+	 * Returns the persistences model.
+	 *
+	 * @return string
+	 */
+	public static function getPersistencesModel()
+	{
+		return static::$persistencesModel;
+	}
+
+	/**
+	 * Sets the persistences model.
+	 *
+	 * @param  string  $persistencesModel
+	 * @return void
+	 */
+	public static function setPersistencesModel($persistencesModel)
+	{
+		static::$persistencesModel = $persistencesModel;
+	}
+
+	/**
+	 * Returns the activations model.
+	 *
+	 * @return string
+	 */
+	public static function getActivationsModel()
+	{
+		return static::$activationsModel;
+	}
+
+	/**
+	 * Sets the activations model.
+	 *
+	 * @param  string  $activationsModel
+	 * @return void
+	 */
+	public static function setActivationsModel($activationsModel)
+	{
+		static::$activationsModel = $activationsModel;
+	}
+
+	/**
+	 * Returns the reminders model.
+	 *
+	 * @return string
+	 */
+	public static function getRemindersModel()
+	{
+		return static::$remindersModel;
+	}
+
+	/**
+	 * Sets the reminders model.
+	 *
+	 * @param  string  $remindersModel
+	 * @return void
+	 */
+	public static function setRemindersModel($remindersModel)
+	{
+		static::$remindersModel = $remindersModel;
+	}
+
+	/**
+	 * Returns the throttling model.
+	 *
+	 * @return string
+	 */
+	public static function getThrottlingModel()
+	{
+		return static::$throttlingModel;
+	}
+
+	/**
+	 * Sets the throttling model.
+	 *
+	 * @param  string  $throttlingModel
+	 * @return void
+	 */
+	public static function setThrottlingModel($throttlingModel)
+	{
+		static::$throttlingModel = $throttlingModel;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function delete()
+	{
+		if ($this->exists) {
+			$this->activations()->delete();
+			$this->persistences()->delete();
+			$this->reminders()->delete();
+			$this->roles()->detach();
+			$this->throttle()->delete();
+		}
+
+		parent::delete();
+	}
+
+	/**
+	 * Dynamically pass missing methods to the user.
+	 *
+	 * @param  string  $method
+	 * @param  array  $parameters
+	 * @return mixed
+	 */
+	public function __call($method, $parameters)
+	{
+		$methods = ['hasAccess', 'hasAnyAccess'];
+
+		if (in_array($method, $methods)) {
+			$permissions = $this->getPermissionsInstance();
+
+			return call_user_func_array([$permissions, $method], $parameters);
+		}
+
+		return parent::__call($method, $parameters);
+	}
+
+	/**
+	 * Creates a permissions object.
+	 *
+	 * @return \Cartalyst\Sentinel\Permissions\PermissionsInterface
+	 */
+	protected function createPermissions()
+	{
+		$userPermissions = $this->permissions;
+
+		$rolePermissions = [];
+
+		foreach ($this->roles as $role) {
+			$rolePermissions[] = $role->permissions;
+		}
+
+		return new static::$permissionsClass($userPermissions, $rolePermissions);
 	}
 
 	public function scopeGetLastActivity($query, $id, $short = false) {
@@ -69,7 +460,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		$before 	= time() - strtotime($time);
 
 		if ($before < 0) {
-		    return "not yet";
+			return "not yet";
 		}
 
 		if ($time == '0000-00-00 00:00:00') {
@@ -78,78 +469,78 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 		if ($short) {
 
-		    if ($before < 1 * $MINUTE) {
-		        return ($before <5) ? "just now" : $before . " ago";
-		    }
+			if ($before < 1 * $MINUTE) {
+				return ($before <5) ? "just now" : $before . " ago";
+			}
 
-		    if ($before < 2 * $MINUTE) {
-		        return "1m ago";
-		    }
+			if ($before < 2 * $MINUTE) {
+				return "1m ago";
+			}
 
-		    if ($before < 45 * $MINUTE) {
-		        return floor($before / 60) . "m ago";
-		    }
+			if ($before < 45 * $MINUTE) {
+				return floor($before / 60) . "m ago";
+			}
 
-		    if ($before < 90 * $MINUTE) {
-		        return "1h ago";
-		    }
+			if ($before < 90 * $MINUTE) {
+				return "1h ago";
+			}
 
-		    if ($before < 24 * $HOUR) {
-		        return floor($before / 60 / 60). "h ago";
-		    }
+			if ($before < 24 * $HOUR) {
+				return floor($before / 60 / 60). "h ago";
+			}
 
-		    if ($before < 48 * $HOUR) {
-		        return "1d ago";
-		    }
+			if ($before < 48 * $HOUR) {
+				return "1d ago";
+			}
 
-		    if ($before < 30 * $DAY) {
-		        return floor($before / 60 / 60 / 24) . "d ago";
-		    }
+			if ($before < 30 * $DAY) {
+				return floor($before / 60 / 60 / 24) . "d ago";
+			}
 
-		    if ($before < 12 * $MONTH) {
-		        $months = floor($before / 60 / 60 / 24 / 30);
-		        return $months <= 1 ? "1mo ago" : $months . "mo ago";
-		    } else {
-		        $years = floor  ($before / 60 / 60 / 24 / 30 / 12);
-		        return $years <= 1 ? "1y ago" : $years."y ago";
-		    }
+			if ($before < 12 * $MONTH) {
+				$months = floor($before / 60 / 60 / 24 / 30);
+				return $months <= 1 ? "1mo ago" : $months . "mo ago";
+			} else {
+				$years = floor  ($before / 60 / 60 / 24 / 30 / 12);
+				return $years <= 1 ? "1y ago" : $years."y ago";
+			}
 
 		}
 
 		if ($before < 1 * $MINUTE) {
-		    return ($before <= 1) ? "just now" : $before . " seconds ago";
+			return ($before <= 1) ? "just now" : $before . " seconds ago";
 		}
 
 		if ($before < 2 * $MINUTE) {
-		    return "a minute ago";
+			return "a minute ago";
 		}
 
 		if ($before < 45 * $MINUTE) {
-		    return floor($before / 60) . " minutes ago";
+			return floor($before / 60) . " minutes ago";
 		}
 
 		if ($before < 90 * $MINUTE) {
-		    return "an hour ago";
+			return "an hour ago";
 		}
 
 		if ($before < 24 * $HOUR) {
-		    return (floor($before / 60 / 60) == 1 ? 'about an hour' : floor($before / 60 / 60).' hours'). " ago";
+			return (floor($before / 60 / 60) == 1 ? 'about an hour' : floor($before / 60 / 60).' hours'). " ago";
 		}
 
 		if ($before < 48 * $HOUR) {
-		    return "yesterday";
+			return "yesterday";
 		}
 
 		if ($before < 30 * $DAY) {
-		    return floor($before / 60 / 60 / 24) . " days ago";
+			return floor($before / 60 / 60 / 24) . " days ago";
 		}
 
 		if ($before < 12 * $MONTH) {
-		    $months = floor($before / 60 / 60 / 24 / 30);
-		    return $months <= 1 ? "one month ago" : $months . " months ago";
+			$months = floor($before / 60 / 60 / 24 / 30);
+			return $months <= 1 ? "one month ago" : $months . " months ago";
 		} else {
-		    $years = floor  ($before / 60 / 60 / 24 / 30 / 12);
-		    return $years <= 1 ? "one year ago" : $years." years ago";
+			$years = floor  ($before / 60 / 60 / 24 / 30 / 12);
+			return $years <= 1 ? "one year ago" : $years." years ago";
 		}
 
 	}
@@ -168,9 +559,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		}
 
 		if ($before < 5 * $MINUTE) {
-		    return "online";
+			return "online";
 		} elseif ($before < 10 * $MINUTE) {
-		    return "idle";
+			return "idle";
 		} else {
 			return "offline";
 		}
@@ -179,8 +570,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function scopeGetUserDateFormat($query) {
 
-		if(Auth::check()) {
-			$user 		= $query->where('id', '=', Auth::user()->id)->first();
+		if(Sentinel::check()) {
+			$user 		= $query->where('id', '=', Sentinel::getUser()->id)->first();
 			$format 	= $user->userdateformat;
 
 			if($format == null) {
@@ -196,8 +587,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function scopeGetUserTimeFormat($query) {
 
-		if(Auth::check()) {
-			$user 		= $query->where('id', '=', Auth::user()->id)->first();
+		if(Sentinel::check()) {
+			$user 		= $query->where('id', '=', Sentinel::getUser()->id)->first();
 			$format 	= $user->usertimeformat;
 
 			if($format == null) {
@@ -210,5 +601,4 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 		return $format;
 	}
-
 }

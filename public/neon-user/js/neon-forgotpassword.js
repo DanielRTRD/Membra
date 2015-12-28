@@ -91,12 +91,11 @@ var neonForgotPassword = neonForgotPassword || {};
 					{
 						// Send data to the server
 						$.ajax({
-							url: baseurl + '/ajax/account/forgot',
+							url: baseurl + '/ajax/account/forgot/password',
 							method: 'POST',
 							dataType: 'json',
 							data: {
-								email: 			$("input#email").val(),
-								birthdate: 		$("input#birthdate").val(),
+								username:		$("input#username").val(),
 								_token: 		$("input#_token").val()
 							},
 							error: function(jqXHR, exception)

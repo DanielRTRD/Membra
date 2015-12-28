@@ -21,50 +21,65 @@ if(Config::get('app.debug')) {
 			dd('Success.');
 		}
 	});*/
+	Route::get('/test', function() {
+		/*Sentinel::register([
+			'email' 		=> 'd@rtrdt.ch',
+			'password' 		=> '12345678', // Den hash'r automatisk
+			'firstname' 	=> 'Daniel',
+			'lastname'	 	=> 'Billing',
+			'username' 		=> 'admin',
+		]);*/
+
+		/*$user = Sentinel::findById(1);
+		$activation = Activation::create($user);
+		dd($activation->code);*/
+		
+		/*$user = Sentinel::findById(2);
+		Sentinel::loginAndRemember($user);*/
+
+		//Sentinel::logout();
+
+		//dd(Sentinel::getUser()->id);
+		/*$credentials 	= ['login' => 'daniel'];
+		$user = Sentinel::findByCredentials($credentials);
+
+		dd(Reminder::create($user));*/
+
+		/*$actex = Activation::exists($user);
+		$actco = Activation::completed($user);
+
+		if($actex) {
+			dd(false);
+		} elseif($actco) {
+			dd(true);
+		}*/
+
+	});
 }
 
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('/tos', ['as' => 'account-tos', 'uses' => 'HomeController@index']);
 Route::get('/privacy', ['as' => 'account-privacy', 'uses' => 'HomeController@index']);
 
-/*
-| IF IN DEBUG MODE THEN DO NOT USE SUBDOMAIN
-*/
 Route::group([
-	'middleware' => 'guest',
+	'middleware' => 'sentinel.guest',
 	'prefix' => 'account',
 	], function() {
-		get('/forgot', [
-			'as' => 'account-forgot' ,
-			'uses' => 'Member\RecoverController@getForgot'
+		get('/forgot/password', [
+			'as' => 'account-forgot-password' ,
+			'uses' => 'Member\RecoverController@getForgotPassword'
 		]);
-		post('/forgot', [
-			'as' => 'account-forgot-post' ,
-			'uses' => 'Member\RecoverController@postForgot'
-		]);
-		get('/recover/{token}', [
+		get('/resetpassword/{code}', [
 			'as' => 'account-recover' ,
-			'uses' => 'Member\RecoverController@getRecoverAccount'
-		]);
-		post('/recover/{token}', [
-			'as' => 'account-recover-post' ,
-			'uses' => 'Member\RecoverController@postRecoverAccount'
+			'uses' => 'Member\RecoverController@getResetPassword'
 		]);
 		get('/register', [
 			'as' => 'account-register',
 			'uses' => 'Member\AuthController@getRegister'
 		]);
-		post('/register', [
-			'as' => 'account-register-post',
-			'uses' => 'Member\AuthController@postRegister'
-		]);
 		get('/login', [
 			'as' => 'account-login',
 			'uses' => 'Member\AuthController@getLogin'
-		]);
-		post('/login', [
-			'as' => 'account-login-post',
-			'uses' => 'Member\AuthController@postLogin'
 		]);
 		get('/activate/{activation_code}', [
 			'as' => 'account-activate',
@@ -73,7 +88,7 @@ Route::group([
 });
 
 Route::group([
-	'middleware' => 'auth',
+	'middleware' => 'sentinel.auth',
 	'prefix' => 'user',
 	], function() {
 		get('/', [
@@ -132,7 +147,7 @@ Route::group([
 
 // ADMIN PANEL
 Route::group([
-	'middleware' => 'auth',
+	'middleware' => 'sentinel.auth',
 	'prefix' => 'admin',
 	], function() {
 		get('/', [
@@ -164,22 +179,22 @@ Route::group(['prefix' => 'ajax',], function() {
 
 		$referral			= Request::get('referral');
 		$referral_code 		= str_random(15);
-		$activation_code	= str_random(60); // Activation Code
 
-		$user = \Membra\User::create(array(
+		$user = Sentinel::register(array(
 			'email' 			=> $email,
 			'username'			=> $username,
 			'firstname'			=> $firstname,
 			'lastname'			=> $lastname,
 			'birthdate'			=> $birthdate,
 			'password'			=> $password,
-			'activation_code'	=> $activation_code,
 			'referral'			=> $referral,
 			'referral_code'		=> $referral_code,
-			'active'			=> 0
 		));
 
 		if($user) {
+
+			$activation = Activation::create($user);
+			$activation_code = $activation->code;
 
 			$reg_status = 'success';
 
@@ -194,10 +209,6 @@ Route::group(['prefix' => 'ajax',], function() {
 
 			Session::forget('referral'); //forget the referral
 
-			/*return Redirect::route('home')
-					->with('messagetype', 'success')
-					->with('message', 'Your account has been created! We have sent you an email to acitvate your account.');*/
-
 		} else {
 			$reg_status = 'invalid';
 			$reg_msg = 'Something went wrong while trying to register your user.';
@@ -207,6 +218,34 @@ Route::group(['prefix' => 'ajax',], function() {
 		$resp['reg_status'] = $reg_status;
 		$resp['reg_msg'] = $reg_msg;
 		return Response::json($resp);
+	});
+	Route::post('/account/activate', function () {
+
+		if(!Request::ajax()) {
+			abort(403);
+		}
+
+		$resp 				= array();
+		$activation_status 	= 'invalid';
+		$activation_msg 	= 'Something went wrong...';
+
+		$username 			= Request::input('username');
+		$activation_code	= Request::input('activation_code');
+		$credentials 		= ['login' => $username];
+		$user 				= Sentinel::findByCredentials($credentials);
+
+		if (Activation::complete($user, $activation_code)) {
+			$activation_status 		= 'success';
+			$resp['redirect_url'] 	= URL::route('account-login');
+		} else {
+			$activation_msg 		= 'Something went wrong while activating your account. Please try again later.';
+		}
+
+		$resp['activation_status'] 	= $activation_status;
+		$resp['activation_msg'] 	= $activation_msg;
+
+		return Response::json($resp);
+
 	});
 	Route::post('/account/login', function () {
 
@@ -218,11 +257,12 @@ Route::group(['prefix' => 'ajax',], function() {
 		$login_status = 'invalid';
 		$login_msg = 'Something went wrong...';
 
-		$username = Request::input('username');
-		$password = Request::input('password');
-		$remember = Request::input('remember');
+		$username 		= Request::input('username');
+		$password 		= Request::input('password');
+		$remember 		= Request::input('remember');
 
-		$user = \Membra\User::where('username', '=', $username)->first();
+		$credentials 	= ['login' => $username];
+		$user = Sentinel::findByCredentials($credentials);
 
 		if ($user == null) {
 
@@ -230,22 +270,40 @@ Route::group(['prefix' => 'ajax',], function() {
 
 		} else {
 
-			$active = $user->active;
+			$actex = Activation::exists($user);
+			$actco = Activation::completed($user);
+			$active = false;
+			if($actex) {
+				$active = false;
+			} elseif($actco) {
+				$active = true;
+			}
 
-			if ($active == 0) {
+			if ($active === false) {
 
 				$login_msg = '<strong>Your user is not active!</strong><br>Please check your inbox for the activation email.';
 
-			} elseif (Auth::attempt(['username' => $username, 'password' => $password, 'active' => 1], $remember)) {
+			} elseif ($active === true) {
 
-				$login_status = 'success';
-				$resp['redirect_url'] = URL::route('account');
+				if($remember) {
+					$loginRemember = Sentinel::loginAndRemember($user);
+					if(!$loginRemember) {
+						$login_msg = 'Username or password was wrong. Please try again.';
+					} else {
+						$login_status = 'success';
+						$resp['redirect_url'] = URL::route('account');
+					}
+				} else {
+					$login = Sentinel::login($user);
+					if(!$login) {
+						$login_msg = 'Username or password was wrong. Please try again.';
+					} else {
+						$login_status = 'success';
+						$resp['redirect_url'] = URL::route('account');
+					}
+				}
 
-			} else {
-
-				$login_msg = 'Username or password was wrong. Please try again.';
-
-			}
+			} 
 
 		}
 
@@ -254,7 +312,7 @@ Route::group(['prefix' => 'ajax',], function() {
 
 		return Response::json($resp);
 	});
-	Route::post('/account/forgot', function () {
+	Route::post('/account/forgot/password', function () {
 
 		if(!Request::ajax()) {
 			abort(403);
@@ -264,11 +322,11 @@ Route::group(['prefix' => 'ajax',], function() {
 		$forgot_status = 'invalid';
 		$forgot_msg = 'Something went wrong...';
 
-		$email = Request::input('email');
-		$originalDate = Request::input('birthdate');
-		$birthdate = date_format(date_create_from_format('d/m/Y', $originalDate), 'Y-m-d'); //strtotime fucks the date up so this is the solution
+		$username = Request::input('username');
 
-		$user = \Membra\User::where('email', '=', $email)->first();
+		$credentials 	= ['login' => $username];
+
+		$user = Sentinel::findByCredentials($credentials);
 
 		if ($user == null) {
 
@@ -276,47 +334,53 @@ Route::group(['prefix' => 'ajax',], function() {
 
 		} else {
 
-			$active = $user->active;
+			$actex = Activation::exists($user);
+			$actco = Activation::completed($user);
+			$active = false;
+			if($actex) {
+				$active = false;
+			} elseif($actco) {
+				$active = true;
+			}
 
-			if ($active == 0) {
+			$remex = Reminder::exists($user);
+			$reminder = false;
+			if($remex) {
+				$reminder = true;
+			}
+
+			if ($active == false) {
 
 				$forgot_msg = '<strong>Your user is not active!</strong><br>Please check your inbox for the activation email.';
 
-			} elseif ($birthdate == $user->birthdate) {
+			} elseif ($reminder == true) {
 
-				$passwordtoken 			= str_random(60);
-				$password_temp 			= str_random(16);
+				$forgot_msg = '<strong>You have already asked for a reminder!</strong><br>Please check your inbox for the reminder email.';
 
-				$user->passwordtoken 	= $passwordtoken;
-				$user->password_temp	= $password_temp;
+			} elseif ($active == true && $reminder == false) {
 
-				if($user->save()) {
+				$reminder 		= Reminder::create($user);
+				$reminder_code 	= $reminder->code;
 
-					Mail::send('emails.auth.forgot', 
-						array(
-							'link' => URL::route('account-recover', $passwordtoken),
-							'firstname' => $user->firstname,
-							'username' => $user->username,
-							'password_temp' => $password_temp
-						), function($message) use ($user) {
-							$message->to($user->email, $user->firstname)->subject('Account Recovery');
-					});
-					
-					if(count(Mail::failures()) > 0) {
-						$forgot_msg = 'Mail Failure.';
-					} else {
-						$forgot_status = 'success';
-						$forgot_msg = 'Everything went well.';
-					}
-
+				Mail::send('emails.auth.forgot-password', 
+					array(
+						'link' => URL::route('account-recover', $reminder_code),
+						'firstname' => $user->firstname,
+						'username' => $user->username,
+					), function($message) use ($user) {
+						$message->to($user->email, $user->firstname)->subject('Forgot Password');
+				});
+				
+				if(count(Mail::failures()) > 0) {
+					$forgot_msg = 'Mail Failure.';
 				} else {
-					$forgot_msg = 'Could not save the user changes. Please contact the staff.';
+					$forgot_status = 'success';
+					$forgot_msg = 'Everything went well.';
 				}
 
-			} else {
-
-				$forgot_msg = 'E-mail or birthdate was wrong. Please try again.';
-
+				if(!$reminder) {
+					$forgot_msg = 'E-mail or birthdate was wrong. Please try again.';
+				}
 			}
 
 		}
@@ -326,63 +390,33 @@ Route::group(['prefix' => 'ajax',], function() {
 
 		return Response::json($resp);
 	});
-	Route::post('/account/recover', function () {
+	Route::post('/account/resetpassword', function () {
 
 		if(!Request::ajax()) {
 			abort(403);
 		}
 
-		$resp = array();
-		$recover_status = 'invalid';
-		$recover_msg = 'Something went wrong...';
+		$resp 				= array();
+		$resetpw_status 	= 'invalid';
+		$resetpw_msg 		= 'Something went wrong...';
 
-		$passwordtoken 		= Request::input('passwordtoken');
-		$password_temp 		= Request::input('password_temp');
-		$email 				= Request::input('email');
-		$originalDate 		= Request::input('birthdate');
-		$birthdate 			= date_format(date_create_from_format('d/m/Y', $originalDate), 'Y-m-d'); //strtotime fucks the date up so this is the solution
+		$username 			= Request::input('username');
 		$password 			= Request::input('password');
+		$resetpassword_code	= Request::input('resetpassword_code');
+		$credentials 		= ['login' => $username];
+		$user 				= Sentinel::findByCredentials($credentials);
 
-		$user = \Membra\User::where('email', '=', $email)->first();
-
-		if ($user == null) {
-
-			$recover_msg = 'User not found!';
-
+		if (Reminder::complete($user, $resetpassword_code, $password)) {
+			$resetpw_status 		= 'success';
+			$resp['redirect_url'] 	= URL::route('account-login');
 		} else {
-
-			$active = $user->active;
-
-			if ($active == 0) {
-
-				$recover_msg = '<strong>Your user is not active!</strong><br>Please check your inbox for the activation email.';
-
-			} elseif ($birthdate == $user->birthdate && $passwordtoken == $user->passwordtoken && $password_temp == $user->password_temp) {
-
-				$user->passwordtoken 	= '';
-				$user->password_temp	= '';
-				$user->password			= $password;
-
-				if($user->save()) {
-
-					$recover_status = 'success';
-					$recover_msg = 'Everything went well.';
-
-				} else {
-					$recover_msg = 'Could not save the user changes. Please contact the staff.';
-				}
-
-			} else {
-
-				$recover_msg = 'E-mail, recoverytoken, temporary password or birthdate was wrong. Please try again.';
-
-			}
-
+			$resetpw_msg 	= 'Something went wrong while reseting your password. Please try again later.';
 		}
 
-		$resp['recover_status'] 	= $recover_status;
-		$resp['recover_msg'] 		= $recover_msg;
+		$resp['resetpw_status'] 	= $resetpw_status;
+		$resp['resetpw_msg'] 		= $resetpw_msg;
 
 		return Response::json($resp);
+		
 	});
 });

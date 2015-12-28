@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use Membra\Http\Requests\Member\ForgotPasswordRequest;
 use Membra\Http\Requests\Member\RecoverRequest;
 
-use Membra\User;
+use Membra\Rem;
 
 class RecoverController extends Controller {
 
@@ -41,48 +41,22 @@ class RecoverController extends Controller {
 		$this->passwords = $passwords;
 
 		$this->beforeFilter('csrf', ['on' => ['post']]);
-		$this->middleware('guest');
+		$this->middleware('sentinel.guest');
 	}
 
-	public function getForgot() {
-		return view('auth.forgot');
+	public function getForgotPassword() {
+		return view('auth.forgot-password');
 	}
 
-	public function getRecoverAccount($passwordtoken) {
-		$user = User::where('passwordtoken', '=', $passwordtoken)->first();
-		if($user == null) {
+	public function getResetPassword($resetpassword_code) {
+		$act = Rem::where('code', '=', $resetpassword_code)->where('completed', '=', 0)->first();
+		if($act == null) {
 			return Redirect::route('home')
 				->with('messagetype', 'warning')
-				->with('message', 'We couldn\'t find your account. Please try again.');
+				->with('message', 'We couldn\'t find your reminder code. Please try again.');
 		} else {
-			return view('auth.recover')->with('passwordtoken', $passwordtoken);
+			return view('auth.resetpassword')->with('resetpassword_code', $resetpassword_code);
 		}
-	}
-
-	public function postRecoverAccount($passwordtoken, RecoverRequest $request) {
-		$user = User::where('passwordtoken', '=', $passwordtoken)->where('email', '=', $request->get('email'))->first();
-
-		if($user == null) {
-			return Redirect::route('home')
-				->with('messagetype', 'warning')
-				->with('message', 'We couldn\'t find your account. Please try again.');
-		} else {
-
-			$user->password 		= $request->get('password');
-			$user->passwordtoken 	= '';
-
-			if($user->save()) {
-				return Redirect::route('login')
-						->with('messagetype', 'success')
-						->with('message', 'Your account has been recovered and you can sign in with your new password.');
-			}
-
-		}
-
-		return Redirect::route('home')
-				->with('messagetype', 'warning')
-				->with('message', 'Could\'t recover your account.');
-
 	}
 
 }

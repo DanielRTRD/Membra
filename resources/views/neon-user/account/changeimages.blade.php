@@ -77,8 +77,8 @@
 							<form action="{{ route('account-change-image-cover-post') }}" method="post" enctype="multipart/form-data">
 								<div class="form-group @if($errors->has('profilecover')) has-error @endif">
 									<div class="fileinput fileinput-new" data-provides="fileinput">
-										<div class="fileinput-new thumbnail" style="max-width: 500px; max-height: 160px;">
-											<img src="{{ $profilecover or 'http://placehold.it/1500x480' }}" data-src="http://placehold.it/1500x480" alt="1500x480">
+										<div class="fileinput-new thumbnail" style="max-width: 500px; max-height: 290px;">
+											<img src="{{ $profilecover or 'http://placehold.it/1920x1080' }}" data-src="http://placehold.it/1920x1080" alt="1920x1080">
 										</div>
 										<div class="fileinput-preview fileinput-exists thumbnail" style="height:auto; width:auto; max-width: 250px; max-height: 250px;"></div>
 										<div>

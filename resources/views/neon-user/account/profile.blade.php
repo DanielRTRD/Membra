@@ -17,7 +17,7 @@
 	<header class="row">
 		
 		<div class="col-sm-2">
-			<a class="profile-picture" @if(\Auth::user()->id == $id) href="{{ route('account-change-images') }}" @endif><img src="{{ $profilepicture or '/images/profilepicture/0.png' }}" class="img-responsive img-circle" /></a>
+			<a class="profile-picture" @if(\Sentinel::getUser()->id == $id) href="{{ route('account-change-images') }}" @endif><img src="{{ $profilepicture or '/images/profilepicture/0.png' }}" class="img-responsive img-circle" /></a>
 		</div>
 		
 		<div class="col-sm-7">
@@ -33,15 +33,7 @@
 							@endif
 						</strong>
 						<span>
-							@if($ismod)
-								Moderator
-							@elseif($isadmin)
-								Administrator
-							@elseif($issuperadmin)
-								Administrator
-							@else
-								Member
-							@endif							
+								Member						
 						</span>
 					</div>
 				</li>
@@ -53,14 +45,6 @@
 						<span><a href="#">seats reserved</a></span>
 					</div>
 				</li>
-				<!--
-				<li>
-					<div class="profile-stat">
-						<h3>0</h3>
-						<span><a href="#">following</a></span>
-					</div>
-				</li>
-				-->
 			</ul>
 			
 		</div>
@@ -84,56 +68,33 @@
 			<div class="col-sm-offset-2 col-sm-10">
 				
 				<ul class="user-details">
+
+					<li><a href="#"><i class="fa fa-at"></i> {{ $username }}</a></li>
 					
 					@if($location)
-						<li>
-							<a href="#">
-								<i class="fa fa-map-marker"></i>
-								{{ $location }}
-							</a>
-						</li>
+						<li><a href="#"><i class="fa fa-map-marker"></i> {{ $location }}</a></li>
 					@endif
 
 					@if($gender)
-						<li>
-							<a href="#">
-								<i class="fa fa-genderless"></i>
-								{{ $gender }}
-							</a>
-						</li>
+						<li><a href="#"><i class="fa fa-genderless"></i> {{ $gender }}</a></li>
 					@endif
 
 					@if($occupation)
-						<li>
-							<a href="#">
-								<i class="fa fa-suitcase"></i>
-								{{ $occupation }}
-							</a>
-						</li>
+						<li><a href="#"><i class="fa fa-suitcase"></i> {{ $occupation }}</a></li>
 					@endif
 
 					@if($showemail)
-						<li>
-							<a href="#">
-								<i class="fa fa-envelope-o"></i>
-								{{ $email }}
-							</a>
-						</li>
+						<li><a href="#"><i class="fa fa-envelope-o"></i> {{ $email }}</a></li>
 					@endif
 					
-					<li>
-						<a href="#">
-							<i class="fa fa-birthday-cake"></i>
-							{{ date_diff(date_create($birthdate), date_create('today'))->y }}
-						</a>
-					</li>
+					<li><a href="#"><i class="fa fa-birthday-cake"></i> {{ date_diff(date_create($birthdate), date_create('today'))->y }} years old</a></li>
 				</ul>
 				
 				
 				<!-- tabs for the profile links -->
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#profile-info">Profile</a></li>
-					@if(\Auth::user()->id == $id)
+					<li class="active"><a>Profile</a></li>
+					@if(\Sentinel::getUser()->id == $id)
 						<li><a href="{{ route('account-change-details') }}"><i class="fa fa-edit"></i> Edit Profile Details</a></li>
 						<li><a href="{{ route('account-change-password') }}"><i class="fa fa-asterisk"></i> Change Password</a></li>
 						<li><a href="{{ route('account-settings') }}"><i class="fa fa-cog"></i> Edit Profile Settings</a></li>
