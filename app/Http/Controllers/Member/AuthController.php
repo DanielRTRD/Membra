@@ -26,8 +26,8 @@ class AuthController extends Controller {
 	}
 	 
 	public function getLogout() {
-		$this->auth->logout();
-		return Redirect::route('home')->with('messagetype', 'success')->with('message', 'You have now been successfully been logged out!');
+		Sentinel::logout();
+		return Redirect::route('tos')->with('messagetype', 'success')->with('message', 'You have now been successfully been logged out!');
 	}
 
 	public function getActivate($activation_code) {

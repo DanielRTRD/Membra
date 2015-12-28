@@ -21,6 +21,23 @@ if(Config::get('app.debug')) {
 			dd('Success.');
 		}
 	});*/
+	Route::get('/test', function() {
+		/*Sentinel::registerAndActivate([
+		    'email' 		=> 'd@rtrdt.ch',
+			'password' 		=> '12345678', // Den hash'r automatisk
+			'firstname' 	=> 'Daniel',
+			'lastname'	 	=> 'Billing',
+			'username' 		=> 'admin',
+		]);*/
+		
+		/*$user = Sentinel::findById(2);
+		Sentinel::loginAndRemember($user);*/
+
+		//Sentinel::logout();
+
+		dd(Sentinel::getUser()->id);
+
+	});
 }
 
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
@@ -31,7 +48,7 @@ Route::get('/privacy', ['as' => 'account-privacy', 'uses' => 'HomeController@ind
 | IF IN DEBUG MODE THEN DO NOT USE SUBDOMAIN
 */
 Route::group([
-	'middleware' => 'guest',
+	'middleware' => 'sentinel.guest',
 	'prefix' => 'account',
 	], function() {
 		get('/forgot', [
@@ -73,7 +90,7 @@ Route::group([
 });
 
 Route::group([
-	'middleware' => 'auth',
+	'middleware' => 'sentinel.auth',
 	'prefix' => 'user',
 	], function() {
 		get('/', [
@@ -132,7 +149,7 @@ Route::group([
 
 // ADMIN PANEL
 Route::group([
-	'middleware' => 'auth',
+	'middleware' => 'sentinel.auth',
 	'prefix' => 'admin',
 	], function() {
 		get('/', [

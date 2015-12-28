@@ -3,7 +3,7 @@
 namespace Membra\Http\Controllers\Member;
 
 use Membra\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\Guard;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Support\Facades\Redirect;
 
 use Intervention\Image\Facades\Image;
@@ -20,25 +20,25 @@ class AccountController extends Controller {
 
 	public function __construct() {
 		$this->beforeFilter('csrf', ['on' => ['post']]);
-		$this->beforeFilter('auth');
+		$this->beforeFilter('sentinel.auth');
 	}
 
-	public function index(Guard $auth) {
-		$authuser = $auth->user();
+	public function index() {
+		$authuser = Sentinel::getUser();
 		$onlinestatus = User::getOnlineStatus($authuser->id);
 		$userarray = $authuser->toArray();
 		$userarray['onlinestatus'] = $onlinestatus;
 		return view('account.index')->with($userarray);
 	}
 
-	public function getSettings(Guard $auth) {
-		$authuser = $auth->user();
+	public function getSettings(Sentinel $auth) {
+		$authuser = $auth->getUser();
 		return view('account.settings')->with($authuser->toArray());
 	}
 
-	public function postSettings(Guard $auth, SettingsRequest $request) {
+	public function postSettings(Sentinel $auth, SettingsRequest $request) {
 		
-		$user 					= User::find($auth->user()->username);
+		$user 					= User::find($auth->getUser()->username);
 
 		$user->showemail 		= $request->get('showemail');
 		$user->showname 		= $request->get('showname');
@@ -60,13 +60,13 @@ class AccountController extends Controller {
 
 	}
 
-	public function getChangePassword(Guard $auth) {
+	public function getChangePassword(Sentinel $auth) {
 		return view('account.changepassword');
 	}
 
-	public function postChangePassword(Guard $auth, PasswordRequest $request) {
+	public function postChangePassword(Sentinel $auth, PasswordRequest $request) {
 		
-		$user 				= User::find($auth->user()->username);
+		$user 				= User::find($auth->getUser()->username);
 		$current_password 	= $request->get('current_password');
 		$password 			= $request->get('password');
 		$password_again 	= $request->get('password_again');
@@ -92,14 +92,14 @@ class AccountController extends Controller {
 
 	}
 
-	public function getChangeDetails(Guard $auth) {
-		$authuser = $auth->user();
+	public function getChangeDetails(Sentinel $auth) {
+		$authuser = $auth->getUser();
 		return view('account.changedetails')->with($authuser->toArray());
 	}
 
-	public function postChangeDetails(Guard $auth, SettingsRequest $request) {
+	public function postChangeDetails(Sentinel $auth, SettingsRequest $request) {
 		
-		$user 					= User::find($auth->user()->username);
+		$user 					= User::find($auth->getUser()->username);
 
 		$user->email 			= $request->get('email');
 		$user->firstname 		= $request->get('firstname');
@@ -127,22 +127,22 @@ class AccountController extends Controller {
 
 	}
 
-	public function getChangeImages(Guard $auth) {
-		$authuser = $auth->user();
+	public function getChangeImages(Sentinel $auth) {
+		$authuser = $auth->getUser();
 		return view('account.changeimages')->with($authuser->toArray());
 	}
 
-	public function postChangeProfileImage(Guard $auth, ProfileImageRequest $request) {
+	public function postChangeProfileImage(Sentinel $auth, ProfileImageRequest $request) {
 		
-		$user 				= User::find($auth->user()->username);
+		$user 				= User::find($auth->getUser()->username);
 
 		$image 				= $request->file('profileimage');
 		
-		$filename 			= $auth->user()->id . '.' . $image->getClientOriginalExtension();
+		$filename 			= $auth->getUser()->id . '.' . $image->getClientOriginalExtension();
 		$path 				= public_path() . '/images/profilepicture/' . $filename;
 		$webpath			= '/images/profilepicture/' . $filename;
 
-		$filename_small		= $auth->user()->id . '_small.' . $image->getClientOriginalExtension();
+		$filename_small		= $auth->getUser()->id . '_small.' . $image->getClientOriginalExtension();
 		$path_small 		= public_path() . '/images/profilepicture/' . $filename_small;
 		$webpath_small		= '/images/profilepicture/' . $filename_small;
 
@@ -167,13 +167,13 @@ class AccountController extends Controller {
 
 	}
 
-	public function postChangeProfileCover(Guard $auth, ProfileCoverRequest $request) {
+	public function postChangeProfileCover(Sentinel $auth, ProfileCoverRequest $request) {
 		
-		$user 				= User::find($auth->user()->username);
+		$user 				= User::find($auth->getUser()->username);
 
 		$image 				= $request->file('profilecover');
 		
-		$filename 			= $auth->user()->id . '.' . $image->getClientOriginalExtension();
+		$filename 			= $auth->getUser()->id . '.' . $image->getClientOriginalExtension();
 		$path 				= public_path() . '/images/profilecover/' . $filename;
 		$webpath			= '/images/profilecover/' . $filename;
 

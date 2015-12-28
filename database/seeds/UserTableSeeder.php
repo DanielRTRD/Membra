@@ -12,8 +12,6 @@ class UserTableSeeder extends Seeder {
 			'password' 		=> '12345678', // Den hash'r automatisk
 			'firstname' 	=> 'Daniel',
 			'username' 		=> 'admin',
-			'active'		=> 1,
-			'issuperadmin'	=> 1,
 		]);
 
 		User::create([

@@ -24,11 +24,20 @@
 					<div class="panel-heading">Home</div>
 
 					<div class="panel-body">
+						<p>NEW:
+							@if(Sentinel::guest())
+								NOT LOGGED IN
+							@else
+								LOGGED IN
+							@endif
+						</p>
+
+						<p>OLD:
 						@if(Auth::guest())
 							You are not logged in.
 						@else
 							You are logged in!
-						@endif
+						@endif</p>
 					</div>
 				</div>
 			</div>

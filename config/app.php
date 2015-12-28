@@ -151,6 +151,7 @@ return [
 		'Intervention\Image\ImageServiceProvider',
 		'igaster\laravelTheme\themeServiceProvider',
 		'Membra\Providers\ThemeSelectServiceProvider',
+		'Cartalyst\Sentinel\Laravel\SentinelServiceProvider',
 
 	],
 
@@ -203,8 +204,11 @@ return [
 		/*
 		 * Third-party
 		 */
-		'Image' 	=> 'Intervention\Image\Facades\Image',
-		'Theme'  	=> 'igaster\laravelTheme\Facades\Theme',
+		'Image' 		=> 'Intervention\Image\Facades\Image',
+		'Theme'  		=> 'igaster\laravelTheme\Facades\Theme',
+		'Activation'	=> 'Cartalyst\Sentinel\Laravel\Facades\Activation',
+		'Reminder'		=> 'Cartalyst\Sentinel\Laravel\Facades\Reminder',
+		'Sentinel'		=> 'Cartalyst\Sentinel\Laravel\Facades\Sentinel',
 
 	],
 
