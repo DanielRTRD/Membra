@@ -7,7 +7,7 @@ class News extends Model {
 	protected $fillable = ['title', 'content', 'slug', 'published_at'];
 	protected $table = 'news';
 
-	function Category() {
+	function category() {
 		return $this->hasOne('NewsCategory', 'id', 'category_id');
 	}
 

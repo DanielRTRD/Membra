@@ -168,6 +168,34 @@ Route::group([
 					'as' => 'admin-news-destroy',
 					'uses' => 'NewsCategoryController@destroy'
 				]);
+				Route::group([
+					'prefix' => 'categories'
+					], function() {
+						get('/', [
+							'as' => 'admin-news-category',
+							'uses' => 'NewsCategoryController@admin'
+						]);
+						get('/create', [
+							'as' => 'admin-news-category-create',
+							'uses' => 'NewsCategoryController@create'
+						]);
+						post('/store', [
+							'as' => 'admin-news-category-store',
+							'uses' => 'NewsCategoryController@store'
+						]);
+						get('/{id}/edit', [
+							'as' => 'admin-news-category-edit',
+							'uses' => 'NewsCategoryController@edit'
+						]);
+						post('/{id}/update', [
+							'as' => 'admin-news-category-update',
+							'uses' => 'NewsCategoryController@update'
+						]);
+						get('/{id}/destroy', [
+							'as' => 'admin-news-category-destroy',
+							'uses' => 'NewsCategoryController@destroy'
+						]);
+				});
 		});
 });
 

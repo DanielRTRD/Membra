@@ -5,6 +5,8 @@ use Membra\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use Membra\News;
+
 class NewsController extends Controller {
 
 	/**
@@ -14,7 +16,7 @@ class NewsController extends Controller {
 	 */
 	public function index()
 	{
-		echo 'Welcome';
+		echo 'News Page';
 	}
 
 	/**
@@ -24,7 +26,9 @@ class NewsController extends Controller {
 	 */
 	public function admin()
 	{
-		echo 'WOOOP';
+		$news = News::orderBy('created_at','desc')->paginate(10);
+		return view('news.index')
+            		->withNews($news);
 	}
 
 	/**
@@ -55,7 +59,7 @@ class NewsController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		dd($id);
 	}
 
 	/**

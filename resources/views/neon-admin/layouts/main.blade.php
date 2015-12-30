@@ -51,9 +51,19 @@
 				</div>
 			</header>
 			<div id="main-menu" class="main-menu">
-				<li class="@if(Request::is('user')){{'active'}} @endif"><a href="{{ route('account') }}"><i class="fa fa-dashboard"></i> <span class="title">Dashboard</span></a></li>
-				<li class="@if(Request::is('user/members')){{'active'}} @endif"><a href="{{ route('members') }}"><i class="fa fa-users"></i> <span class="title">Members</span></a></li>
-				<li class="@if(Request::is('admin/news*')){{'active'}} @endif"><a href="{{ route('admin-news') }}"><i class="fa fa-newspaper-o"></i> <span class="title">News</span></a></li>
+				<li class="@if(Request::is('admin')){{'active'}} @endif">
+					<a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> <span class="title">Dashboard</span></a>
+				</li>
+				<li class="@if(Request::is('admin/members')){{'active'}} @endif">
+					<a href="{{ route('admin') }}"><i class="fa fa-users"></i> <span class="title">Members</span></a>
+				</li>
+				<li class="@if(Request::is('admin/news*')){{'active opened'}} @endif has-sub root-level">
+					<a><i class="fa fa-newspaper-o"></i> <span class="title">News</span></a>
+					<ul>
+						<li class="@if(Request::is('admin/news*') && !Request::is('admin/news/categories*')){{'active'}} @endif"><a href="{{ route('admin-news') }}"><i class="fa fa-list-alt"></i> <span class="title">Articles</span></a></li>
+						<li class="@if(Request::is('admin/news/categories*')){{'active'}} @endif"><a href="{{ route('admin-news-category') }}"><i class="fa fa-tag"></i> <span class="title">Categories</span></a></li>
+					</ul>
+				</li>
 				<li><a href="#"><i class="fa fa-shopping-basket"></i> <span class="title">Webshop</span></a></li>
 				<li><a href="#"><i class="fa fa-street-view"></i> <span class="title">Seating</span></a></li>
 				<li><a href="#"><i class="fa fa-sitemap"></i> <span class="title">Compo</span></a></li>
