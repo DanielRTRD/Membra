@@ -46,20 +46,8 @@
 			</div>
 
 			<ul class="navbar-nav">
-				<!--<li>
-					<a href="#">
-						<i class="fa fa-gauge"></i>
-						<span class="title">Dashboard</span>
-					</a>
-					<ul>
-						<li><a href="#"><span class="title">Dashboard 1</span></a></li>
-						<li><a href="#"><span class="title">Dashboard 2</span></a></li>
-						<li><a href="#"><span class="title">Dashboard 3</span></a></li>
-					</ul>
-				</li>-->
 				<li class="@if(Request::is('user')){{'active'}} @endif"><a href="{{ route('account') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 				<li class="@if(Request::is('user/members')){{'active'}} @endif"><a href="{{ route('members') }}"><i class="fa fa-users"></i> Members</a></li>
-				<li><a href="#"><i class="fa fa-newspaper-o"></i> News</a></li>
 				<li><a href="#"><i class="fa fa-shopping-basket"></i> Webshop</a></li>
 				<li><a href="#"><i class="fa fa-street-view"></i> Seating</a></li>
 				<li><a href="#"><i class="fa fa-sitemap"></i> Compo</a></li>

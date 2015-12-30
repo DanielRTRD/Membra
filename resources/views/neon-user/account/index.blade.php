@@ -14,7 +14,23 @@
 			<hr>
 			<div class="row">
 				<div class="col-lg-8">
-					
+					@foreach($news as $article)
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title"><a href="{{ route('news-show', $article->slug) }}">{{ $article->title }}</a></h3>
+							</div>
+							<div class="panel-body">
+								{{ substr($article->content, 0, 1000) }}@if(strlen($article->content) >= 1000)...@endif
+							</div>
+							<div class="panel-footer">
+								<small>Posted: {{ date(User::getUserDateFormat(), strtotime($article->created_at)) .' at '. date(User::getUserTimeFormat(), strtotime($article->created_at)) }} by <a href="{{ URL::route('user-profile', User::getUsernameByID($article->author_id)) }}">{{ User::getFullnameByID($article->author_id) }}</a> | Updated: {{ date(User::getUserDateFormat(), strtotime($article->updated_at))  .' at '. date(User::getUserTimeFormat(), strtotime($article->updated_at)) }} by <a href="{{ URL::route('user-profile', User::getUsernameByID($article->author_id)) }}">{{ User::getFullnameByID($article->author_id) }}</a></small>
+							@if(strlen($article->content) >= 1000)
+								<a href="{{ URL::route('news-show', $article->slug) }}" class="btn btn-info btn-xs pull-right"><i class="fa fa-arrow-circle-right"></i> Read more</a>
+							@endif
+							</div>
+						</div>
+					@endforeach
+					<a href="{{ route('news') }}" class="btn btn-info"><i class="fa fa-newspaper-o"></i> Read more news</a>
 				</div>
 				<div class="col-lg-4">
 					<div class="row">

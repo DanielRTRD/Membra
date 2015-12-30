@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\Seeder;
+use Membra\News;
+
 class NewsSeeder extends Seeder  {
 
 	public function run() {
