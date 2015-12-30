@@ -29,6 +29,13 @@ class UserTableSeeder extends Seeder {
 			'lastname'	 	=> 'MOD',
 			'username' 		=> 'mod',
 		]);
+		Sentinel::registerAndActivate([
+			'email' 		=> 'test3@rtrdt.ch',
+			'password' 		=> '12345678', // Den hash'r automatisk
+			'firstname' 	=> 'John',
+			'lastname'	 	=> 'USER',
+			'username' 		=> 'user',
+		]);
 
 		//Create Roles
 		$role = Sentinel::getRoleRepository()->createModel()->create([
