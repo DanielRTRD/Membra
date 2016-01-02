@@ -42,7 +42,7 @@
 		<div class="sidebar-menu-inner">
 			<header class="logo-env">
 				<div class="logo">
-					<a href="{{ route('admin') }}"><img src="{{ Theme::url('images/membra@2x.png') }}" alt="" width="120"></a>
+					<a href="{{ route('account') }}"><img src="{{ Theme::url('images/membra@2x.png') }}" alt="" width="120"></a>
 				</div>
 				<div class="sidebar-mobile-menu visible-xs">
 					<a href="#" class="with-animation">
@@ -73,6 +73,39 @@
 
 	<div class="main-content">
 
+		<div class="row">
+			<div class="col-md-6 col-sm-8 clearfix">
+				<ul class="user-info pull-left pull-none-xsm">
+					<li class="profile-info dropdown">
+						<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="@if(Sentinel::getUser()->profilepicturesmall){{ Sentinel::getUser()->profilepicturesmall }} @else {{ '/images/profilepicture/0_small.png' }}@endif" alt="" class="img-circle" width="44" />
+							{{ Sentinel::getUser()->firstname }}@if(Sentinel::getUser()->showname && Sentinel::getUser()->lastname) {{ Sentinel::getUser()->lastname }}@endif
+							@if(Sentinel::getUser()->showonline)
+								<a href="#" class="user-status is-{{ User::getOnlineStatus(Sentinel::getUser()->id) }} tooltip-primary" data-toggle="tooltip" data-placement="top" data-original-title="{{ ucfirst(User::getOnlineStatus(Sentinel::getUser()->id)) }}"></a>
+								<!-- User statuses available classes "is-online", "is-offline", "is-idle", "is-busy" -->
+							@endif
+						</a>
+						<ul class="dropdown-menu">
+							<li class="caret"></li>
+							<li><a href="{{ route('user-profile', Sentinel::getUser()->username) }}"><i class="fa fa-user"></i> View Profile</a></li>
+							<li><a href="{{ route('account-change-details') }}"><i class="fa fa-edit"></i> Edit Profile Details</a></li>
+							<li><a href="{{ route('account-change-password') }}"><i class="fa fa-asterisk"></i> Change Password</a></li>
+							<li><a href="{{ route('account-change-images') }}"><i class="fa fa-picture-o"></i> Change Profile Images</a></li>
+							<li><a href="{{ route('account-settings') }}"><i class="fa fa-cog"></i> Edit Profile Settings</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-6 col-sm-4 clearfix hidden-xs">
+				<ul class="list-inline links-list pull-right">
+					<li><a href="{{ route('logout') }}">Log Out <i class="entypo-logout right"></i></a></li>
+				</ul>
+			</div>
+		
+		</div>
+		
+		<hr />
+
 		@yield('content')
 
 		<div class="row">
@@ -95,10 +128,6 @@
 
 	</div>
 
-	<!-- Imported styles on this page -->
-	<link rel="stylesheet" href="{{ Theme::url('js/jvectormap/jquery-jvectormap-1.2.2.css') }}">
-	<link rel="stylesheet" href="{{ Theme::url('js/rickshaw/rickshaw.min.css') }}">
-
 	<!-- Bottom scripts (common) -->
 	<script src="{{ Theme::url('js/gsap/main-gsap.js') }}"></script>
 	<script src="{{ Theme::url('js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js') }}"></script>
@@ -106,17 +135,7 @@
 	<script src="{{ Theme::url('js/joinable.js') }}"></script>
 	<script src="{{ Theme::url('js/resizeable.js') }}"></script>
 	<script src="{{ Theme::url('js/neon-api.js') }}"></script>
-	<script src="{{ Theme::url('js/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-
-
-	<!-- Imported scripts on this page -->
-	<script src="{{ Theme::url('js/jvectormap/jquery-jvectormap-europe-merc-en.js') }}"></script>
-	<script src="{{ Theme::url('js/jquery.sparkline.min.js') }}"></script>
-	<script src="{{ Theme::url('js/rickshaw/vendor/d3.v3.js') }}"></script>
-	<script src="{{ Theme::url('js/rickshaw/rickshaw.min.js') }}"></script>
 	<script src="{{ Theme::url('js/toastr.js') }}"></script>
-	<script src="{{ Theme::url('js/neon-chat.js') }}"></script>
-
 
 	<!-- JavaScripts initializations and stuff -->
 	<script src="{{ Theme::url('js/neon-custom.js') }}"></script>
@@ -152,6 +171,8 @@
 		@endif
 
 	</script>
+
+	@yield('javascript')
 
 </body>
 </html>

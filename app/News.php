@@ -4,7 +4,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class News extends Model {
 
-	protected $fillable = ['title', 'content', 'slug', 'published_at'];
+	protected $fillable = [
+		'title',
+		'content',
+		'slug',
+		'published_at',
+		'category_id',
+		'creator_id',
+	];
 	protected $table = 'news';
 
 	function category() {

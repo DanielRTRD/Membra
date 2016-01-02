@@ -5,27 +5,16 @@
 <div class="row">
 	<div class="col-md-12">
 
-		<ol class="breadcrumb bc-3" >
-			<li><a href=""><i class="fa fa-home"></i>Home</a></li>
-			<li><a href="">Admin Panel</a></li>
+		<h1 class="margin-bottom">News</h1>
+
+		<ol class="breadcrumb">
+			<li><a href="{{ route('home') }}"><i class="fa fa-home"></i>Home</a></li>
+			<li><a href="{{ route('admin') }}">Admin</a></li>
 			<li class="active"><strong>News</strong></li>
 		</ol>
 
-		<h2>News</h2>
-		
 		<br />
-		<script type="text/javascript">
-			jQuery(window).load(function()
-			{
-				tableContainer = $("#table-1");
-					
-				tableContainer.dataTable({
-					"sPaginationType": "bootstrap",
-					"bStateSave": true,
-
-				});
-			});
-		</script>
+		
 		<table class="table table-bordered table-hover datatable" id="table-1">
 			<thead>
 				<tr>
@@ -62,11 +51,50 @@
 @stop
 
 @section('javascript')
-
-<script src="{{ Theme::url('js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ Theme::url('js/datatables/TableTools.min.js') }}"></script>
-<script src="{{ Theme::url('js/dataTables.bootstrap.js') }}"></script>
-<script src="{{ Theme::url('js/datatables/jquery.dataTables.columnFilter.js') }}"></script>
-<script src="{{ Theme::url('js/datatables/lodash.min.js') }}"></script>
-<script src="{{ Theme::url('js/datatables/responsive/js/datatables.responsive.js') }}"></script>
-@endsection
+	
+	<script src="{{ Theme::url('js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ Theme::url('js/datatables/TableTools.min.js') }}"></script>
+	<script src="{{ Theme::url('js/dataTables.bootstrap.js') }}"></script>
+	<script src="{{ Theme::url('js/datatables/jquery.dataTables.columnFilter.js') }}"></script>
+	<script src="{{ Theme::url('js/datatables/lodash.min.js') }}"></script>
+	<script src="{{ Theme::url('js/datatables/responsive/js/datatables.responsive.js') }}"></script>
+	<script type="text/javascript">
+		var responsiveHelper;
+		var breakpointDefinition = {
+		    tablet: 1024,
+		    phone : 480
+		};
+		var tableContainer;
+		
+			jQuery(document).ready(function($)
+			{
+				tableContainer = $("#table-1");
+				
+				tableContainer.dataTable({
+					"sPaginationType": "bootstrap",
+					"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+					"bStateSave": true,
+					
+		
+				    // Responsive Settings
+				    bAutoWidth     : false,
+				    fnPreDrawCallback: function () {
+				        // Initialize the responsive datatables helper once.
+				        if (!responsiveHelper) {
+				            responsiveHelper = new ResponsiveDatatablesHelper(tableContainer, breakpointDefinition);
+				        }
+				    },
+				    fnRowCallback  : function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+				        responsiveHelper.createExpandIcon(nRow);
+				    },
+				    fnDrawCallback : function (oSettings) {
+				        responsiveHelper.respond();
+				    }
+				});
+				
+				$(".dataTables_wrapper select").select2({
+					minimumResultsForSearch: -1
+				});
+			});
+	</script>
+@stop

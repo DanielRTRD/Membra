@@ -155,5 +155,7 @@
 
 	</script>
 
+	@yield('javascript')
+
 </body>
 </html>

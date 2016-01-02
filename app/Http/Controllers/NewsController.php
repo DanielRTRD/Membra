@@ -4,8 +4,10 @@ use Membra\Http\Requests;
 use Membra\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 use Membra\News;
+use Membra\NewsCategory;
 
 class NewsController extends Controller {
 
@@ -26,9 +28,16 @@ class NewsController extends Controller {
 	 */
 	public function admin()
 	{
-		$news = News::orderBy('created_at','desc')->paginate(10);
-		return view('news.index')
-            		->withNews($news);
+		$user = Sentinel::findById(Sentinel::getUser()->id);
+		if ($user->hasAccess(['news.*'])){
+			$news = News::all();
+			return view('news.index')
+						->withNews($news);
+		} else {
+			return Redirect::route('account')
+								->with('messagetype', 'warning')
+								->with('message', 'You do not have access to this page!');
+		}
 	}
 
 	/**
@@ -38,7 +47,14 @@ class NewsController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		$user = Sentinel::findById(Sentinel::getUser()->id);
+		if ($user->hasAccess(['news.create'])){
+			//do stuff
+		} else {
+			return Redirect::route('account')
+								->with('messagetype', 'warning')
+								->with('message', 'You do not have access to this page!');
+		}
 	}
 
 	/**
@@ -48,7 +64,14 @@ class NewsController extends Controller {
 	 */
 	public function store()
 	{
-		//
+		$user = Sentinel::findById(Sentinel::getUser()->id);
+		if ($user->hasAccess(['news.create'])){
+			//do stuff
+		} else {
+			return Redirect::route('account')
+								->with('messagetype', 'warning')
+								->with('message', 'You do not have access to this page!');
+		}
 	}
 
 	/**
@@ -70,7 +93,16 @@ class NewsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$user = Sentinel::findById(Sentinel::getUser()->id);
+		if ($user->hasAccess(['news.update'])){
+			$news = News::find($id);
+			$categories = NewsCategory::all();
+			return view('news.edit')->withArticle($news)->withCategories($categories);
+		} else {
+			return Redirect::route('account')
+								->with('messagetype', 'warning')
+								->with('message', 'You do not have access to this page!');
+		}
 	}
 
 	/**
@@ -81,7 +113,14 @@ class NewsController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		$user = Sentinel::findById(Sentinel::getUser()->id);
+		if ($user->hasAccess(['news.update'])){
+			//has access
+		} else {
+			return Redirect::route('account')
+								->with('messagetype', 'warning')
+								->with('message', 'You do not have access to this page!');
+		}
 	}
 
 	/**
@@ -92,7 +131,14 @@ class NewsController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$user = Sentinel::findById(Sentinel::getUser()->id);
+		if ($user->hasAccess(['news.destroy'])){
+			//do stuff
+		} else {
+			return Redirect::route('account')
+								->with('messagetype', 'warning')
+								->with('message', 'You do not have access to this page!');
+		}
 	}
 
 }

@@ -39,7 +39,7 @@
 						</div>
 						<div class="col-lg-9">
 							<h3>
-								<a href="{{ route('user-profile', $username) }}">{{ $firstname }} {{ $lastname }}</a>
+								<a href="{{ route('user-profile', $username) }}">{{ $firstname }}@if($showname && $lastname) {{ $lastname }}@endif</a>
 								@if($showonline)
 									<a href="#" class="user-status is-{{ $onlinestatus }} tooltip-primary" data-toggle="tooltip" data-placement="top" data-original-title="{{ ucfirst($onlinestatus) }}"></a>
 									<!-- User statuses available classes "is-online", "is-offline", "is-idle", "is-busy" -->

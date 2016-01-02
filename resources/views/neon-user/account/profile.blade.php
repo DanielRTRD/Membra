@@ -33,7 +33,11 @@
 							@endif
 						</strong>
 						<span>
-								Member						
+								@if(Sentinel::inRole('admin'))
+									Staff
+								@else
+									Member
+								@endif
 						</span>
 					</div>
 				</li>
