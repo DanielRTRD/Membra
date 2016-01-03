@@ -20,7 +20,7 @@
 				
 					<div class="panel-heading">
 						<div class="panel-title">
-							Profile Photo
+							Profile Photo <small class="text-muted">115x115</small>
 						</div>
 						
 					</div>
@@ -67,7 +67,7 @@
 				
 					<div class="panel-heading">
 						<div class="panel-title">
-							Cover Photo
+							Cover Photo <small class="text-muted">1920x1080</small>
 						</div>
 					</div>
 					
