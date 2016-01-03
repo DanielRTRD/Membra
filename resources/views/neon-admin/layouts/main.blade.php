@@ -8,7 +8,7 @@
 	<meta name="description" content="Neon Admin Panel" />
 	<meta name="author" content="" />
 
-	<title>@yield('title') - {{ Config::get('infihex.appname') }}</title>
+	<title>@yield('title') - {{ Setting::get('WEB_NAME') }}</title>
 
 	<link rel="stylesheet" href="{{ Theme::url('js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css') }}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -34,7 +34,7 @@
 	@yield('css')
 
 </head>
-<body class="page-body" data-url="{{ Config::get('infihex.appprotocol') }}://{{ Config::get('infihex.appname') }}">
+<body class="page-body" data-url="{{ Setting::get('WEB_PROTOCOL') }}://{{ Setting::get('WEB_DOMAIN') }}@if(Setting::get('WEB_PORT') <> 80){{ ':'.Setting::get('WEB_PORT') }}@endif">
 
 <div class="page-container">
 
@@ -67,6 +67,9 @@
 				<li><a href="#"><i class="fa fa-shopping-basket"></i> <span class="title">Webshop</span></a></li>
 				<li><a href="#"><i class="fa fa-street-view"></i> <span class="title">Seating</span></a></li>
 				<li><a href="#"><i class="fa fa-sitemap"></i> <span class="title">Compo</span></a></li>
+				<li class="@if(Request::is('admin/settings*')){{'active opened'}} @endif">
+					<a href="{{ route('admin-settings') }}"><i class="fa fa-cog"></i> <span class="title">Settings</span></a>
+				</li>
 			</div>
 		</div>
 	</div>
@@ -113,15 +116,16 @@
 				<footer class="main">
 					<div class="row">
 						<div class="col-md-6">
-							<p>&copy; 2015 - {{ date('Y') }}, Infihex</p>
+							<p>&copy; {{ Setting::get('WEB_COPYRIGHT') }}</p>
 							<p class="text-muted"><small>Load time: {{ round((microtime(true) - LARAVEL_START), 3) }}s</small></p>
 						</div>
 						<div class="col-md-6 text-right">
 							<p>
-								<a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{Config::get('infihex.appname') . ' ' . Config::get('infihex.appversion') . ' ' . Config::get('infihex.appversiontype') }}</a>
-								@if(Config::get('app.debug')) <b>(<a href="/resetdb" class="text-danger">DEBUG MODE</a>)</b> @endif by <a href="https://infihex.com/" target="_blank">Infihex</a>
+								<a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{ Setting::get('APP_NAME') . ' ' . Setting::get('APP_VERSION') . ' ' . Setting::get('APP_VERSION_TYPE') }}</a>
+								@if(Config::get('app.debug')) <b><span class="text-danger">DEBUG MODE</span></b> @endif @if(Setting::get('APP_SHOW_RESETDB')) <b>&middot; <a href="/resetdb" class="text-danger">RESET DB AND SETTINGS</a></b> &middot; @endif by <a href="https://infihex.com/" target="_blank">Infihex</a>
 							</p>
 						</div>
+					</div>
 				</footer>
 			</div>
 		</div>

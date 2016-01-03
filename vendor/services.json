@@ -30,7 +30,8 @@
         "Intervention\\Image\\ImageServiceProvider",
         "igaster\\laravelTheme\\themeServiceProvider",
         "Membra\\Providers\\ThemeSelectServiceProvider",
-        "Cartalyst\\Sentinel\\Laravel\\SentinelServiceProvider"
+        "Cartalyst\\Sentinel\\Laravel\\SentinelServiceProvider",
+        "anlutro\\LaravelSettings\\ServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -130,7 +131,9 @@
         "auth.password": "Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider",
         "auth.password.tokens": "Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider",
         "translator": "Illuminate\\Translation\\TranslationServiceProvider",
-        "translation.loader": "Illuminate\\Translation\\TranslationServiceProvider"
+        "translation.loader": "Illuminate\\Translation\\TranslationServiceProvider",
+        "anlutro\\LaravelSettings\\SettingsManager": "anlutro\\LaravelSettings\\ServiceProvider",
+        "anlutro\\LaravelSettings\\SettingStore": "anlutro\\LaravelSettings\\ServiceProvider"
     },
     "when": {
         "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider": [
@@ -164,6 +167,9 @@
 
         ],
         "Illuminate\\Translation\\TranslationServiceProvider": [
+
+        ],
+        "anlutro\\LaravelSettings\\ServiceProvider": [
 
         ]
     }

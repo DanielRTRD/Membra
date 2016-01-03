@@ -6,7 +6,7 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>@yield('title') - {{ Config::get('infihex.appname') }}</title>
+	<title>@yield('title') - {{ Setting::get('WEB_NAME') }}</title>
 
 	<link href="{{ Theme::url('css/bootstrap.css') }}" rel="stylesheet">
 
@@ -62,14 +62,14 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
-				<p>&copy; 2015 - {{ date('Y') }}, Infihex</p>
+				<p>&copy; {{ Setting::get('WEB_COPYRIGHT') }}</p>
 				<p class="text-muted"><small>Load time: {{ round((microtime(true) - LARAVEL_START), 3) }}s</small></p>
 			</div>
 			<div class="col-md-6 text-right">
-				<p><small>
-					<a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{Config::get('infihex.appname') . ' ' . Config::get('infihex.appversion') . ' ' . Config::get('infihex.appversiontype') }}</a>
-					@if(Config::get('app.debug')) <b>(<a href="/resetdb" class="text-danger">DEBUG MODE</a>)</b> @endif by <a href="https://infihex.com/" target="_blank">Infihex</a>
-				</small></p>
+				<p>
+					<a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{ Setting::get('APP_NAME') . ' ' . Setting::get('APP_VERSION') . ' ' . Setting::get('APP_VERSION_TYPE') }}</a>
+					@if(Config::get('app.debug')) <b><span class="text-danger">DEBUG MODE</span></b> @endif @if(Setting::get('APP_SHOW_RESETDB')) <b>&middot; <a href="/resetdb" class="text-danger">RESET DB AND SETTINGS</a></b> &middot; @endif by <a href="https://infihex.com/" target="_blank">Infihex</a>
+				</p>
 			</div>
 		</div>
 	</div>

@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'CreateNewsCategoriesTable' => $baseDir . '/database/migrations/2015_12_28_213631_create_news_categories_table.php',
     'CreateNewsTable' => $baseDir . '/database/migrations/2015_12_28_212731_create_news_table.php',
+    'CreateSettingsTable' => $baseDir . '/database/migrations/2015_08_25_172600_create_settings_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
@@ -447,6 +448,7 @@ return array(
     'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => $vendorDir . '/sebastian/recursion-context/src/InvalidArgumentException.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
+    'SettingsTableSeeder' => $baseDir . '/database/seeds/SettingsTableSeeder.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'UserTableSeeder' => $baseDir . '/database/seeds/UserTableSeeder.php',

@@ -197,6 +197,22 @@ Route::group([
 						]);
 				});
 		});
+		Route::group([
+			'prefix' => 'settings'
+			], function() {
+				get('/', [
+					'as' => 'admin-settings',
+					'uses' => 'Admin\SettingsController@index'
+				]);
+				get('/{id}/edit', [
+					'as' => 'admin-settings-edit',
+					'uses' => 'Admin\SettingsController@edit'
+				]);
+				post('/{id}/update', [
+					'as' => 'admin-settings-update',
+					'uses' => 'Admin\SettingsController@update'
+				]);
+		});
 });
 
 Route::group(['prefix' => 'ajax',], function() {
