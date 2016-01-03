@@ -10,6 +10,7 @@ class SettingsTableSeeder extends Seeder {
 		Setting::set('APP_NAME', 'Membra');
 		Setting::set('APP_VERSION', '0.1.0');
 		Setting::set('APP_VERSION_TYPE', '&beta;eta');
+		Setting::set('APP_URL', 'http://jira.infihex.com/projects/MEM/issues');
 		Setting::set('APP_SHOW_RESETDB', true);
 
 		Setting::set('APP_MAIN_EMAIL', 'hello@membra.dev');

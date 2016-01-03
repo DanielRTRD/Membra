@@ -121,7 +121,7 @@
 						</div>
 						<div class="col-md-6 text-right">
 							<p>
-								<a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{ Setting::get('APP_NAME') . ' ' . Setting::get('APP_VERSION') . ' ' . Setting::get('APP_VERSION_TYPE') }}</a> by <a href="https://infihex.com/" target="_blank">Infihex</a>
+								<a href="{{ Setting::get('APP_URL') }}" target="_blank">{{ Setting::get('APP_NAME') . ' ' . Setting::get('APP_VERSION') . ' ' . Setting::get('APP_VERSION_TYPE') }}</a> by <a href="https://infihex.com/" target="_blank">Infihex</a>
 							</p>
 							<p>
 								@if(Config::get('app.debug'))
