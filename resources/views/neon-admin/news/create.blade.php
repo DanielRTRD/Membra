@@ -169,7 +169,7 @@
 						</div>
 					</div>
 
-					<div class="panel panel-primary @if($errors->has('category_id')) panel-danger @endif" data-collapsed="0">
+					<div class="panel panel-primary @if($errors->has('slug')) panel-danger @endif" data-collapsed="0">
 						<div class="panel-heading">
 							<div class="panel-title">Slug <small class="text-muted">*Optional</small></div>
 						</div>
@@ -178,7 +178,7 @@
 								<div class="input-group-addon">
 									<i class="fa fa-header"></i>
 								</div>
-								<input type="text" class="form-control @if($errors->has('slug')) has-error @endif" value="{{ (old('slug')) ? old('slug') : '' }}" name="slug">
+								<input type="text" class="form-control" value="{{ (old('slug')) ? old('slug') : '' }}" name="slug">
 							</div>
 						</div>
 					</div>
