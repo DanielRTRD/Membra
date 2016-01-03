@@ -60,23 +60,26 @@ class UserTableSeeder extends Seeder {
 		//Add permissions to roles
 		$role = Sentinel::findRoleByName('Super Administrators');
 		$role->addPermission('admin');//admin panel access
-		$role->addPermission('news.create');
-		$role->addPermission('news.update');
-		$role->addPermission('news.destroy');
+		$role->addPermission('admin.news.create');
+		$role->addPermission('admin.news.update');
+		$role->addPermission('admin.news.destroy');
+		$role->addPermission('admin.news.restore');
 		$role->save();
 
 		$role = Sentinel::findRoleByName('Administrators');
 		$role->addPermission('admin');//admin panel access
-		$role->addPermission('news.create');
-		$role->addPermission('news.update');
-		$role->addPermission('news.destroy', false);
+		$role->addPermission('admin.news.create');
+		$role->addPermission('admin.news.update');
+		$role->addPermission('admin.news.destroy');
+		$role->addPermission('admin.news.restore', false);
 		$role->save();
 
 		$role = Sentinel::findRoleByName('Moderators');
 		$role->addPermission('admin');//admin panel access
-		$role->addPermission('news.create', false);
-		$role->addPermission('news.update');
-		$role->addPermission('news.destroy', false);
+		$role->addPermission('admin.news.create', false);
+		$role->addPermission('admin.news.update');
+		$role->addPermission('admin.news.destroy', false);
+		$role->addPermission('admin.news.restore', false);
 		$role->save();
 
 	}

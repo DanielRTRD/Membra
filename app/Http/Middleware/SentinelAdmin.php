@@ -19,8 +19,7 @@ class SentinelAdmin {
 			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
 			} else {
-				return redirect()->route('account-login')
-										->with('messagetype', 'info')
+				return redirect()->back()->with('messagetype', 'info')
 										->with('message', 'You need to login to access this page!');
 			}
 		}
@@ -29,10 +28,8 @@ class SentinelAdmin {
 			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
 			} else {
-				return redirect()->route('account')
-										->with('messagetype', 'warning')
+				return redirect()->back()->with('messagetype', 'warning')
 										->with('message', 'You do not have access to this page!');
-				return redirect()->route('sentinel.login');
 			}
 		}
 		// All clear - we are good to move forward

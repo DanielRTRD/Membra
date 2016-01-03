@@ -33,13 +33,12 @@ class NewsController extends Controller {
 	public function admin()
 	{
 		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['news.*'])){
+		if ($user->hasAccess(['admin.news.*'])){
 			$news = News::all();
 			return view('news.index')
 						->withNews($news);
 		} else {
-			return Redirect::route('account')
-								->with('messagetype', 'warning')
+			return Redirect::back()->with('messagetype', 'warning')
 								->with('message', 'You do not have access to this page!');
 		}
 	}
@@ -52,12 +51,11 @@ class NewsController extends Controller {
 	public function create()
 	{
 		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['news.create'])){
+		if ($user->hasAccess(['admin.news.create'])){
 			$categories = NewsCategory::all();
 			return view('news.create')->withCategories($categories);
 		} else {
-			return Redirect::route('account')
-								->with('messagetype', 'warning')
+			return Redirect::back()->with('messagetype', 'warning')
 								->with('message', 'You do not have access to this page!');
 		}
 	}
@@ -70,7 +68,7 @@ class NewsController extends Controller {
 	public function store(NewsCreateRequest $request)
 	{
 		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['news.create'])){
+		if ($user->hasAccess(['admin.news.create'])){
 			
 			$active = 0;
 			if($request->get('active') == "on") {
@@ -117,8 +115,7 @@ class NewsController extends Controller {
 			}
 
 		} else {
-			return Redirect::route('account')
-								->with('messagetype', 'warning')
+			return Redirect::back()->with('messagetype', 'warning')
 								->with('message', 'You do not have access to this page!');
 		}
 	}
@@ -143,13 +140,12 @@ class NewsController extends Controller {
 	public function edit($id)
 	{
 		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['news.update'])){
+		if ($user->hasAccess(['admin.news.update'])){
 			$article = News::find($id);
 			$categories = NewsCategory::all();
 			return view('news.edit')->withArticle($article)->withCategories($categories);
 		} else {
-			return Redirect::route('account')
-								->with('messagetype', 'warning')
+			return Redirect::back()->with('messagetype', 'warning')
 								->with('message', 'You do not have access to this page!');
 		}
 	}
@@ -163,7 +159,7 @@ class NewsController extends Controller {
 	public function update($id, NewsEditRequest $request)
 	{
 		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['news.update'])){
+		if ($user->hasAccess(['admin.news.update'])){
 
 			$active = 0;
 			if($request->get('active') == "on") {
@@ -194,8 +190,7 @@ class NewsController extends Controller {
 			}
 
 		} else {
-			return Redirect::route('account')
-								->with('messagetype', 'warning')
+			return Redirect::back()->with('messagetype', 'warning')
 								->with('message', 'You do not have access to this page!');
 		}
 	}
@@ -209,11 +204,19 @@ class NewsController extends Controller {
 	public function destroy($id)
 	{
 		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['news.destroy'])){
-			//do stuff
+		if ($user->hasAccess(['admin.news.destroy'])){
+			$article = News::find($id);
+			if($article->delete()) {
+				return Redirect::route('admin-news')
+						->with('messagetype', 'success')
+						->with('message', 'The article has now been deleted!');
+			} else {
+				return Redirect::route('admin-news')
+					->with('messagetype', 'danger')
+					->with('message', 'Something went wrong while deleting the article.');
+			}
 		} else {
-			return Redirect::route('account')
-								->with('messagetype', 'warning')
+			return Redirect::back()->with('messagetype', 'warning')
 								->with('message', 'You do not have access to this page!');
 		}
 	}

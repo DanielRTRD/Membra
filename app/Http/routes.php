@@ -166,7 +166,7 @@ Route::group([
 				]);
 				get('/{id}/destroy', [
 					'as' => 'admin-news-destroy',
-					'uses' => 'News\NewsCategoryController@destroy'
+					'uses' => 'News\NewsController@destroy'
 				]);
 				Route::group([
 					'prefix' => 'categories'

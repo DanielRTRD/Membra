@@ -28,6 +28,8 @@ class CreateNewsTable extends Migration {
 			
 			$table->dateTime('published_at');
 			$table->timestamps();
+			$table->softDeletes();
+			
 		});
 	}
 
