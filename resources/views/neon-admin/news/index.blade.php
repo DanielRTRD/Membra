@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="col-md-12">
 
-		<h1 class="margin-bottom">News</h1>
+		<h1 class="margin-bottom">News <a class="btn btn-lg btn-success btn-icon icon-left pull-right" href="{{ route('admin-news-create') }}"><i class="fa fa-plus"></i> Create Article</a></h1>
 
 		<ol class="breadcrumb">
 			<li><a href="{{ route('home') }}"><i class="fa fa-home"></i>Home</a></li>

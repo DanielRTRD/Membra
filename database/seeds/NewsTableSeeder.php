@@ -185,6 +185,15 @@ Quisque magna sapien, suscipit vel enim ac, hendrerit bibendum sem. Vivamus ut d
 			'name' 		=> 'Uncategorized',
 			'slug' 		=> 'uncategorized',
 		]);
+		NewsCategory::create([
+			'name' 		=> 'Test',
+			'slug' 		=> 'test',
+		]);
+		NewsCategory::create([
+			'name' 		=> 'Derp',
+			'slug' 		=> 'derp',
+		]);
+
 
 	}
 }

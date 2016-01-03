@@ -35,15 +35,15 @@ Route::group([
 	], function() {
 		get('/', [
 			'as' => 'news',
-			'uses' => 'NewsController@index'
+			'uses' => 'News\NewsController@index'
 		]);
 		get('/{slug}', [
 			'as' => 'news-show',
-			'uses' => 'NewsController@show'
+			'uses' => 'News\NewsController@show'
 		]);
 		get('/category/{slug}', [
 			'as' => 'news-category-show',
-			'uses' => 'NewsCategoryController@show'
+			'uses' => 'News\NewsCategoryController@show'
 		]);
 });
 
@@ -146,54 +146,54 @@ Route::group([
 			], function() {
 				get('/', [
 					'as' => 'admin-news',
-					'uses' => 'NewsController@admin'
+					'uses' => 'News\NewsController@admin'
 				]);
 				get('/create', [
 					'as' => 'admin-news-create',
-					'uses' => 'NewsController@create'
+					'uses' => 'News\NewsController@create'
 				]);
 				post('/store', [
 					'as' => 'admin-news-store',
-					'uses' => 'NewsController@store'
+					'uses' => 'News\NewsController@store'
 				]);
 				get('/{id}/edit', [
 					'as' => 'admin-news-edit',
-					'uses' => 'NewsController@edit'
+					'uses' => 'News\NewsController@edit'
 				]);
 				post('/{id}/update', [
 					'as' => 'admin-news-update',
-					'uses' => 'NewsController@update'
+					'uses' => 'News\NewsController@update'
 				]);
 				get('/{id}/destroy', [
 					'as' => 'admin-news-destroy',
-					'uses' => 'NewsCategoryController@destroy'
+					'uses' => 'News\NewsCategoryController@destroy'
 				]);
 				Route::group([
 					'prefix' => 'categories'
 					], function() {
 						get('/', [
 							'as' => 'admin-news-category',
-							'uses' => 'NewsCategoryController@admin'
+							'uses' => 'News\NewsCategoryController@admin'
 						]);
 						get('/create', [
 							'as' => 'admin-news-category-create',
-							'uses' => 'NewsCategoryController@create'
+							'uses' => 'News\NewsCategoryController@create'
 						]);
 						post('/store', [
 							'as' => 'admin-news-category-store',
-							'uses' => 'NewsCategoryController@store'
+							'uses' => 'News\NewsCategoryController@store'
 						]);
 						get('/{id}/edit', [
 							'as' => 'admin-news-category-edit',
-							'uses' => 'NewsCategoryController@edit'
+							'uses' => 'News\NewsCategoryController@edit'
 						]);
 						post('/{id}/update', [
 							'as' => 'admin-news-category-update',
-							'uses' => 'NewsCategoryController@update'
+							'uses' => 'News\NewsCategoryController@update'
 						]);
 						get('/{id}/destroy', [
 							'as' => 'admin-news-category-destroy',
-							'uses' => 'NewsCategoryController@destroy'
+							'uses' => 'News\NewsCategoryController@destroy'
 						]);
 				});
 		});

@@ -1,4 +1,4 @@
-<?php namespace Membra\Http\Controllers;
+<?php namespace Membra\Http\Controllers\News;
 
 use Membra\Http\Requests;
 use Membra\Http\Controllers\Controller;

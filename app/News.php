@@ -19,11 +19,11 @@ class News extends Model {
 	}
 
 	function scopeIsPublished($query) {
-		return $query->where('published_at', '<', \DB::raw('now()'));
+		return $query->where('published_at', '<', \DB::raw('now()'))->orderBy('published_at', 'desc');
 	}
 
-	function isPublished() {
-		return ($this->published_at !== '0000-00-00 00:00:00');
+	function scopeIsActive($query) {
+		return $query->where('active', '=', 1)->orderBy('published_at', 'desc');
 	}
 
 }

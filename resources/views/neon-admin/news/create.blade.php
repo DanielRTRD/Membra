@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Edit Article - '.$article->title.' - Admin')
+@section('title', 'Create Article - Admin')
 @section('css')
 	<style>
 		.ms-container .ms-list {
@@ -28,29 +28,29 @@
 <div class="row">
 	<div class="col-md-12">
 
-		<h1 class="margin-bottom">Edit Article: <small>{{ $article->title }}</small></h1>
+		<h1 class="margin-bottom">Create Article</h1>
 		<ol class="breadcrumb 2">
 			<li><a href="{{ route('home') }}"><i class="fa fa-home"></i>Home</a></li>
 			<li><a href="{{ route('admin') }}">Admin</a></li>
 			<li><a href="{{ route('admin-news') }}">News</a></li>
-			<li class="active"><strong>Edit Article #{{ $article->id }}</strong></li>
+			<li class="active"><strong>Create Article</strong></li>
 		</ol>
 					
 		<br />
 		
-		<form action="{{ route('admin-news-update', $article->id) }}" method="post">
+		<form action="{{ route('admin-news-store') }}" method="post">
 
 			<!-- Title and Publish Buttons -->
 			<div class="row">
 				<div class="col-sm-2 post-save-changes">
 					<button type="submit" class="btn btn-green btn-lg btn-block btn-icon">
-						Save Changes
-						<i class="fa fa-floppy-o"></i>
+						Publish
+						<i class="fa fa-check"></i>
 					</button>
 				</div>
 				
 				<div class="col-sm-10 @if($errors->has('title')) has-error @endif">
-					<input type="text" class="form-control input-lg" name="title" placeholder="Article title" value="{{ (old('title')) ? old('title') : $article->title }}" />
+					<input type="text" class="form-control input-lg" name="title" placeholder="Article title" value="{{ (old('title')) ? old('title') : '' }}" />
 				</div>
 			</div>
 			
@@ -60,7 +60,7 @@
 			<div class="row">
 				<div class="col-sm-12 @if($errors->has('content')) has-error @endif">
 					<textarea class="form-control wysihtml5" rows="18" data-stylesheet-url="{{ Theme::url('css/wysihtml5-color.css ') }}" name="content">
-						{{ (old('content')) ? old('content') : $article->content }}
+						{{ (old('content')) ? old('content') : '' }}
 					</textarea>
 				</div>
 			</div>
@@ -85,7 +85,7 @@
 						<div class="panel-body">
 							
 							<div class="checkbox checkbox-replace @if($errors->has('active')) text-danger @endif">
-								<input type="checkbox" name="active" @if($article->active) checked @endif>
+								<input type="checkbox" name="active">
 								<label>Show on frontpage</label>
 								<p><small><em>Will be visible on the users dashboard if checked or not</em></small></p>
 							</div>
@@ -96,7 +96,7 @@
 								<div class="col-md-6">
 									<p>Publish Date</p>
 									<div class="input-group">
-										<input type="text" class="form-control datepicker @if($errors->has('published_at_date')) has-error @endif" value="{{ (old('published_at_date')) ? old('published_at_date') : date('D, d F Y', strtotime($article->published_at)) }}" data-format="D, dd MM yyyy" name="published_at_date">
+										<input type="text" class="form-control datepicker @if($errors->has('published_at_date')) has-error @endif" value="{{ (old('published_at_date')) ? old('published_at_date') : '' }}" data-format="D, dd MM yyyy" name="published_at_date">
 										<div class="input-group-addon">
 											<a href="javascript:void(0);"><i class="fa fa-calendar"></i></a>
 										</div>
@@ -105,7 +105,7 @@
 								<div class="col-md-6">
 									<p>Publish Time</p>
 									<div class="input-group">
-										<input type="text" class="form-control @if($errors->has('published_at_time')) has-error @endif" value="{{ (old('published_at_time')) ? old('published_at_time') : date('H:i', strtotime($article->published_at)) }}" data-mask="h:s" name="published_at_time">
+										<input type="text" class="form-control @if($errors->has('published_at_time')) has-error @endif" value="{{ (old('published_at_time')) ? old('published_at_time') : '' }}" data-mask="h:s" name="published_at_time">
 										<div class="input-group-addon">
 											<i class="fa fa-clock-o"></i>
 										</div>
@@ -118,7 +118,7 @@
 					</div>
 					
 				</div>
-				
+
 				<div class="col-sm-4">
 					
 					<div class="panel panel-primary @if($errors->has('image')) panel-danger @endif" data-collapsed="0">
@@ -153,28 +153,34 @@
 					</div>
 					
 				</div>
-
+				
 				<div class="col-sm-4">
 					
 					<div class="panel panel-primary @if($errors->has('category_id')) panel-danger @endif" data-collapsed="0">
-				
 						<div class="panel-heading">
-							<div class="panel-title">
-								Category
-							</div>
-							
+							<div class="panel-title">Category</div>
 						</div>
-						
 						<div class="panel-body">
-							
 							<select name="category_id" class="selectboxit">
 								@foreach($categories as $category)
-									<option value="{{ $category->id }}" @if($category->id == $article->category->id) selected @endif>{{ $category->name }}</option>
+									<option value="{{ $category->id }}">{{ $category->name }}</option>
 								@endforeach
 							</select>
-							
 						</div>
-					
+					</div>
+
+					<div class="panel panel-primary @if($errors->has('category_id')) panel-danger @endif" data-collapsed="0">
+						<div class="panel-heading">
+							<div class="panel-title">Slug <small class="text-muted">*Optional</small></div>
+						</div>
+						<div class="panel-body">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa fa-header"></i>
+								</div>
+								<input type="text" class="form-control @if($errors->has('slug')) has-error @endif" value="{{ (old('slug')) ? old('slug') : '' }}" name="slug">
+							</div>
+						</div>
 					</div>
 					
 				</div>

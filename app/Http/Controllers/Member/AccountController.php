@@ -30,7 +30,7 @@ class AccountController extends Controller {
 		$userarray = $authuser->toArray();
 		$userarray['onlinestatus'] = $onlinestatus;
 
-        $news = News::all()->take(2);
+		$news = News::isPublished()->get()->take(2);
 
 		return view('account.index')
 					->with($userarray)
