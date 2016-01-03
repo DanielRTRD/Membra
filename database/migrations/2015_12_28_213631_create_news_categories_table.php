@@ -19,7 +19,11 @@ class CreateNewsCategoriesTable extends Migration {
 			$table->string('name');
 			$table->string('slug');
 
+			$table->integer('creator_id'); //who created it?
+			$table->integer('author_id'); //who updated it?
+
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

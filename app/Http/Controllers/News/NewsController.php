@@ -32,8 +32,7 @@ class NewsController extends Controller {
 	 */
 	public function admin()
 	{
-		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['admin.news.*'])){
+		if (Sentinel::getUser()->hasAccess(['admin.news.*'])){
 			$news = News::all();
 			return view('news.index')
 						->withNews($news);
@@ -50,8 +49,7 @@ class NewsController extends Controller {
 	 */
 	public function create()
 	{
-		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['admin.news.create'])){
+		if (Sentinel::getUser()->hasAccess(['admin.news.create'])){
 			$categories = NewsCategory::all();
 			return view('news.create')->withCategories($categories);
 		} else {
@@ -67,8 +65,7 @@ class NewsController extends Controller {
 	 */
 	public function store(NewsCreateRequest $request)
 	{
-		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['admin.news.create'])){
+		if (Sentinel::getUser()->hasAccess(['admin.news.create'])){
 			
 			$active = 0;
 			if($request->get('active') == "on") {
@@ -139,8 +136,7 @@ class NewsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['admin.news.update'])){
+		if (Sentinel::getUser()->hasAccess(['admin.news.update'])){
 			$article = News::find($id);
 			$categories = NewsCategory::all();
 			return view('news.edit')->withArticle($article)->withCategories($categories);
@@ -158,8 +154,7 @@ class NewsController extends Controller {
 	 */
 	public function update($id, NewsEditRequest $request)
 	{
-		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['admin.news.update'])){
+		if (Sentinel::getUser()->hasAccess(['admin.news.update'])){
 
 			$active = 0;
 			if($request->get('active') == "on") {
@@ -178,6 +173,7 @@ class NewsController extends Controller {
 			$article->active 		= $active;
 			$article->published_at 	= $published_at;
 			$article->category_id	= $request->get('category_id');
+			$article->author_id		= Sentinel::getUser()->id;
 
 			if($article->save()) {
 				return Redirect::route('admin-news-edit', $id)
@@ -203,8 +199,7 @@ class NewsController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$user = Sentinel::findById(Sentinel::getUser()->id);
-		if ($user->hasAccess(['admin.news.destroy'])){
+		if (Sentinel::getUser()->hasAccess(['admin.news.destroy'])){
 			$article = News::find($id);
 			if($article->delete()) {
 				return Redirect::route('admin-news')
