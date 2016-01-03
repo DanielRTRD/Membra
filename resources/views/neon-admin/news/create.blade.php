@@ -95,17 +95,17 @@
 							<div class="row">
 								<div class="col-md-6">
 									<p>Publish Date</p>
-									<div class="input-group">
-										<input type="text" class="form-control datepicker @if($errors->has('published_at_date')) has-error @endif" value="{{ (old('published_at_date')) ? old('published_at_date') : '' }}" data-format="D, dd MM yyyy" name="published_at_date">
+									<div class="input-group @if($errors->has('published_at_date')) has-error @endif">
+										<input type="text" class="form-control datepicker" value="{{ (old('published_at_date')) ? old('published_at_date') : '' }}" data-format="D, dd MM yyyy" name="published_at_date">
 										<div class="input-group-addon">
-											<a href="javascript:void(0);"><i class="fa fa-calendar"></i></a>
+											<i class="fa fa-calendar"></i>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<p>Publish Time</p>
-									<div class="input-group">
-										<input type="text" class="form-control @if($errors->has('published_at_time')) has-error @endif" value="{{ (old('published_at_time')) ? old('published_at_time') : '' }}" data-mask="h:s" name="published_at_time">
+									<div class="input-group @if($errors->has('published_at_time')) has-error @endif">
+										<input type="text" class="form-control" value="{{ (old('published_at_time')) ? old('published_at_time') : '' }}" data-mask="h:s" name="published_at_time">
 										<div class="input-group-addon">
 											<i class="fa fa-clock-o"></i>
 										</div>
