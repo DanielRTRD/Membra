@@ -17,7 +17,7 @@ class SettingsController extends Controller {
 	public function index()
 	{
 		if (Sentinel::getUser()->hasAccess(['admin.settings.*'])){
-			// DO STUFF
+			return view('settings.index');
 		} else {
 			return Redirect::back()->with('messagetype', 'warning')
 								->with('message', 'You do not have access to this page!');
