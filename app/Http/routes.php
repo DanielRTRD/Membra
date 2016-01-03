@@ -304,7 +304,7 @@ Route::group(['prefix' => 'ajax',], function() {
 		$password 		= Request::input('password');
 		$remember 		= Request::input('remember');
 
-		$credentials 	= ['login' => $username];
+		$credentials 	= ['login' => $username, 'password' => $password];
 		$user = Sentinel::findByCredentials($credentials);
 
 		if ($user == null) {
@@ -328,22 +328,18 @@ Route::group(['prefix' => 'ajax',], function() {
 
 			} elseif ($active === true) {
 
-				if($remember) {
-					$loginRemember = Sentinel::loginAndRemember($user);
-					if(!$loginRemember) {
-						$login_msg = 'Username or password was wrong. Please try again.';
-					} else {
-						$login_status = 'success';
-						$resp['redirect_url'] = URL::route('account');
-					}
-				} else {
-					$login = Sentinel::login($user);
+				if(Sentinel::authenticate($credentials)) {
+
+					$login = Sentinel::login($user, $remember);
 					if(!$login) {
-						$login_msg = 'Username or password was wrong. Please try again.';
+						$login_msg = 'Could not log you in. Please try again.';
 					} else {
 						$login_status = 'success';
 						$resp['redirect_url'] = URL::route('account');
 					}
+
+				} else {
+					$login_msg = 'Username or password was wrong. Please try again.';
 				}
 
 			} 
