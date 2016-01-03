@@ -118,7 +118,7 @@ class AccountController extends Controller {
 		$finduser = Sentinel::findById(Sentinel::getUser()->id);
 
 		$credentials = [
-			'email' 		=> $request->get('email'),
+			'login' 		=> Sentinel::getUser()->username,
 			'password' 		=> $request->get('password'),
 		];
 
