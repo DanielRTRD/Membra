@@ -42,7 +42,7 @@
 		<div class="sidebar-menu-inner">
 			<header class="logo-env">
 				<div class="logo">
-					<a href="{{ route('account') }}"><img src="{{ Theme::url('images/membra@2x.png') }}" alt="" width="120"></a>
+					<a href="{{ route('account') }}"><img src="{{ Setting::get('WEB_LOGO') }}" alt="" width="120"></a>
 				</div>
 				<div class="sidebar-mobile-menu visible-xs">
 					<a href="#" class="with-animation">
@@ -121,8 +121,15 @@
 						</div>
 						<div class="col-md-6 text-right">
 							<p>
-								<a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{ Setting::get('APP_NAME') . ' ' . Setting::get('APP_VERSION') . ' ' . Setting::get('APP_VERSION_TYPE') }}</a>
-								@if(Config::get('app.debug')) <b><span class="text-danger">DEBUG MODE</span></b> @endif @if(Setting::get('APP_SHOW_RESETDB')) <b>&middot; <a href="/resetdb" class="text-danger">RESET DB AND SETTINGS</a></b> &middot; @endif by <a href="https://infihex.com/" target="_blank">Infihex</a>
+								<a href="{{ Setting::get('APP_URL') }}" target="_blank">{{ Setting::get('APP_NAME') . ' ' . Setting::get('APP_VERSION') . ' ' . Setting::get('APP_VERSION_TYPE') }}</a> by <a href="https://infihex.com/" target="_blank">Infihex</a>
+							</p>
+							<p>
+								@if(Config::get('app.debug'))
+									<b><span class="text-danger">DEBUG MODE</span></b>
+								@endif
+								@if(Setting::get('APP_SHOW_RESETDB'))
+									<b>&middot; <a href="/resetdb" class="text-danger">RESET DB AND SETTINGS</a></b>
+								@endif 
 							</p>
 						</div>
 					</div>

@@ -10,6 +10,7 @@ class SettingsTableSeeder extends Seeder {
 		Setting::set('APP_NAME', 'Membra');
 		Setting::set('APP_VERSION', '0.1.0');
 		Setting::set('APP_VERSION_TYPE', '&beta;eta');
+		Setting::set('APP_URL', 'http://jira.infihex.com/projects/MEM/issues');
 		Setting::set('APP_SHOW_RESETDB', true);
 
 		Setting::set('APP_MAIN_EMAIL', 'hello@membra.dev');
@@ -23,6 +24,8 @@ class SettingsTableSeeder extends Seeder {
 		Setting::set('WEB_DOMAIN', 'membra.dev');
 		Setting::set('WEB_PORT', 80);
 		Setting::set('WEB_NAME', 'Membra');
+		Setting::set('WEB_LOGO', 'images/membra.png');
+		Setting::set('WEB_LOGO_ALT', 'images/membra_dark.png');
 		Setting::set('WEB_COPYRIGHT', '2015-2016, Infihex');
 
 		Setting::save();
