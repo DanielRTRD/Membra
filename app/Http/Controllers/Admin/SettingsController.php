@@ -5,6 +5,7 @@ use Membra\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use anlutro\LaravelSettings\Facade as Setting;
 use Illuminate\Support\Facades\Redirect;
 
 class SettingsController extends Controller {
@@ -17,6 +18,7 @@ class SettingsController extends Controller {
 	public function index()
 	{
 		if (Sentinel::getUser()->hasAccess(['admin.settings.*'])){
+			dd(Setting::all());
 			return view('settings.index');
 		} else {
 			return Redirect::back()->with('messagetype', 'warning')

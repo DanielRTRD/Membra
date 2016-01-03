@@ -8,7 +8,7 @@
 	<meta name="description" content="Neon Admin Panel" />
 	<meta name="author" content="" />
 
-	<title>@yield('title') - {{ Config::get('infihex.appname') }}</title>
+	<title>@yield('title') - {{ Setting::get('WEB_NAME') }}</title>
 
 	<link rel="stylesheet" href="{{ Theme::url('js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css') }}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -32,12 +32,12 @@
 
 
 </head>
-<body class="page-body login-page login-form-fall" data-url="{{ Config::get('infihex.appprotocol') }}://{{ Config::get('infihex.appdomain') }}">
+<body class="page-body login-page login-form-fall" data-url="{{ Setting::get('WEB_PROTOCOL') }}://{{ Setting::get('WEB_DOMAIN') }}@if(Setting::get('WEB_PORT') <> 80){{ ':'.Setting::get('WEB_PORT') }}@endif">
 
 
 <!-- This is needed when you send requests via Ajax -->
 <script type="text/javascript">
-var baseurl = '{{ Config::get("infihex.appprotocol") }}://{{ Config::get("infihex.appdomain") }}';
+var baseurl = "{{ Setting::get('WEB_PROTOCOL') }}://{{ Setting::get('WEB_DOMAIN') }}@if(Setting::get('WEB_PORT') <> 80){{ ':'.Setting::get('WEB_PORT') }}@endif";
 </script>
 	
 <div class="login-container">
