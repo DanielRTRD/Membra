@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="{{ Theme::url('js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css') }}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
+	<link rel="stylesheet" href="{{ Theme::url('css/font-icons/entypo/css/entypo.css') }}">
 	<link rel="stylesheet" href="{{ Theme::url('css/bootstrap.css') }}">
 	<link rel="stylesheet" href="{{ Theme::url('css/neon-core.css') }}">
 	<link rel="stylesheet" href="{{ Theme::url('css/neon-theme.css') }}">
@@ -35,45 +36,75 @@
 </head>
 <body class="page-body" data-url="{{ Config::get('infihex.appprotocol') }}://{{ Config::get('infihex.appname') }}">
 
-<div class="page-container horizontal-menu">
+<div class="page-container">
 
-	<header class="navbar navbar-fixed-top">
-		
-		<div class="navbar-inner">
-		
-			<div class="navbar-brand">
-				<a href="{{ route('home') }}"><img src="{{ Theme::url('images/membra@2x.png') }}" width="70" alt="" /></a>
-			</div>
-
-			<ul class="navbar-nav">
-				<li class="@if(Request::is('user')){{'active'}} @endif"><a href="{{ route('account') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-				<li class="@if(Request::is('user/members')){{'active'}} @endif"><a href="{{ route('members') }}"><i class="fa fa-users"></i> Members</a></li>
-				<li><a href="#"><i class="fa fa-shopping-basket"></i> Webshop</a></li>
-				<li><a href="#"><i class="fa fa-street-view"></i> Seating</a></li>
-				<li><a href="#"><i class="fa fa-sitemap"></i> Compo</a></li>
-			</ul>
-			
-			<ul class="nav navbar-right pull-right">
-				
-				@if(User::hasAdminAccess())
-					<li><a href="{{ URL::Route('admin') }}"><i class="fa fa-user-secret"></i> Admin Panel</a></li>
-				@endif
-				<li><a href="{{ URL::Route('logout') }}">Log Out <i class="fa fa-sign-out right"></i></a></li>
-			
-				<li class="visible-xs">	
-					<div class="horizontal-mobile-menu visible-xs">
-						<a href="#" class="with-animation">
-							<i class="fa fa-bars"></i>
-						</a>
-					</div>
+	<div class="sidebar-menu">
+		<div class="sidebar-menu-inner">
+			<header class="logo-env">
+				<div class="logo">
+					<a href="{{ route('account') }}"><img src="{{ Theme::url('images/membra@2x.png') }}" alt="" width="120"></a>
+				</div>
+				<div class="sidebar-mobile-menu visible-xs">
+					<a href="#" class="with-animation">
+						<i class="entypo-menu"></i>
+					</a>
+				</div>
+			</header>
+			<div id="main-menu" class="main-menu">
+				<li class="@if(Request::is('admin')){{'active'}} @endif">
+					<a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> <span class="title">Dashboard</span></a>
 				</li>
-				
-			</ul>
-	
+				<li class="@if(Request::is('admin/members')){{'active'}} @endif">
+					<a href="{{ route('admin') }}"><i class="fa fa-users"></i> <span class="title">Members</span></a>
+				</li>
+				<li class="@if(Request::is('admin/news*')){{'active opened'}} @endif has-sub root-level">
+					<a><i class="fa fa-newspaper-o"></i> <span class="title">News</span></a>
+					<ul>
+						<li class="@if(Request::is('admin/news*') && !Request::is('admin/news/categories*')){{'active'}} @endif"><a href="{{ route('admin-news') }}"><i class="fa fa-list-alt"></i> <span class="title">Articles</span></a></li>
+						<li class="@if(Request::is('admin/news/categories*')){{'active'}} @endif"><a href="{{ route('admin-news-category') }}"><i class="fa fa-tag"></i> <span class="title">Categories</span></a></li>
+					</ul>
+				</li>
+				<li><a href="#"><i class="fa fa-shopping-basket"></i> <span class="title">Webshop</span></a></li>
+				<li><a href="#"><i class="fa fa-street-view"></i> <span class="title">Seating</span></a></li>
+				<li><a href="#"><i class="fa fa-sitemap"></i> <span class="title">Compo</span></a></li>
+			</div>
+		</div>
+	</div>
+
+	<div class="main-content">
+
+		<div class="row">
+			<div class="col-md-6 col-sm-8 clearfix">
+				<ul class="user-info pull-left pull-none-xsm">
+					<li class="profile-info dropdown">
+						<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="@if(Sentinel::getUser()->profilepicturesmall){{ Sentinel::getUser()->profilepicturesmall }} @else {{ '/images/profilepicture/0_small.png' }}@endif" alt="" class="img-circle" width="44" />
+							{{ Sentinel::getUser()->firstname }}@if(Sentinel::getUser()->showname && Sentinel::getUser()->lastname) {{ Sentinel::getUser()->lastname }}@endif
+							@if(Sentinel::getUser()->showonline)
+								<a href="#" class="user-status is-{{ User::getOnlineStatus(Sentinel::getUser()->id) }} tooltip-primary" data-toggle="tooltip" data-placement="top" data-original-title="{{ ucfirst(User::getOnlineStatus(Sentinel::getUser()->id)) }}"></a>
+								<!-- User statuses available classes "is-online", "is-offline", "is-idle", "is-busy" -->
+							@endif
+						</a>
+						<ul class="dropdown-menu">
+							<li class="caret"></li>
+							<li><a href="{{ route('user-profile', Sentinel::getUser()->username) }}"><i class="fa fa-user"></i> View Profile</a></li>
+							<li><a href="{{ route('account-change-details') }}"><i class="fa fa-edit"></i> Edit Profile Details</a></li>
+							<li><a href="{{ route('account-change-password') }}"><i class="fa fa-asterisk"></i> Change Password</a></li>
+							<li><a href="{{ route('account-change-images') }}"><i class="fa fa-picture-o"></i> Change Profile Images</a></li>
+							<li><a href="{{ route('account-settings') }}"><i class="fa fa-cog"></i> Edit Profile Settings</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-6 col-sm-4 clearfix hidden-xs">
+				<ul class="list-inline links-list pull-right">
+					<li><a href="{{ route('logout') }}">Log Out <i class="entypo-logout right"></i></a></li>
+				</ul>
+			</div>
+		
 		</div>
 		
-	</header>
-	<div class="main-content">
+		<hr />
 
 		@yield('content')
 
@@ -97,10 +128,6 @@
 
 	</div>
 
-	<!-- Imported styles on this page -->
-	<link rel="stylesheet" href="{{ Theme::url('js/jvectormap/jquery-jvectormap-1.2.2.css') }}">
-	<link rel="stylesheet" href="{{ Theme::url('js/rickshaw/rickshaw.min.css') }}">
-
 	<!-- Bottom scripts (common) -->
 	<script src="{{ Theme::url('js/gsap/main-gsap.js') }}"></script>
 	<script src="{{ Theme::url('js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js') }}"></script>
@@ -108,19 +135,7 @@
 	<script src="{{ Theme::url('js/joinable.js') }}"></script>
 	<script src="{{ Theme::url('js/resizeable.js') }}"></script>
 	<script src="{{ Theme::url('js/neon-api.js') }}"></script>
-	<script src="{{ Theme::url('js/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-
-
-	<!-- Imported scripts on this page -->
-	<script src="{{ Theme::url('js/jvectormap/jquery-jvectormap-europe-merc-en.js') }}"></script>
-	<script src="{{ Theme::url('js/jquery.sparkline.min.js') }}"></script>
-	<script src="{{ Theme::url('js/rickshaw/vendor/d3.v3.js') }}"></script>
-	<script src="{{ Theme::url('js/rickshaw/rickshaw.min.js') }}"></script>
-	<script src="{{ Theme::url('js/raphael-min.js') }}"></script>
-	<script src="{{ Theme::url('js/morris.min.js') }}"></script>
 	<script src="{{ Theme::url('js/toastr.js') }}"></script>
-	<script src="{{ Theme::url('js/neon-chat.js') }}"></script>
-
 
 	<!-- JavaScripts initializations and stuff -->
 	<script src="{{ Theme::url('js/neon-custom.js') }}"></script>

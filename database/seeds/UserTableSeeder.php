@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Membra\User as User;
+use Membra\User;
   
 class UserTableSeeder extends Seeder {
   
@@ -66,21 +66,53 @@ class UserTableSeeder extends Seeder {
 
 		//Add permissions to roles
 		$role = Sentinel::findRoleByName('Super Administrators');
-		$role->addPermission('news.create');
-		$role->addPermission('news.update');
-		$role->addPermission('news.destroy');
+
+		$role->addPermission('admin');//admin panel access
+
+		$role->addPermission('admin.news.create');
+		$role->addPermission('admin.news.update');
+		$role->addPermission('admin.news.destroy');
+		$role->addPermission('admin.news.restore');
+
+		$role->addPermission('admin.newscategory.create');
+		$role->addPermission('admin.newscategory.update');
+		$role->addPermission('admin.newscategory.destroy');
+		$role->addPermission('admin.newscategory.restore');
+
 		$role->save();
+
 
 		$role = Sentinel::findRoleByName('Administrators');
-		$role->addPermission('news.create');
-		$role->addPermission('news.update');
-		$role->addPermission('news.destroy', false);
+
+		$role->addPermission('admin');//admin panel access
+
+		$role->addPermission('admin.news.create');
+		$role->addPermission('admin.news.update');
+		$role->addPermission('admin.news.destroy');
+		$role->addPermission('admin.news.restore', false);
+
+		$role->addPermission('admin.newscategory.create');
+		$role->addPermission('admin.newscategory.update');
+		$role->addPermission('admin.newscategory.destroy');
+		$role->addPermission('admin.newscategory.restore', false);
+
 		$role->save();
 
+
 		$role = Sentinel::findRoleByName('Moderators');
-		$role->addPermission('news.create', false);
-		$role->addPermission('news.update');
-		$role->addPermission('news.destroy', false);
+
+		$role->addPermission('admin');//admin panel access
+
+		$role->addPermission('admin.news.create', false);
+		$role->addPermission('admin.news.update');
+		$role->addPermission('admin.news.destroy', false);
+		$role->addPermission('admin.news.restore', false);
+
+		$role->addPermission('admin.newscategory.create', false);
+		$role->addPermission('admin.newscategory.update', false);
+		$role->addPermission('admin.newscategory.destroy', false);
+		$role->addPermission('admin.newscategory.restore', false);
+
 		$role->save();
 
 	}

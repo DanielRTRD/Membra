@@ -4,14 +4,20 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Neon Admin Panel" />
+	<meta name="author" content="" />
 
 	<title>@yield('title') - {{ Config::get('infihex.appname') }}</title>
 
-	<link href="{{ Theme::url('css/bootstrap.css') }}" rel="stylesheet">
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link href="{{ Theme::url('css/neon.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="{{ Theme::url('js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css') }}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
+	<link rel="stylesheet" href="{{ Theme::url('css/bootstrap.css') }}">
+	<link rel="stylesheet" href="{{ Theme::url('css/neon-core.css') }}">
+	<link rel="stylesheet" href="{{ Theme::url('css/neon-theme.css') }}">
+	<link rel="stylesheet" href="{{ Theme::url('css/neon-forms.css') }}">
+	<link rel="stylesheet" href="{{ Theme::url('css/custom.css') }}">
 
 	<script src="{{ Theme::url('js/jquery-1.11.0.min.js') }}"></script>
 	<script>$.noConflict();</script>
@@ -24,67 +30,34 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
+
 </head>
-<body>
+<body class="page-body login-page login-form-fall" data-url="{{ Config::get('infihex.appprotocol') }}://{{ Config::get('infihex.appdomain') }}">
 
-<div class="wrap">
-	
-<!-- Logo and Navigation -->
-<div class="site-header-container container">
-	<div class="row">
-		<div class="col-md-12">
-			<header class="site-header">
-				<section class="site-logo">
-					<a href="{{ url('/') }}"><img src="{{ Theme::url('images//logo@2x.png') }}" width="120" /></a>
-				</section>
-				<nav class="site-nav">
-					<ul class="main-menu hidden-xs" id="main-menu">
-						<li class="active"><a href="{{ url('/') }}"><span>Home</span></a></li>
-						@if(Sentinel::Guest())
-							<li><a href="{{ route('account-login') }}"><span>Login</span></a></li>
-						@else
-							<li><a href="{{ route('account') }}"><span>Go to Dashboard</span></a></li>
-						@endif
-					</ul>
-					<div class="visible-xs">
-						<a href="#" class="menu-trigger"><i class="entypo-menu"></i></a>
-					</div>
-				</nav>
-			</header>
-		</div>
-	</div>
-</div>
-	
-@yield('content')
 
-<!-- Site Footer -->
-<footer class="site-footer">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<p>&copy; 2015 - {{ date('Y') }}, Infihex</p>
-				<p class="text-muted"><small>Load time: {{ round((microtime(true) - LARAVEL_START), 3) }}s</small></p>
-			</div>
-			<div class="col-md-6 text-right">
-				<p><small>
-					<a href="http://jira.infihex.com/projects/MEM/issues" target="_blank">{{Config::get('infihex.appname') . ' ' . Config::get('infihex.appversion') . ' ' . Config::get('infihex.appversiontype') }}</a>
-					@if(Config::get('app.debug')) <b>(<a href="/resetdb" class="text-danger">DEBUG MODE</a>)</b> @endif by <a href="https://infihex.com/" target="_blank">Infihex</a>
-				</small></p>
-			</div>
-		</div>
-	</div>
-</footer>	
+<!-- This is needed when you send requests via Ajax -->
+<script type="text/javascript">
+var baseurl = '{{ Config::get("infihex.appprotocol") }}://{{ Config::get("infihex.appdomain") }}';
+</script>
+	
+<div class="login-container">
+	
+	@yield('content')
+	
 </div>
 
 
 	<!-- Bottom scripts (common) -->
 	<script src="{{ Theme::url('js/gsap/main-gsap.js') }}"></script>
+	<script src="{{ Theme::url('js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js') }}"></script>
 	<script src="{{ Theme::url('js/bootstrap.js') }}"></script>
 	<script src="{{ Theme::url('js/joinable.js') }}"></script>
 	<script src="{{ Theme::url('js/resizeable.js') }}"></script>
-	<script src="{{ Theme::url('js/neon-slider.js') }}"></script>
+	<script src="{{ Theme::url('js/neon-api.js') }}"></script>
 	<script src="{{ Theme::url('js/toastr.js') }}"></script>
+	<script src="{{ Theme::url('js/jquery.validate.min.js') }}"></script>
 
+	@yield('javascript')
 
 	<!-- JavaScripts initializations and stuff -->
 	<script src="{{ Theme::url('js/neon-custom.js') }}"></script>
@@ -94,7 +67,7 @@
 		var opts = {
 			"closeButton": true,
 			"debug": false,
-			"positionClass": "toast-bottom-right",
+			"positionClass": "toast-top-right",
 			"onclick": null,
 			"showDuration": "300",
 			"hideDuration": "1000",
@@ -111,7 +84,7 @@
 				toastr.info("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
 			@elseif(Session::get('messagetype') == 'warning')
 				toastr.warning("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
-			@elseif(Session::get('messagetype') == 'error')
+			@elseif(Session::get('messagetype') == 'danger')
 				toastr.error("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
 			@elseif(Session::get('messagetype') == 'success')
 				toastr.success("{{ Session::get('message') }}", String("{{ Session::get('messagetype') }}").toUpperCase(), opts);
@@ -120,8 +93,5 @@
 		@endif
 
 	</script>
-
-	@yield('javascript')
-
 </body>
 </html>

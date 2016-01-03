@@ -10,6 +10,8 @@ use Cartalyst\Sentinel\Roles\RoleInterface;
 use Cartalyst\Sentinel\Users\UserInterface;
 use Illuminate\Database\Eloquent\Model;
 
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+
 class User extends Model implements RoleableInterface, PermissibleInterface, PersistableInterface, UserInterface
 {
 	use PermissibleTrait;
@@ -605,5 +607,20 @@ class User extends Model implements RoleableInterface, PermissibleInterface, Per
 	public function scopeHasAdminAccess () {
 		$user = Sentinel::findById(Sentinel::getUser()->id);
 		return $user->hasAccess(['admin']);
+	}
+
+	public function scopeGetUsernameByID($query, $id) {
+		$user 		= $query->where('id', '=', $id)->first();
+		return $user->username;
+	}
+
+	public function scopeGetFullnameByID($query, $id) {
+		$user = $query->where('id', '=', $id)->first();
+
+		$first = $user->firstname;
+		$last = $user->lastname;
+		$full = $first . ' ' . $last;
+
+		return $full;
 	}
 }

@@ -15,6 +15,7 @@ use Membra\Http\Requests\Member\ProfileImageRequest;
 use Membra\Http\Requests\Member\ProfileCoverRequest;
 
 use Membra\User;
+use Membra\News;
 
 class AccountController extends Controller {
 
@@ -28,7 +29,12 @@ class AccountController extends Controller {
 		$onlinestatus = User::getOnlineStatus($authuser->id);
 		$userarray = $authuser->toArray();
 		$userarray['onlinestatus'] = $onlinestatus;
-		return view('account.index')->with($userarray);
+
+		$news = News::isPublished()->get()->take(2);
+
+		return view('account.index')
+					->with($userarray)
+					->withNews($news);
 	}
 
 	public function getSettings(Sentinel $auth) {

@@ -26,6 +26,7 @@ class Kernel extends HttpKernel {
 	protected $routeMiddleware = [
 		'sentinel.auth' => 'Membra\Http\Middleware\SentinelAuth',
 		'sentinel.guest' => 'Membra\Http\Middleware\SentinelGuest',
+		'sentinel.admin' => 'Membra\Http\Middleware\SentinelAdmin',
 	];
 
 }
