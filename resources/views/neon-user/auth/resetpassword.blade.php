@@ -7,7 +7,7 @@
 	<div class="login-content">
 		
 		<a href="{{ route('home') }}" class="logo">
-			<img src="{{ Theme::url('images/membra@2x.png') }}" width="120" alt="" />
+			<img src="{{ Setting::get('WEB_LOGO') }}" width="120" alt="" />
 		</a>
 		
 		<p class="description">You can now reset your password</p>

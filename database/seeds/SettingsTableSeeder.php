@@ -23,6 +23,8 @@ class SettingsTableSeeder extends Seeder {
 		Setting::set('WEB_DOMAIN', 'membra.dev');
 		Setting::set('WEB_PORT', 80);
 		Setting::set('WEB_NAME', 'Membra');
+		Setting::set('WEB_LOGO', 'images/membra.png');
+		Setting::set('WEB_LOGO_ALT', 'images/membra_dark.png');
 		Setting::set('WEB_COPYRIGHT', '2015-2016, Infihex');
 
 		Setting::save();

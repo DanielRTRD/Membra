@@ -42,7 +42,7 @@
 		<div class="navbar-inner">
 		
 			<div class="navbar-brand">
-				<a href="{{ route('home') }}"><img src="{{ Theme::url('images/membra@2x.png') }}" width="70" alt="" /></a>
+				<a href="{{ route('home') }}"><img src="{{ Setting::get('WEB_LOGO') }}" width="70" alt="" /></a>
 			</div>
 
 			<ul class="navbar-nav">

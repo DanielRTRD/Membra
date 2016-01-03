@@ -35,7 +35,7 @@
 		<div class="col-md-12">
 			<header class="site-header">
 				<section class="site-logo">
-					<a href="{{ url('/') }}"><img src="{{ Theme::url('images//logo@2x.png') }}" width="120" /></a>
+					<a href="{{ url('/') }}"><img src="{{ Setting::get('WEB_LOGO_ALT') }}" width="120" /></a>
 				</section>
 				<nav class="site-nav">
 					<ul class="main-menu hidden-xs" id="main-menu">

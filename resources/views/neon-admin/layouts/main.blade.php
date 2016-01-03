@@ -42,7 +42,7 @@
 		<div class="sidebar-menu-inner">
 			<header class="logo-env">
 				<div class="logo">
-					<a href="{{ route('account') }}"><img src="{{ Theme::url('images/membra@2x.png') }}" alt="" width="120"></a>
+					<a href="{{ route('account') }}"><img src="{{ Setting::get('WEB_LOGO') }}" alt="" width="120"></a>
 				</div>
 				<div class="sidebar-mobile-menu visible-xs">
 					<a href="#" class="with-animation">
