@@ -79,6 +79,8 @@ class UserTableSeeder extends Seeder {
 		$role->addPermission('admin.newscategory.destroy');
 		$role->addPermission('admin.newscategory.restore');
 
+		$role->addPermission('admin.settings.update');
+
 		$role->save();
 
 
@@ -96,6 +98,8 @@ class UserTableSeeder extends Seeder {
 		$role->addPermission('admin.newscategory.destroy');
 		$role->addPermission('admin.newscategory.restore', false);
 
+		$role->addPermission('admin.settings.update', false);
+
 		$role->save();
 
 
@@ -112,6 +116,8 @@ class UserTableSeeder extends Seeder {
 		$role->addPermission('admin.newscategory.update', false);
 		$role->addPermission('admin.newscategory.destroy', false);
 		$role->addPermission('admin.newscategory.restore', false);
+
+		$role->addPermission('admin.settings.update', false);
 
 		$role->save();
 
